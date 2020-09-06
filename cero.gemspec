@@ -8,5 +8,5 @@ Gem::Specification.new do |s|
   s.email       = 'elxbarbosa@outlook.com'
   s.files       = ["lib/cero.rb"]
   s.homepage    = 'https://rubygems.org/gems/cero'
-  s.license     = 'GPLv3'
+  s.license     = 'GPL-3.0'
 end

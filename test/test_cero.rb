@@ -1,16 +1,16 @@
 require 'test/unit'
-require 'hola'
+require 'cero'
 
-class HolaTest < Test::Unit::TestCase
+class CeroTest < Test::Unit::TestCase
   def test_english_hello
-    assert_equal "hello world", Hola.hi("english")
+    assert_equal "hello world", Cero.hi("english")
   end
 
   def test_any_hello
-    assert_equal "hello world", Hola.hi("ruby")
+    assert_equal "hello world", Cero.hi("ruby")
   end
 
   def test_spanish_hello
-    assert_equal "hola mundo", Hola.hi("spanish")
+    assert_equal "cero mundo", Cero.hi("spanish")
   end
 end
