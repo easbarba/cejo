@@ -1,12 +1,12 @@
 Gem::Specification.new do |s|
-  s.name        = 'hola'
-  s.version     = '0.0.0'
-  s.date        = '2010-04-28'
-  s.summary     = "Hola!"
-  s.description = "A simple hello world gem"
-  s.authors     = ["Nick Quaranto"]
-  s.email       = 'nick@quaran.to'
-  s.files       = ["lib/hola.rb"]
-  s.homepage    = 'https://rubygems.org/gems/hola'
+  s.name        = 'cero'
+  s.version     = '0.0.1'
+  s.date        = '2020-09-05'
+  s.summary     = "Cero!"
+  s.description = "Collection of useful Unix middleware and software interface."
+  s.authors     = ["E. Alexander Barbosa"]
+  s.email       = 'elxbarbosa@outlook.com'
+  s.files       = ["lib/cero.rb"]
+  s.homepage    = 'https://rubygems.org/gems/cero'
   s.license     = 'GPLv3'
 end
