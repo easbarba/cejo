@@ -8,32 +8,27 @@ class Oss
 
   def initialize
     @projects = Pathname.new(File.join(Dir.home, 'Projects'))
-    @oss = Pathname.new(File.join(Dir.home, '.config', 'cero', 'oss.json'))
+
+    file_path = Pathname.new(File.join(Dir.home, '.config', 'cero', 'oss.json'))
+    @oss = JSON.parse(File.read(file_path))
   end
 
-  def archive
-  end
+  def archive; end
 
   def clone(project, language)
-    url = URI(project)
-    name = url.path.split('/').last
-    folder = @projects.join(language, name)
+    project_url = URI(project)
+    project_name = project_url.path.split('/').last
+    project_folder = @projects.join(language, project_name)
 
-    if folder.exist?
-      puts "Cloning: #{name}"
-    end
+    puts "Cloning: #{project_name}" if project_folder.exist?
   end
 
   def start
-    file = File.read(oss)
-    parsed = JSON.parse(file)
-
-    for language in parsed.keys
+    @oss.keys.each do |language|
       puts "\n--> #{language}"
-      parsed[language].each { |n| clone(n, language) }
+      @oss[language].each { |n| clone(n, language) }
     end
   end
-
 end
 
 x = Oss.new
