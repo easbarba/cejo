@@ -9,7 +9,9 @@ class Oss
   def initialize
     @projects = Pathname.new(File.join(Dir.home, 'Projects'))
 
-    file_path = Pathname.new(File.join(Dir.home, '.config', 'cero', 'oss.json'))
+    cero_config = Pathname.new(File.join(Dir.home, '.config', 'cero'))
+
+    file_path = cero_config + 'oss.json'
     @oss = JSON.parse(File.read(file_path))
   end
 
