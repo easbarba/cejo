@@ -1,7 +1,7 @@
 require 'pathname'
 require 'json'
 require 'uri'
-# require 'git'
+require 'git'
 
 class Oss
   attr_reader :projects, :oss
