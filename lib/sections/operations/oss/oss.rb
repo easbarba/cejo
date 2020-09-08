@@ -16,34 +16,32 @@ class Oss
     @oss = JSON.parse(File.read(file_path))
   end
 
-  def prepare(d, project, language)
+  def prepare(callback, project, language)
     project_url = URI(project)
     project_name = project_url.path.split('/').last
     project_folder = @projects.join(language, project_name)
 
-    puts "--> #{project_name}"
-    d.call(project_url, project_folder)
+    callback.call(project_url, project_folder, project_name)
   end
 
-  def archive(project, language)
-    archived_folder = Pathname.new(File.join(Dir.home, 'Downloads'))
-    Dir.mkdir(archived_folder)
+  def archive(x, folder, name)
+    archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
+    Dir.mkdir(archives_folder) unless archives_folder.exist?
 
     archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
                      'rubygems', 'rubocop', 'rails', 'emacs-async', 'use-package',
                      'lsp-mode', 'emacs']
 
-    format = 'zip'
-    # repo_folder =
-    to = archived_folder + project_name + zip
-    # project_name =
+    to = archives_folder + name
 
-    # archive thread
-
-    puts to
+    if archive_these.include?(name) # archive thread
+      puts "Archiving: #{name}"
+      # git.archive(to, folder)
+    end
   end
 
-  def get(url, folder)
+  def get(url, folder, name)
+    puts "Getting: #{name}"
     puts "#{url} - #{folder}"
     # git.getter(url, folder)
   end
@@ -51,7 +49,7 @@ class Oss
   def start
     @oss.keys.each do |language|
       puts "\n--> #{language}"
-      @oss[language].each { |n| prepare(method(:get), n, language) }
+      @oss[language].each { |n| prepare(method(:archive), n, language) }
     end
   end
 end
