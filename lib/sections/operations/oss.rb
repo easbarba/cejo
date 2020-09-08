@@ -1,7 +1,7 @@
 require 'pathname'
 require 'json'
 require 'uri'
-require 'git'
+# require 'git'
 
 class Oss
   attr_reader :projects, :oss
@@ -16,15 +16,15 @@ class Oss
     @oss = JSON.parse(File.read(file_path))
   end
 
-  def prepare(callback, project, language)
+  def prepare(project, language, &block)
     project_url = URI(project)
     project_name = project_url.path.split('/').last
     project_folder = @projects.join(language, project_name)
 
-    callback.call(project_url, project_folder, project_name)
+    block.call(project_url, project_folder, project_name)
   end
 
-  def archive(x, folder, name)
+  ARCHIVE = lambda do | _, folder, name |
     archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
     Dir.mkdir(archives_folder) unless archives_folder.exist?
 
@@ -36,11 +36,12 @@ class Oss
 
     if archive_these.include?(name) # archive thread
       puts "Archiving: #{name}"
+      puts "Archiving: #{to} - #{folder}"
       # git.archive(to, folder)
     end
   end
 
-  def get(url, folder, name)
+  GET = lambda do | url, folder, name |
     puts "Getting: #{name}"
     puts "#{url} - #{folder}"
     # git.getter(url, folder)
@@ -51,9 +52,9 @@ class Oss
       puts "\n--> #{language}"
 
       if action == "get"
-        @oss[language].each { |n| prepare(method(:get), n, language) }
+        @oss[language].each { |n| prepare(n, language, &GET) }
       elsif action == "archive"
-        @oss[language].each { |n| prepare(method(:archive), n, language) }
+        @oss[language].each { |n| prepare(n, language, &ARCHIVE) }
       end
     end
   end
