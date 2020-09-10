@@ -44,7 +44,12 @@ class Oss
   GET = lambda do | url, folder, name |
     puts "Getting: #{name}"
     puts "#{url} - #{folder}"
-    # git.getter(url, folder)
+    if folder.exist?
+      system("git pull #{folder}")
+    else
+      system("git clone #{url} #{folder}")
+      # git.getter(url, folder)
+    end
   end
 
   def start(action)
