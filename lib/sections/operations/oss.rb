@@ -44,8 +44,9 @@ class Oss
   GET = lambda do | url, folder, name |
     puts "Getting: #{name}"
     puts "#{url} - #{folder}"
+
     if folder.exist?
-      system("git pull #{folder}")
+      Dir.chdir(folder){ system("git pull") }
     else
       system("git clone #{url} #{folder}")
       # git.getter(url, folder)
@@ -56,11 +57,8 @@ class Oss
     @oss.keys.each do |language|
       puts "\n--> #{language}"
 
-      if action == "get"
-        @oss[language].each { |n| prepare(n, language, &GET) }
-      elsif action == "archive"
-        @oss[language].each { |n| prepare(n, language, &ARCHIVE) }
-      end
+      x = action == "get" ? GET : ARCHIVE
+      @oss[language].each { |n| prepare(n, language, &x) }
     end
   end
 end
