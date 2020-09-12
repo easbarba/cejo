@@ -3,62 +3,68 @@ require 'json'
 require 'uri'
 # require 'git'
 
-class Oss
-  attr_reader :projects, :oss
+module Cero::Sections::Operations
+  module Sections
+    module Operations
+      class Oss
+        attr_reader :projects, :oss
 
-  def initialize
-    # TODO: Use folders module
-    @projects = Pathname.new(File.join(Dir.home, 'Projects'))
-    xdg_config_home = Pathname.new(File.join(Dir.home, '.config'))
-    cero_config = xdg_config_home.join('cero')
+        def initialize
+          # TODO: Use folders module
+          @projects = Pathname.new(File.join(Dir.home, 'Projects'))
+          xdg_config_home = Pathname.new(File.join(Dir.home, '.config'))
+          cero_config = xdg_config_home.join('cero')
 
-    file_path = cero_config + 'oss.json'
-    @oss = JSON.parse(File.read(file_path))
-  end
+          file_path = cero_config + 'oss.json'
+          @oss = JSON.parse(File.read(file_path))
+        end
 
-  def prepare(project, language, &block)
-    project_url = URI(project)
-    project_name = project_url.path.split('/').last
-    project_folder = @projects.join(language, project_name)
+        def prepare(project, language, &block)
+          project_url = URI(project)
+          project_name = project_url.path.split('/').last
+          project_folder = @projects.join(language, project_name)
 
-    block.call(project_url, project_folder, project_name)
-  end
+          block.call(project_url, project_folder, project_name)
+        end
 
-  ARCHIVE = lambda do | _, folder, name |
-    archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
-    Dir.mkdir(archives_folder) unless archives_folder.exist?
+        ARCHIVE = lambda do | _, folder, name |
+          archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
+          Dir.mkdir(archives_folder) unless archives_folder.exist?
 
-    archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
-                     'rubygems', 'rubocop', 'rails', 'emacs-async', 'use-package',
-                     'lsp-mode', 'emacs']
+          archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
+                           'rubygems', 'rubocop', 'rails', 'emacs-async', 'use-package',
+                           'lsp-mode', 'emacs']
 
-    to = archives_folder + name
+          to = archives_folder + name
 
-    if archive_these.include?(name) # archive thread
-      puts "Archiving: #{name}"
-      puts "Archiving: #{to} - #{folder}"
-      # git.archive(to, folder)
-    end
-  end
+          if archive_these.include?(name) # archive thread
+            puts "Archiving: #{name}"
+            puts "Archiving: #{to} - #{folder}"
+            # git.archive(to, folder)
+          end
+        end
 
-  GET = lambda do | url, folder, name |
-    puts "Getting: #{name}"
-    puts "#{url} - #{folder}"
+        GET = lambda do | url, folder, name |
+          puts "Getting: #{name}"
+          puts "#{url} - #{folder}"
 
-    if folder.exist?
-      Dir.chdir(folder){ system("git pull") }
-    else
-      system("git clone #{url} #{folder}")
-      # git.getter(url, folder)
-    end
-  end
+          if folder.exist?
+            Dir.chdir(folder){ system("git pull") }
+          else
+            system("git clone #{url} #{folder}")
+            # git.getter(url, folder)
+          end
+        end
 
-  def start(action)
-    @oss.keys.each do |language|
-      puts "\n--> #{language}"
+        def start(action)
+          @oss.keys.each do |language|
+            puts "\n--> #{language}"
 
-      x = action == "get" ? GET : ARCHIVE
-      @oss[language].each { |n| prepare(n, language, &x) }
+            x = action == "get" ? GET : ARCHIVE
+            @oss[language].each { |n| prepare(n, language, &x) }
+          end
+        end
+      end
     end
   end
 end
