@@ -5,7 +5,7 @@ require 'json'
 require 'uri'
 
 module Cero
-  module Ops
+  module Operations
     # Open Source Projects utilities
     class Oss
       attr_reader :projects, :oss, :git
@@ -43,8 +43,7 @@ module Cero
 
         if archive_these.include?(name) # archive thread
           puts "Archiving: #{name}"
-          puts "Archiving: #{to} - #{folder}"
-          # git.archive(to, folder)
+          @git.archive(to, folder)
         end
       end
 
