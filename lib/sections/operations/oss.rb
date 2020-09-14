@@ -11,9 +11,10 @@ class Oss
   def initialize(git)
     # TODO: Use folders module
     @git = git
-    @projects = Pathname.new(File.join(Dir.home, 'Projects'))
+    home = Dir.home
+    @projects = Pathname.new(File.join(home, 'Projects'))
 
-    xdg_config_home = Pathname.new(File.join(Dir.home, '.config'))
+    xdg_config_home = Pathname.new(File.join(home, '.config'))
     cero_config = xdg_config_home.join('cero')
 
     file_path = cero_config + 'oss.json'
@@ -60,8 +61,8 @@ class Oss
     @oss.keys.each do |language|
       puts "\n--> #{language}"
 
-      x = action == 'get' ? GET : ARCHIVE
-      @oss[language].each { |n| prepare(n, language, &x) }
+      doing = action == 'get' ? GET : ARCHIVE
+      @oss[language].each { |repo| prepare(repo, language, &doing) }
     end
   end
 end
