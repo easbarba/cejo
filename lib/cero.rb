@@ -8,16 +8,18 @@ require_relative 'services/configure_services.rb'
 module Cero
   # Praise the sun
   class Start
-    attr_reader :services, :clients, :arguments
+    attr_reader :services, :clients, :arguments, :section
 
     def initialize
-      @services = ConfigureServices.new
-      @arguments = Arguments.new.grab_guments(ARGV)
-      @clients = ClientsFactory.new(@services.git, @arguments)
+      @services = Cero::Services::ConfigureServices.new
+
+      @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
+      @section = @arguments.deq
+      @clients = Cero::Client::ClientsFactory.new(@services.git, @arguments)
     end
 
     def begin
-      # @clients.sections[:operations].oss.run('get')
+      @clients.sections[section.to_sym]
     end
   end
 end
