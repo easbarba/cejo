@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-# Return Operations Modules
-class ProjectsClient
+module Cero
+  module Client
+    # Return Operations Modules
+    class ProjectsClient
+    end
+  end
 end

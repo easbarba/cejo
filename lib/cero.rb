@@ -4,19 +4,21 @@ require_relative 'client/factories/clients_factory.rb'
 require_relative 'cli/arguments.rb'
 require_relative 'services/configure_services.rb'
 
-# Praise the sun
-class Cero
-  attr_reader :services, :clients, :arguments
+module Cero
+  # Praise the sun
+  class Start
+    attr_reader :services, :clients, :arguments
 
-  def initialize
-    @services = ConfigureServices.new
-    @arguments = Arguments.new.grab_guments(ARGV)
-    @clients = ClientsFactory.new(@git, @arguments)
-  end
+    def initialize
+      @services = ConfigureServices.new
+      @arguments = Arguments.new.grab_guments(ARGV)
+      @clients = ClientsFactory.new(@services.git, @arguments)
+    end
 
-  def begin
-    @clients.sections[:operations].oss.run('get')
+    def begin
+      # @clients.sections[:operations].oss.run('get')
+    end
   end
 end
 
-Cero.new.begin
+Cero::Start.new.begin

@@ -1,11 +1,9 @@
+# frozen_string_literal: true
+
 module Cero
   module Sections
-    module Projects
-      class ProjectsBuilder
-
-        def initialize
-        end
-      end
+    # Build Oss Projects
+    class ProjectsBuilder
     end
   end
 end

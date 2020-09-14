@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-# Return Operations Modules
-class DistroClient
+module Cero
+  module Client
+    # Return Operations Modules
+    class DistroClient
+    end
+  end
 end
