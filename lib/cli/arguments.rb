@@ -4,11 +4,11 @@ module Cero
   module Cli
     # Get Cli Arguments
     class Arguments
-      def grab_guments(arguments)
+      def grab_arguments(arguments)
         args = Queue.new
 
         arguments.each do |arg|
-          args << arg
+          args.enq(arg)
         end
 
         args
