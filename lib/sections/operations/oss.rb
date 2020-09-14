@@ -3,15 +3,16 @@
 require 'pathname'
 require 'json'
 require 'uri'
-# require 'git'
 
 # Open Source Projects utilities
 class Oss
-  attr_reader :projects, :oss
+  attr_reader :projects, :oss, :git
 
-  def initialize
+  def initialize(git)
     # TODO: Use folders module
+    @git = git
     @projects = Pathname.new(File.join(Dir.home, 'Projects'))
+
     xdg_config_home = Pathname.new(File.join(Dir.home, '.config'))
     cero_config = xdg_config_home.join('cero')
 
@@ -32,8 +33,8 @@ class Oss
     Dir.mkdir(archives_folder) unless archives_folder.exist?
 
     archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
-                     'rubygems', 'rubocop', 'rails', 'emacs-async', 'use-package',
-                     'lsp-mode', 'emacs']
+                     'rubygems', 'rubocop', 'rails', 'emacs-async',
+                     'use-package', 'lsp-mode', 'emacs']
 
     to = archives_folder + name
 
@@ -46,17 +47,16 @@ class Oss
 
   GET = lambda do |url, folder, name|
     puts "Getting: #{name}"
-    puts "#{url} - #{folder}"
 
     if folder.exist?
-      Dir.chdir(folder) { system('git pull') }
+      @git.pull(folder)
     else
-      system("git clone #{url} #{folder}")
-      # git.getter(url, folder)
+      @git.clone(url, folder)
     end
   end
 
-  def start(action)
+  ## run desired action on oss projects
+  def run(action)
     @oss.keys.each do |language|
       puts "\n--> #{language}"
 
