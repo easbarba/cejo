@@ -1,9 +1,13 @@
-module Folders
+# frozen_string_literal: true
+
+# System Folders
+class Folders
   attr_reader :xdg_config_home, :cero_config, :downloads, :pictures
 
   def initialize
-    xdg_config_home = Pathname.new(File.join(Dir.home, '.config', 'cero'))
-    cero_config = xdg_config_home.join('cero')
-    downloads = Dir.home.join('Downloads')
+    home = Dir.home
+    xdg_config_home = Pathname.new(File.join(home, '.config', 'cero'))
+    cero_config = File.join(xdg_config_home, 'cero')
+    downloads = (File.join(home, 'Downloads'))
   end
 end
