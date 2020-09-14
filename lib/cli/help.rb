@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Provide cli interface help
 module Cero
+  # Provide cli interface help
   module Cli
     class Help
     end

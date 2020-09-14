@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Get Cli Arguments
 module Cero
   module Cli
+    # Get Cli Arguments
     class Arguments
       def grab_guments(arguments)
         args = Queue.new

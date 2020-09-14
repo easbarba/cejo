@@ -4,9 +4,9 @@ require 'pathname'
 require 'json'
 require 'uri'
 
-# Open Source Projects utilities
 module Cero
   module Ops
+    # Open Source Projects utilities
     class Oss
       attr_reader :projects, :oss, :git
 
