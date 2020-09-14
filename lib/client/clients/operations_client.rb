@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_relative '../../sections/operations/oss.rb'
+
+
 # Return Operations Modules
 class OperationsClient
   attr_reader :git
@@ -10,5 +13,6 @@ class OperationsClient
 
   def oss
     oss = Oss.new(@git)
+    oss.run('get')
   end
 end
