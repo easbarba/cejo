@@ -6,15 +6,22 @@ module Cero
   module Client
     # Return Operations Modules
     class OperationsClient
-      attr_reader :git
+      attr_reader :git, :action
 
-      def initialize(git)
+      def initialize(git, action)
         @git = git
+        @action = action.deq
       end
 
       def oss
-        oss = Oss.new(@git)
-        oss.run('get')
+        oss = Cero::Operations::Oss.new(@git)
+        oss.run(action)
+      end
+
+      def module
+        {
+          oss: oss
+        }
       end
     end
   end
