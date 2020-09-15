@@ -10,16 +10,13 @@ module Cero
     class Oss
       attr_reader :projects, :oss, :git
       ## TODO: Use folders module
-      def initialize(git)
+      def initialize(git, folders)
         @git = git
         home = Dir.home
         @projects = Pathname.new(File.join(home, 'Projects'))
 
-        xdg_config_home = Pathname.new(File.join(home, '.config'))
-        cero_config = xdg_config_home.join('cero')
-
-        file_path = cero_config + 'oss.json'
-        @oss = JSON.parse(File.read(file_path))
+        ossfile_path = folders.cero_config + 'oss.json'
+        @oss = JSON.parse(File.read(ossfile_path))
       end
 
       def prepare(project, language, &block)
@@ -42,7 +39,7 @@ module Cero
 
         if archive_these.include?(name) # archive thread
           puts "Archiving: #{name}"
-          git.archive(to, folder)
+          git.archive to, folder
         end
       end
 
@@ -50,9 +47,9 @@ module Cero
         puts "Getting: #{name}"
 
         if folder.exist?
-          git.pull(folder)
+          git.pull folder
         else
-          git.clone(url, folder)
+          git.clone url, folder
         end
       end
 

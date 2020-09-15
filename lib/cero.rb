@@ -16,7 +16,7 @@ module Cero
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
       @section = @arguments.deq.to_sym
 
-      @clients = Cero::Client::ClientsFactory.new(@services.git, @arguments)
+      @clients = Cero::Client::ClientsFactory.new(@services, @arguments)
     end
 
     def begin

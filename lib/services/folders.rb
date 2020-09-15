@@ -8,9 +8,10 @@ module Cero
 
       def initialize
         home = Dir.home
-        xdg_config_home = Pathname.new(File.join(home, '.config', 'cero'))
-        cero_config = File.join(xdg_config_home, 'cero')
-        downloads = (File.join(home, 'Downloads'))
+        @xdg_config_home = Pathname.new(File.join(home, '.config'))
+        @cero_config = Pathname.new(File.join(xdg_config_home, 'cero'))
+        @downloads = Pathname.new(File.join(home, 'Downloads'))
+        @pictures = Pathname.new(File.join(home, 'Pictures'))
       end
     end
   end
