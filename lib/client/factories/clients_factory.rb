@@ -19,9 +19,9 @@ module Cero
       ## Return available sections.
       def sections
         {
-          operations: OperationsClient.new(@git, @command).modules[modules],
-          projects: ProjectsClient.new,
-          distro: DistroClient.new
+          operations: OperationsClient.new(@git, @command).modules[@module]
+          # projects: ProjectsClient.new(@git, @command).modules[@module],
+          # distro: DistroClient.new
         }
       end
     end
