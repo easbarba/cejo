@@ -8,17 +8,18 @@ module Cero
   module Client
     # Provide Clients
     class ClientsFactory
-      attr_reader :git, :args
+      attr_reader :git, :args, :module, :command
 
       def initialize(git, args)
         @git = git
-        @args = args
+        @module = args.deq.to_sym
+        @command = args
       end
 
       ## Return available sections.
       def sections
         {
-          operations: OperationsClient.new(@git, @args).module[@args.deq.to_sym],
+          operations: OperationsClient.new(@git, @command).modules[modules],
           projects: ProjectsClient.new,
           distro: DistroClient.new
         }

@@ -10,8 +10,7 @@ module Cero
     class Oss
       attr_reader :projects, :oss, :git
 
-      def initialize(git)
-        # TODO: Use folders module
+      def initialize(git) ## TODO: Use folders module
         @git = git
         home = Dir.home
         @projects = Pathname.new(File.join(home, 'Projects'))
@@ -63,7 +62,7 @@ module Cero
           puts "\n--> #{language}"
 
           doing = action == 'get' ? GET : ARCHIVE
-          @oss[language].each { |repo| prepare(repo, language, &doing) }
+          @oss[language].each { |project| prepare(project, language, &doing) }
         end
       end
     end

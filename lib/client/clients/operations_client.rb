@@ -11,6 +11,7 @@ module Cero
       def initialize(git, action)
         @git = git
         @action = action.deq
+        p @action
       end
 
       def oss
@@ -18,7 +19,7 @@ module Cero
         oss.run(action)
       end
 
-      def module
+      def modules
         {
           oss: oss
         }

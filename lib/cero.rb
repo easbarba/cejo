@@ -14,12 +14,13 @@ module Cero
       @services = Cero::Services::ConfigureServices.new
 
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
-      @section = @arguments.deq
+      @section = @arguments.deq.to_sym
+
       @clients = Cero::Client::ClientsFactory.new(@services.git, @arguments)
     end
 
     def begin
-      @clients.sections[section.to_sym]
+      @clients.sections[@section]
     end
   end
 end
