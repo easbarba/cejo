@@ -9,8 +9,8 @@ module Cero
     # Open Source Projects utilities
     class Oss
       attr_reader :projects, :oss, :git
-
-      def initialize(git) ## TODO: Use folders module
+      ## TODO: Use folders module
+      def initialize(git)
         @git = git
         home = Dir.home
         @projects = Pathname.new(File.join(home, 'Projects'))
@@ -27,10 +27,10 @@ module Cero
         project_name = project_url.path.split('/').last
         project_folder = @projects.join(language, project_name)
 
-        block.call(project_url, project_folder, project_name)
+        block.call(project_url, project_folder, project_name, @git)
       end
 
-      ARCHIVE = lambda do |_, folder, name|
+      ARCHIVE = lambda do |_, folder, name, git|
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless archives_folder.exist?
 
@@ -42,17 +42,17 @@ module Cero
 
         if archive_these.include?(name) # archive thread
           puts "Archiving: #{name}"
-          @git.archive(to, folder)
+          git.archive(to, folder)
         end
       end
 
-      GET = lambda do |url, folder, name|
+      GET = lambda do |url, folder, name, git|
         puts "Getting: #{name}"
 
         if folder.exist?
-          @git.pull(folder)
+          git.pull(folder)
         else
-          @git.clone(url, folder)
+          git.clone(url, folder)
         end
       end
 
