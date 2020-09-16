@@ -52,10 +52,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  pry (~> 0.13.1)
-  reek (~> 6.0, >= 6.0.1)
-  rspec (~> 3.9)
-  rubocop (~> 0.91.0)
+  pry
+  reek
+  rspec
+  rubocop
 
 BUNDLED WITH
    2.1.4
