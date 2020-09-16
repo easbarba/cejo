@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'client/factories/clients_factory.rb'
-require_relative 'cli/arguments.rb'
-require_relative 'services/configure_services.rb'
+require_relative 'cero/client/factories/clients_factory.rb'
+require_relative 'cero/cli/arguments.rb'
+require_relative 'cero/services/configure_services.rb'
 
 # Debian Utilities.
 module Cero

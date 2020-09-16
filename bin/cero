@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'cero'
-puts Cero.hi(ARGV[0])

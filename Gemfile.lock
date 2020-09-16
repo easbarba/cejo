@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    cero (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -14,6 +19,7 @@ GEM
       method_source (~> 1.0)
     psych (3.1.0)
     rainbow (3.0.0)
+    rake (13.0.1)
     reek (6.0.1)
       kwalify (~> 0.7.0)
       parser (>= 2.5.0.0, < 2.8, != 2.5.1.1)
@@ -52,7 +58,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
+  cero!
   pry
+  rake
   reek
   rspec
   rubocop
