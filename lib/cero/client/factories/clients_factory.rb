@@ -12,14 +12,14 @@ module Cero
 
       def initialize(services, args)
         @services = services
-        @module = args.deq.to_sym
+        @module = args.deq
         @command = args
       end
 
       ## Return available sections.
       def sections
         {
-          operations: OperationsClient.new(@services, @command).modules[@module]
+          operations: OperationsClient.new(@services, @command).modules[:@module]
           # projects: ProjectsClient.new(@git, @command).modules[@module],
           # distro: DistroClient.new
         }
