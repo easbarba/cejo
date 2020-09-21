@@ -22,9 +22,9 @@ module Cero
       def prepare(project, language, &block)
         project_url = URI(project)
         project_name = project_url.path.split('/').last
-        project_folder = @projects.join(language, project_name)
+        project_folder = projects.join(language, project_name)
 
-        block.call(project_url, project_folder, project_name, @git)
+        block.call(project_url, project_folder, project_name, git)
       end
 
       ARCHIVE = lambda do |_, folder, name, git|
@@ -55,11 +55,11 @@ module Cero
 
       ## run desired action on oss projects
       def run(action)
-        @oss.keys.each do |language|
+        oss.keys.each do |language|
           puts "\n--> #{language}"
 
           doing = action == 'get' ? GET : ARCHIVE
-          @oss[language].each { |project| prepare(project, language, &doing) }
+          oss[language].each { |project| prepare(project, language, &doing) }
         end
       end
     end

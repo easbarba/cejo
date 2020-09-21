@@ -14,8 +14,8 @@ module Cero
       end
 
       def oss
-        oss = Cero::Operations::Oss.new(@services.git, @services.folders)
-        oss.run(@action)
+        oss = Cero::Operations::Oss.new(services.git, services.folders)
+        oss.run(action)
       end
 
       def modules
