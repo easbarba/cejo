@@ -8,21 +8,24 @@ module Cero
   module Operations
     # Open Source Projects utilities
     class Oss
-      attr_reader :projects, :oss, :git
+      attr_reader :projects, :oss, :git, :oss_projects
+
       ## TODO: Use folders module
-      def initialize(git, folders)
-        @git = git
+      def initialize(services)
+        @git = services.git
         home = Dir.home
         @projects = Pathname.new(File.join(home, 'Projects'))
 
-        ossfile_path = folders.cero_config + 'oss.json'
+        ossfile_path = services.folders.cero_config + 'oss.json'
         @oss = JSON.parse(File.read(ossfile_path))
+        @oss_projects = oss
       end
 
       def prepare(project, language, &block)
         project_url = URI(project)
         project_name = project_url.path.split('/').last
         project_folder = projects.join(language, project_name)
+        puts "-- #{project_name}"
 
         block.call(project_url, project_folder, project_name, git)
       end
@@ -35,17 +38,13 @@ module Cero
                          'rubygems', 'rubocop', 'rails', 'emacs-async',
                          'use-package', 'lsp-mode', 'emacs']
 
-        to = archives_folder + name
+        return unless archive_these.include?(name)
 
-        if archive_these.include?(name) # archive thread
-          puts "Archiving: #{name}"
-          git.archive to, folder
-        end
+        to = archives_folder + name
+        git.archive to, folder # archive thread
       end
 
-      GET = lambda do |url, folder, name, git|
-        puts "Getting: #{name}"
-
+      GET = lambda do |url, folder, _, git|
         if folder.exist?
           git.pull folder
         else
@@ -53,7 +52,6 @@ module Cero
         end
       end
 
-      ## run desired action on oss projects
       def run(action)
         oss.keys.each do |language|
           puts "\n--> #{language}"
