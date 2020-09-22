@@ -8,17 +8,17 @@ module Cero
   module Operations
     # Open Source Projects utilities
     class Oss
-      attr_reader :projects, :oss, :git, :oss_projects
+      attr_reader :projects, :git, :oss_projects, :home
 
       ## TODO: Use folders module
       def initialize(services)
         @git = services.git
-        home = Dir.home
+        @home = Dir.home
+
         @projects = Pathname.new(File.join(home, 'Projects'))
 
         ossfile_path = services.folders.cero_config + 'oss.json'
-        @oss = JSON.parse(File.read(ossfile_path))
-        @oss_projects = oss
+        @oss_projects = JSON.parse(File.read(ossfile_path))
       end
 
       def prepare(project, language, &block)
@@ -31,7 +31,7 @@ module Cero
       end
 
       ARCHIVE = lambda do |_, folder, name, git|
-        archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
+        archives_folder = Pathname.new(File.join(home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless archives_folder.exist?
 
         archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
@@ -53,11 +53,11 @@ module Cero
       end
 
       def run(action)
-        oss.keys.each do |language|
+        oss_projects.keys.each do |language|
           puts "\n--> #{language}"
 
           doing = action == 'get' ? GET : ARCHIVE
-          oss[language].each { |project| prepare(project, language, &doing) }
+          oss_projects[language].each { |project| prepare(project, language, &doing) }
         end
       end
     end
