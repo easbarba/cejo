@@ -14,13 +14,12 @@ module Cero
       end
 
       def oss
-        oss = Cero::Operations::Oss.new(services)
-        oss.run(action)
+        Cero::Operations::Oss.new(services)
       end
 
       def modules
         {
-          oss: oss
+          oss: oss.send(action.to_sym)
         }
       end
     end

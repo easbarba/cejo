@@ -55,10 +55,16 @@ module Cero
       def run(action)
         oss_projects.keys.each do |language|
           puts "\n--> #{language}"
-
-          doing = action == 'get' ? GET : ARCHIVE
-          oss_projects[language].each { |project| prepare(project, language, &doing) }
+          oss_projects[language].each { |project| prepare(project, language, &action) }
         end
+      end
+
+      def get
+        run(GET)
+      end
+
+      def archive
+        run(ARCHIVE)
       end
     end
   end
