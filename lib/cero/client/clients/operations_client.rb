@@ -14,7 +14,7 @@ module Cero
       end
 
       def oss
-        oss = Cero::Operations::Oss.new(services.git, services.folders)
+        oss = Cero::Operations::Oss.new(services)
         oss.run(action)
       end
 
