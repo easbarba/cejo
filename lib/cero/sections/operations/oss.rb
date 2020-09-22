@@ -15,7 +15,6 @@ module Cero
         @git = services.git
         @projects = Pathname.new(File.join(Dir.home, 'Projects'))
 
-
         ossfile_path = services.folders.cero_config + 'oss.json'
         @oss_projects = JSON.parse(File.read(ossfile_path))
       end
@@ -29,11 +28,7 @@ module Cero
         data.new url, name, folder
       end
 
-      def call(project, &block)
-        block.call(project, git)
-      end
-
-      ARCHIVE = lambda do |project, git|
+      def archive_it(project)
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless archives_folder.exist?
 
@@ -48,7 +43,7 @@ module Cero
         git.archive to, project.folder # archive thread
       end
 
-      GET = lambda do |project, git|
+      def get_it(project)
         puts "-- #{project.name}"
 
         if project.folder.exist?
@@ -58,19 +53,18 @@ module Cero
         end
       end
 
-      def run(action)
+      def archive
         oss_projects.keys.each do |language|
           puts "\n--> #{language}"
-          oss_projects[language].each { |project| call(info(project, language), &action) }
+          oss_projects[language].each { |project| archive_it(info(project, language)) }
         end
       end
 
       def get
-        run(GET)
-      end
-
-      def archive
-        run(ARCHIVE)
+        oss_projects.keys.each do |language|
+          puts "\n--> #{language}"
+          oss_projects[language].each { |project| get_it(info(project, language)) }
+        end
       end
     end
   end
