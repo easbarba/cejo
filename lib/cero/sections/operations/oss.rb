@@ -8,24 +8,28 @@ module Cero
   module Operations
     # Open Source Projects utilities
     class Oss
-      attr_reader :projects, :git, :oss_projects, :data
+      attr_reader :projects, :git, :oss_projects
 
       ## TODO: Use folders module
       def initialize(services)
         @git = services.git
         @projects = Pathname.new(File.join(Dir.home, 'Projects'))
-        @data = Struct.new(:url, :name, :folder)
+
 
         ossfile_path = services.folders.cero_config + 'oss.json'
         @oss_projects = JSON.parse(File.read(ossfile_path))
       end
 
-      def prepare(project, language, &block)
+      def info(project, language)
         url = URI(project)
         name = url.path.split('/').last
         folder = projects.join(language, name)
 
-        project = data.new url, name, folder
+        data = Struct.new(:url, :name, :folder)
+        data.new url, name, folder
+      end
+
+      def call(project, &block)
         block.call(project, git)
       end
 
@@ -57,7 +61,7 @@ module Cero
       def run(action)
         oss_projects.keys.each do |language|
           puts "\n--> #{language}"
-          oss_projects[language].each { |project| prepare(project, language, &action) }
+          oss_projects[language].each { |project| call(info(project, language), &action) }
         end
       end
 
