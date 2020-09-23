@@ -35,7 +35,6 @@ module Cero
 
       def archive(project)
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
-        ARCHIVE_THESE << 'a'
         Dir.mkdir(archives_folder) unless ARCHIVES_FOLDER.exist?
 
 
