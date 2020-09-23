@@ -28,7 +28,7 @@ module Cero
         data.new url, name, folder
       end
 
-      def archive_it(project)
+      def archive(project)
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless archives_folder.exist?
 
@@ -43,7 +43,7 @@ module Cero
         git.archive to, project.folder # archive thread
       end
 
-      def get_it(project)
+      def get(project)
         puts "-- #{project.name}"
 
         if project.folder.exist?
@@ -53,17 +53,10 @@ module Cero
         end
       end
 
-      def archive
+      def run(action)
         oss_projects.keys.each do |language|
           puts "\n--> #{language}"
-          oss_projects[language].each { |project| archive_it(info(project, language)) }
-        end
-      end
-
-      def get
-        oss_projects.keys.each do |language|
-          puts "\n--> #{language}"
-          oss_projects[language].each { |project| get_it(info(project, language)) }
+          oss_projects[language].each { |project| public_send(action, info(project, language)) }
         end
       end
     end
