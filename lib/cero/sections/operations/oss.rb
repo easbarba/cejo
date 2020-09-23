@@ -8,20 +8,22 @@ module Cero
   module Operations
     # Open Source Projects utilities
     class Oss
-      attr_reader :projects, :git, :oss_projects
+      attr_reader :projects, :git
+      private
 
-      ## TODO: Use folders module
       def initialize(services)
         @git = services.git
         @projects = Pathname.new(File.join(Dir.home, 'Projects'))
+        @ossfile_path = services.folders.cero_config + 'oss.json'
+      end
 
-        ossfile_path = services.folders.cero_config + 'oss.json'
-        @oss_projects = JSON.parse(File.read(ossfile_path))
+      def oss_projects
+        @oss_projects ||= JSON.parse(File.read(@ossfile_path))
       end
 
       Data = Struct.new(:url, :name, :folder)
 
-      def info(project, language)
+      def project_info(project, language)
         url = URI(project)
         name = url.path.split('/').last
         folder = projects.join(language, name)
@@ -34,22 +36,18 @@ module Cero
                        'use-package', 'lsp-mode', 'emacs'].freeze
 
       ## Archive desired FLOSS projects
-      def archive(project)
+      Archive_this = lambda do |project, git|
+        return unless ARCHIVE_THESE.include?(project.name)
+
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
-        Dir.mkdir(archives_folder) unless ARCHIVES_FOLDER.exist?
+        Dir.mkdir(archives_folder) unless archives_folder.exist?
 
-
-        return unless archive_these.include?(project.name)
-
-        puts "-- #{project.name}"
         to = archives_folder + project.name
         git.archive to, project.folder # archive thread
       end
 
       ## Clone FLOSS Projects
-      def get(project)
-        puts "-- #{project.name}"
-
+      Get_this = lambda do |project, git|
         if project.folder.exist?
           git.pull project.folder
         else
@@ -57,11 +55,21 @@ module Cero
         end
       end
 
-      def run(action)
+      def mapc(action)
         oss_projects.each do |language, projects|
           puts "\n--> #{language}"
-          projects.each { |project| public_send(action, info(project, language)) }
+          projects.each { |project| action.call(project_info(project, language), git) }
         end
+      end
+
+      public
+
+      def archive
+        mapc(Archive_this)
+      end
+
+      def get
+        mapc(Get_this)
       end
     end
   end

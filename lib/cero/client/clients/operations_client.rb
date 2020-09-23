@@ -19,7 +19,7 @@ module Cero
 
       def modules
         {
-          oss: oss.run(action)
+          oss: oss.send(action)
         }
       end
     end
