@@ -19,22 +19,25 @@ module Cero
         @oss_projects = JSON.parse(File.read(ossfile_path))
       end
 
+      Data = Struct.new(:url, :name, :folder)
+
       def info(project, language)
         url = URI(project)
         name = url.path.split('/').last
         folder = projects.join(language, name)
 
-        data = Struct.new(:url, :name, :folder)
-        data.new url, name, folder
+        Data.new url, name, folder
       end
+
+      ARCHIVE_THESE = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
+                       'rubygems', 'rubocop', 'rails', 'emacs-async',
+                       'use-package', 'lsp-mode', 'emacs'].freeze
 
       def archive(project)
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
-        Dir.mkdir(archives_folder) unless archives_folder.exist?
+        ARCHIVE_THESE << 'a'
+        Dir.mkdir(archives_folder) unless ARCHIVES_FOLDER.exist?
 
-        archive_these = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
-                         'rubygems', 'rubocop', 'rails', 'emacs-async',
-                         'use-package', 'lsp-mode', 'emacs']
 
         return unless archive_these.include?(project.name)
 
@@ -54,9 +57,9 @@ module Cero
       end
 
       def run(action)
-        oss_projects.keys.each do |language|
+        oss_projects.each do |language, projects|
           puts "\n--> #{language}"
-          oss_projects[language].each { |project| public_send(action, info(project, language)) }
+          projects.each { |project| public_send(action, info(project, language)) }
         end
       end
     end
