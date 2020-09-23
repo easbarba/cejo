@@ -9,6 +9,7 @@ module Cero
     # Open Source Projects utilities
     class Oss
       attr_reader :projects, :git
+
       private
 
       def initialize(services)
