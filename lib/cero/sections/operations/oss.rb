@@ -33,6 +33,7 @@ module Cero
                        'rubygems', 'rubocop', 'rails', 'emacs-async',
                        'use-package', 'lsp-mode', 'emacs'].freeze
 
+      ## Archive desired FLOSS projects
       def archive(project)
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless ARCHIVES_FOLDER.exist?
@@ -45,6 +46,7 @@ module Cero
         git.archive to, project.folder # archive thread
       end
 
+      ## Clone FLOSS Projects
       def get(project)
         puts "-- #{project.name}"
 
