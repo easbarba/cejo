@@ -3,6 +3,7 @@
 require_relative '../clients/distro_client.rb'
 require_relative '../clients/operations_client.rb'
 require_relative '../clients/projects_client.rb'
+require_relative '../clients/media_client.rb'
 
 module Cero
   module Client
@@ -19,7 +20,8 @@ module Cero
       ## Return available sections.
       def sections
         {
-          operations: OperationsClient.new(services, command).modules[:module]
+          media: MediaClient.new(command).modules[:module],
+          operation: OperationsClient.new(services, command).modules[:module]
           # projects: ProjectsClient.new(git, command).modules[module],
           # distro: DistroClient.new
         }

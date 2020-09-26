@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'shellwords'
+
 require_relative 'cero/client/factories/clients_factory.rb'
 require_relative 'cero/cli/arguments.rb'
 require_relative 'cero/services/configure_services.rb'
@@ -12,7 +14,6 @@ module Cero
 
     def initialize
       @services = Cero::Services::ConfigureServices.new
-
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
       @section = arguments.deq
 
