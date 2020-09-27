@@ -2,7 +2,7 @@
 
 module Cero
   module Client
-    # Return Operations Modules
+    # Distro features
     class DistroClient
     end
   end

@@ -4,7 +4,7 @@ require_relative '../../sections/media/play.rb'
 
 module Cero
   module Client
-    # Return Media Modules
+    # Media features
     class MediaClient
       attr_reader :services, :action
 
@@ -13,12 +13,12 @@ module Cero
       end
 
       def play
-        Cero::Media::Play.new(action)
+        Cero::Media::Play.new(action).run
       end
 
-      def modules
+      def features
         {
-          play: play.run
+          play: play
         }
       end
     end

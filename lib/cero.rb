@@ -16,13 +16,13 @@ module Cero
       @services = Cero::Services::ConfigureServices.new
 
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
-      @section = arguments.deq.to_sym
+      @section = arguments.deq
 
       @clients = Cero::Client::ClientsFactory.new(services, arguments)
     end
 
     def run
-      puts clients.sections[section]
+      clients.sections(section)
     end
   end
 end
