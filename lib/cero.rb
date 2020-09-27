@@ -14,14 +14,15 @@ module Cero
 
     def initialize
       @services = Cero::Services::ConfigureServices.new
+
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
-      @section = arguments.deq
+      @section = arguments.deq.to_sym
 
       @clients = Cero::Client::ClientsFactory.new(services, arguments)
     end
 
     def run
-      clients.sections[:section]
+      puts clients.sections[section]
     end
   end
 end
