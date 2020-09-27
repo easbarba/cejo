@@ -11,11 +11,15 @@ module Cero
     class ClientsFactory
       attr_reader :services, :args, :feature, :command
 
+      private
+
       def initialize(services, args)
         @services = services
         @feature = args.deq
-        @command = args.deq
+        @command = args.size.zero? ? nil : args.deq
       end
+
+      public
 
       ## Return available sections.
       def sections(section)
@@ -23,9 +27,9 @@ module Cero
 
         pick = {
           media: MediaClient.new(services, command),
-          # projects: ProjectsClient.new(services, command),
-          operation: OperationsClient.new(services, command)
-          # distro: DistroClient.new
+          projects: ProjectsClient.new(services, command),
+          operation: OperationsClient.new(services, command),
+          distro: DistroClient.new(services, command)
         }
 
         pick[section].features[feature]

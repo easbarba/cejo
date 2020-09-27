@@ -2,10 +2,16 @@
 
 module Cero
   module Ops
-    # System Volume management.
+    # Symlink Dotfiles to $HOME
     class Dots
-      def hello
-        puts 'Volume'
+      private
+
+      def initialize
+      end
+
+      public
+
+      def run
       end
     end
   end

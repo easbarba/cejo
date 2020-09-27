@@ -4,6 +4,19 @@ module Cero
   module Client
     # Distro features
     class DistroClient
+      attr_reader :services, :command
+
+      private
+
+      def initialize(services, command)
+        @services = services
+        @command = command
+      end
+
+      public
+
+      def run
+      end
     end
   end
 end
