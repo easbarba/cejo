@@ -18,16 +18,17 @@ module Cero
       end
 
       def oss
-        o = Cero::Operations::Oss.new(services)
-        action == 'get' ? o.get : o.archive
+        o = Cero::Ops::Oss.new(services)
+        o.get if action == 'get'
+        o.archive if action == 'archive'
       end
 
       def homer
-        Cero::Operations::Homer.new(services).run
+        Cero::Ops::Homer.new.run
       end
 
       def screenshot
-        Cero::Operations::Screenshot.new(services).run
+        Cero::Ops::Screenshot.new(services).run
       end
 
       public

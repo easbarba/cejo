@@ -5,7 +5,7 @@ require 'json'
 require 'uri'
 
 module Cero
-  module Operations
+  module Ops
     # Open Source Projects utilities
     class Oss
       attr_reader :projects, :git
