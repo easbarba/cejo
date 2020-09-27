@@ -3,6 +3,7 @@
 require_relative '../../sections/operations/oss.rb'
 require_relative '../../sections/operations/homer.rb'
 require_relative '../../sections/operations/screenshot.rb'
+require_relative '../../sections/operations/volume.rb'
 
 module Cero
   module Client
@@ -31,13 +32,18 @@ module Cero
         Cero::Ops::Screenshot.new(services).run
       end
 
+      def volume
+        Cero::Ops::Volume.new(services, action).run
+      end
+
       public
 
       def features
         {
           oss: oss,
           homer: homer,
-          screenshot: screenshot
+          screenshot: screenshot,
+          volume: volume
         }
       end
     end
