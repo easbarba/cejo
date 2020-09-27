@@ -29,7 +29,7 @@ module Cero
       public
 
       def target_link
-        prepare_folders
+        prepare_folders # TODO: require/provide one at request
       end
 
       def run
