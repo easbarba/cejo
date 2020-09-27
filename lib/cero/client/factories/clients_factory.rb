@@ -14,7 +14,7 @@ module Cero
       def initialize(services, args)
         @services = services
         @feature = args.deq
-        @command = args
+        @command = args.deq
       end
 
       ## Return available sections.
@@ -22,10 +22,10 @@ module Cero
         section = section.to_sym
 
         pick = {
-          media: MediaClient.new(command),
-          projects: ProjectsClient.new(services, command),
-          operation: OperationsClient.new(services, command),
-          distro: DistroClient.new(services, command)
+          media: MediaClient.new(services, command),
+          # projects: ProjectsClient.new(services, command),
+          operation: OperationsClient.new(services, command)
+          # distro: DistroClient.new
         }
 
         pick[section].features[feature]

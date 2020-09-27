@@ -10,7 +10,7 @@ module Cero
 
       def initialize(services, action)
         @services = services
-        @action = action.deq
+        @action = action
       end
 
       def oss

@@ -8,8 +8,9 @@ module Cero
     class MediaClient
       attr_reader :services, :action
 
-      def initialize(action)
-        @action = action.size.zero? ? nil : action.deq
+      def initialize(services, action)
+        @services = services
+        @action = action.nil? ? nil : action
       end
 
       def play
