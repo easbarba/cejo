@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'date'
+
 module Cero
   module Ops
     # Symlink Dotfiles to $HOME
@@ -14,17 +16,27 @@ module Cero
       end
 
       def shotter_avaiable
-        shotter.keys.first { |shotter| !services.os_utils.command?(shotter).nil? }
+        shotters.keys.first { |shotter| !services.os_utils.command?(shotter).nil? }
+      end
+
+      def current_time
+        Time.new.strftime('%d-%m-%Y-%k:%M')
+      end
+
+      def screen_folder
+        Pathname.new(Dir.home)
+                .join('Pictures')
+                .join("screenshot-#{current_time}.png")
       end
 
       public
 
       def run_args
-        shotter_avaiable
+        "#{shotter_avaiable} #{screen_folder}"
       end
 
       def run
-        puts run_args
+        system(run_args)
       end
     end
   end
