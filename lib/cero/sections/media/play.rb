@@ -41,9 +41,7 @@ module Cero
       end
 
       def run
-        p run_args
         system(run_args)
-        exit(0)
       end
     end
   end
