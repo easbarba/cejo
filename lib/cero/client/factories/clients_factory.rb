@@ -19,20 +19,34 @@ module Cero
         @command = args.size.zero? ? nil : args.deq
       end
 
+      def media
+        MediaClient.new(services, command)
+      end
+
+      def projects
+        ProjectsClient.new(services, command)
+      end
+
+      def operations
+        OperationsClient.new(services, command)
+      end
+
+      def distro
+        DistroClient.new(services, command)
+      end
+
       public
 
       ## Return available sections.
       def sections(section)
-        section = section.to_sym
-
         pick = {
-          media: MediaClient.new(services, command),
-          projects: ProjectsClient.new(services, command),
-          operation: OperationsClient.new(services, command),
-          distro: DistroClient.new(services, command)
+          media: media,
+          projects: projects,
+          operation: operations,
+          distro: distro
         }
 
-        pick[section].features[feature.to_sym]
+        pick[section.to_sym].features[feature]
       end
     end
   end
