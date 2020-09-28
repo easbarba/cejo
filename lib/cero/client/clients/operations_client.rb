@@ -20,25 +20,23 @@ module Cero
       end
 
       def oss
-        o = Cero::Ops::Oss.new(services)
-        o.get if command == 'get'
-        o.archive if command == 'archive'
+        Cero::Ops::Oss.new(services, command)
       end
 
       def homer
-        Cero::Ops::Homer.new.run
+        Cero::Ops::Homer.new
       end
 
       def screenshot
-        Cero::Ops::Screenshot.new(services).run
+        Cero::Ops::Screenshot.new(services)
       end
 
       def volume
-        Cero::Ops::Volume.new(services, command).run
+        Cero::Ops::Volume.new(services, command)
       end
 
       def brightness
-        Cero::Ops::Brightness.new(services, command).run
+        Cero::Ops::Brightness.new(services, command)
       end
 
       public

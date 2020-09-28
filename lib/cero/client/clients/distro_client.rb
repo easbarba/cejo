@@ -15,7 +15,9 @@ module Cero
 
       public
 
-      def run; end
+      def features
+        {}
+      end
     end
   end
 end

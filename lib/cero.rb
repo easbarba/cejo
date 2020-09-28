@@ -8,12 +8,14 @@ require_relative 'cero/services/configure_services'
 module Cero
   # and so it begins...
   class Begin
-    attr_reader :arguments
+    attr_reader :arguments, :section, :feature
 
     private
 
     def initialize
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
+      @section = arguments.deq.to_sym
+      @feature = arguments.deq.to_sym
     end
 
     def services
@@ -21,14 +23,16 @@ module Cero
     end
 
     def clients
-      Cero::Client::ClientsFactory.new(services, arguments)
+      command = arguments.deq
+      Cero::Client::ClientsFactory.new(services, command)
     end
 
     public
 
     def run
-      section = arguments.deq.to_sym
       clients.sections[section]
+             .features[feature]
+             .run
     end
   end
 end

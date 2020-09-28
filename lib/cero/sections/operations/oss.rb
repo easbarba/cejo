@@ -8,12 +8,13 @@ module Cero
   module Ops
     # Open Source Projects utilities
     class Oss
-      attr_reader :services
+      attr_reader :services, :command
 
       private
 
-      def initialize(services)
+      def initialize(services, command)
         @services = services
+        @command =  command
       end
 
       def git
@@ -78,6 +79,14 @@ module Cero
 
       def get
         mapc(Get_this)
+      end
+
+      def run
+        if command == 'get'
+          get
+        elsif command == 'archive'
+          archive
+        end
       end
     end
   end
