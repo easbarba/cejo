@@ -11,7 +11,7 @@ module Cero
 
       ## pull project
       def pull(folder)
-        Dir.chdir(folder) { system('git pull') }
+        system("git -C #{folder} pull")
       end
 
       # archive project
