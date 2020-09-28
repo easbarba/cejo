@@ -6,26 +6,30 @@ require_relative 'cero/client/factories/clients_factory.rb'
 require_relative 'cero/cli/arguments.rb'
 require_relative 'cero/services/configure_services.rb'
 
-# Debian Utilities.
+# Unix Utilities.
 module Cero
   # Praise the sun
   class Start
-    attr_reader :services, :clients, :arguments, :section
+    attr_reader :arguments
 
     private
 
     def initialize
-      @services = Cero::Services::ConfigureServices.new
-
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
-      @section = arguments.deq
+    end
 
-      @clients = Cero::Client::ClientsFactory.new(services, arguments)
+    def services
+      Cero::Services::ConfigureServices.new # TODO: Use IoC
+    end
+
+    def clients
+      Cero::Client::ClientsFactory.new(services, arguments)
     end
 
     public
 
     def run
+      section = arguments.deq
       clients.sections(section)
     end
   end
