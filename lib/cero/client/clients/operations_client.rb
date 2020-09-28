@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/operations/oss.rb'
-require_relative '../../sections/operations/homer.rb'
-require_relative '../../sections/operations/screenshot.rb'
-require_relative '../../sections/operations/volume.rb'
-require_relative '../../sections/operations/brightness.rb'
+require_relative '../../sections/operations/oss'
+require_relative '../../sections/operations/homer'
+require_relative '../../sections/operations/screenshot'
+require_relative '../../sections/operations/volume'
+require_relative '../../sections/operations/brightness'
 
 module Cero
   module Client
@@ -48,8 +48,8 @@ module Cero
           oss: oss,
           homer: homer,
           screenshot: screenshot,
-          volume: volume,
-          brightness: brightness
+          brightness: brightness,
+          volume: volume
         }
       end
     end

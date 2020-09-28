@@ -8,18 +8,22 @@ module Cero
   module Ops
     # Open Source Projects utilities
     class Oss
-      attr_reader :projects, :git
+      attr_reader :services, :git
 
       private
 
       def initialize(services)
+        @services = services
         @git = services.git
-        @projects = Pathname.new(File.join(Dir.home, 'Projects'))
-        @ossfile_path = services.folders.cero_config + 'oss.json'
+      end
+
+      def projects
+        Pathname.new(File.join(Dir.home, 'Projects'))
       end
 
       def oss_projects
-        @oss_projects ||= JSON.parse(File.read(@ossfile_path))
+        @ossfile_path ||= services.folders.cero_config + 'oss.json'
+        JSON.parse(File.read(@ossfile_path))
       end
 
       Data = Struct.new(:url, :name, :folder)

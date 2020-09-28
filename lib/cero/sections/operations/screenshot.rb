@@ -6,13 +6,16 @@ module Cero
   module Ops
     # Symlink Dotfiles to $HOME
     class Screenshot
-      attr_reader :services, :shotters
+      attr_reader :services
 
       private
 
       def initialize(services)
         @services = services
-        @shotters = { scrot: '', maim: '' }
+      end
+
+      def shotters
+        { scrot: '', maim: '' }
       end
 
       def shotter_avaiable

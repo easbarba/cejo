@@ -4,17 +4,22 @@ module Cero
   module Ops
     # Manage System Volume.
     class Volume
-      attr_reader :step, :sound_manager, :state
+      attr_reader :state
 
       private
 
       def initialize(services, state)
         @services = services
         @state = state.to_sym if %w[up down toggle].include? state
-        @step = 5
+      end
 
-        @sound_manager = %w[pactl amixer mixer].first { |manager| services.os_utils.which?(manager) }
-        @sound_manager = sound_manager.to_sym
+      def step
+        5
+      end
+
+      def sound_manager
+        fetch_sound_manager = %w[pactl amixer mixer].first { |manager| services.os_utils.which?(manager) }
+        fetch_sound_manager.to_sym
       end
 
       def states
@@ -80,7 +85,6 @@ module Cero
       end
 
       def run
-        p run_args
         system(run_args)
       end
     end

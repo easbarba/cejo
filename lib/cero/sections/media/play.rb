@@ -9,19 +9,20 @@ module Cero
   module Media
     # Play file, random media in folder or with url provided by clipboard text.
     class Play
-      attr_reader :projects, :git, :file_path, :player
+      attr_reader :projects, :git, :file_path
 
       private
 
       def initialize(file_path)
         @file_path = Pathname(file_path)
+      end
 
-        @player = 'mpv'
+      def player
+        'mpv'
       end
 
       def player_config
-        player_video_quality = %s(--ytdl-format="bestvideo[height<=?1080]+bestaudio/best")
-        "--no-config --no-audio-display #{player_video_quality}"
+        '--no-config --no-audio-display --ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
       end
 
       ## play random media in folder

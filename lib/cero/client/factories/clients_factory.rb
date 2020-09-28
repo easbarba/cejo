@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../clients/distro_client.rb'
-require_relative '../clients/operations_client.rb'
-require_relative '../clients/projects_client.rb'
-require_relative '../clients/media_client.rb'
+require_relative '../clients/distro_client'
+require_relative '../clients/operations_client'
+require_relative '../clients/projects_client'
+require_relative '../clients/media_client'
 
 module Cero
   module Client

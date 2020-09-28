@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/media/play.rb'
+require_relative '../../sections/media/play'
 
 module Cero
   module Client

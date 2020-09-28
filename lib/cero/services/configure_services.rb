@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'folders.rb'
-require_relative 'git.rb'
-require_relative 'os_utils.rb'
+require_relative 'folders'
+require_relative 'git'
+require_relative 'os_utils'
 
 module Cero
   module Services

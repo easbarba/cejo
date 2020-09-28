@@ -4,13 +4,7 @@ module Cero
   module Ops
     # Symbolic link selected folders to $HOME.
     class Homer
-      attr_reader :home
-
       private
-
-      def initialize
-        @home = Pathname.new(Dir.home)
-      end
 
       def source_folders
         Pathname.new('/dados')
@@ -18,6 +12,7 @@ module Cero
 
       def prepare_folders
         new_folders = {}
+        home = Pathname.new(Dir.home)
 
         source_folders.each_child do |folder|
           new_folders[folder] = home.join(folder.basename)

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'cero/client/factories/clients_factory.rb'
-require_relative 'cero/cli/arguments.rb'
-require_relative 'cero/services/configure_services.rb'
+require_relative 'cero/client/factories/clients_factory'
+require_relative 'cero/cli/arguments'
+require_relative 'cero/services/configure_services'
 
 # Unix Utilities.
 module Cero
@@ -28,7 +28,7 @@ module Cero
 
     def run
       section = arguments.deq
-      clients.sections(section)
+      clients.sections section
     end
   end
 end

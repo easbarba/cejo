@@ -8,7 +8,7 @@ module Cero
         args = Queue.new
 
         arguments.each do |arg|
-          args.enq(arg)
+          args.enq arg
         end
 
         args
