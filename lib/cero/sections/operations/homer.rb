@@ -33,8 +33,8 @@ module Cero
       end
 
       def run
-        target_link.each do |t, l|
-          File.symlink(t, l) if !l.exist? && t.basename.to_s != 'lost+found'
+        target_link.each do |target, link|
+          File.symlink(target, link) if !link.exist? && target.basename.to_s != 'lost+found'
         end
       end
     end

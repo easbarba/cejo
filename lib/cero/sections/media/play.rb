@@ -13,7 +13,7 @@ module Cero
       private
 
       def initialize(file_path)
-        @file_path = file_path.nil? ? nil : Pathname(file_path)
+        @file_path = Pathname(file_path) unless file_path.nil?
 
         @player = 'mpv'
         player_video_quality = %s(--ytdl-format="bestvideo[height<=?1080]+bestaudio/best")

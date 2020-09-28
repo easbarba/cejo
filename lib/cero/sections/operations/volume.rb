@@ -10,11 +10,11 @@ module Cero
 
       def initialize(services, state)
         @services = services
-        @state = state.to_sym  if %w[up down toggle].include? state
+        @state = state.to_sym if %w[up down toggle].include? state
         @step = 5
 
-        sound_managers = %w[pactl amixer mixer]
-        @sound_manager = sound_managers.first { |m| !services.os_utils.command?(m).nil? }
+        @sound_manager = %w[pactl amixer mixer].first { |m| !services.os_utils.command?(m).nil? }
+        @sound_manager = sound_manager.to_sym
       end
 
       def states
@@ -51,25 +51,25 @@ module Cero
 
       def toggle
         {
-          pactl: pactl[:name] + ' ' + pactl[:toggle],
-          amixer: amixer[:name] + ' ' + amixer[:toggle],
-          mixer: mixer[:name] + ' ' + mixer[:toggle]
+          pactl: "#{pactl[:name]} #{pactl[:toggle]}",
+          amixer: "#{amixer[:name]} #{amixer[:toggle]}",
+          mixer: "#{mixer[:name]} #{mixer[:toggle]}"
         }
       end
 
       def updown
         {
-          pactl: pactl[:name] + ' ' + pactl[:updown],
-          amixer: amixer[:name] + ' ' + amixer[:updown],
-          mixer: mixer[:name] + ' ' + mixer[:updown]
+          pactl: "#{pactl[:name]} #{pactl[:updown]}",
+          amixer: "#{amixer[:name]} #{amixer[:updown]}",
+          mixer: "#{mixer[:name]} #{mixer[:updown]}"
         }
       end
 
       def mode
         {
-          toggle: toggle[sound_manager.to_sym],
-          up: updown[sound_manager.to_sym],
-          down: updown[sound_manager.to_sym]
+          toggle: toggle[sound_manager],
+          up: updown[sound_manager],
+          down: updown[sound_manager]
         }
       end
 
