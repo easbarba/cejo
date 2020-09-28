@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'shellwords'
-
 require_relative 'cero/client/factories/clients_factory.rb'
 require_relative 'cero/cli/arguments.rb'
 require_relative 'cero/services/configure_services.rb'
