@@ -10,7 +10,7 @@ module Cero
 
       def initialize(services, state)
         @services = services
-        @state = state.to_sym
+        @state = state.to_sym  if %w[up down toggle].include? state
         @step = 5
 
         sound_managers = %w[pactl amixer mixer]

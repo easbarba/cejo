@@ -8,6 +8,8 @@ module Cero
     class MediaClient
       attr_reader :services, :action
 
+      private
+
       def initialize(services, action)
         @services = services
         @action = action.nil? ? nil : action
@@ -16,6 +18,8 @@ module Cero
       def play
         Cero::Media::Play.new(action).run
       end
+
+      public
 
       def features
         {

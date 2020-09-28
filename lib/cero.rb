@@ -12,6 +12,8 @@ module Cero
   class Start
     attr_reader :services, :clients, :arguments, :section
 
+    private
+
     def initialize
       @services = Cero::Services::ConfigureServices.new
 
@@ -20,6 +22,8 @@ module Cero
 
       @clients = Cero::Client::ClientsFactory.new(services, arguments)
     end
+
+    public
 
     def run
       clients.sections(section)

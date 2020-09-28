@@ -30,7 +30,6 @@ module Cero
       end
 
       def run
-        puts run_args
         system(run_args)
       end
     end
