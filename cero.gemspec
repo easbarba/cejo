@@ -4,9 +4,9 @@ Gem::Specification.new do |spec|
   spec.name          = 'cero'
   spec.version       = Cero::VERSION
   spec.authors       = ['E. Alexander Barbosa']
-  spec.email         = ['elxbarbosa@outlook.com']
+  spec.email         = ['elxbarbosa@gmail.com']
 
-  spec.summary       = 'Debian utilities and software interface'
+  spec.summary       = 'Unix utilities and software interface'
   # spec.description   = %q{TODO: Write a longer description or delete this line.}
   spec.homepage      = 'https://github.com/elxbarbosa/cero'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
