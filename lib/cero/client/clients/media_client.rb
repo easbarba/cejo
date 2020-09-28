@@ -12,7 +12,7 @@ module Cero
 
       def initialize(services, action)
         @services = services
-        @action = action.nil? ? nil : action
+        @action = action
       end
 
       def play

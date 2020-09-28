@@ -13,7 +13,7 @@ module Cero
         @state = state.to_sym if %w[up down toggle].include? state
         @step = 5
 
-        @sound_manager = %w[pactl amixer mixer].first { |m| !services.os_utils.command?(m).nil? }
+        @sound_manager = %w[pactl amixer mixer].first { |manager| services.os_utils.which?(manager) }
         @sound_manager = sound_manager.to_sym
       end
 
@@ -80,6 +80,7 @@ module Cero
       end
 
       def run
+        p run_args
         system(run_args)
       end
     end

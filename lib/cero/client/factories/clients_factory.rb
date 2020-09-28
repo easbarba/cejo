@@ -16,7 +16,7 @@ module Cero
       def initialize(services, args)
         @services = services
         @feature = args.deq
-        @command = args.size.zero? ? nil : args.deq
+        @command = args.deq
       end
 
       def media

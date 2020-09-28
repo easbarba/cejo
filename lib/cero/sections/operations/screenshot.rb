@@ -16,7 +16,7 @@ module Cero
       end
 
       def shotter_avaiable
-        shotters.keys.first { |shotter| !services.os_utils.command?(shotter).nil? }
+        shotters.keys.first { |shotter| services.os_utils.which?(shotter) }
       end
 
       def current_time
