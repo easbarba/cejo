@@ -10,19 +10,19 @@ module Cero
   module Client
     # Return Operations features
     class OperationsClient
-      attr_reader :services, :action
+      attr_reader :services, :command
 
       private
 
-      def initialize(services, action)
+      def initialize(services, command)
         @services = services
-        @action = action
+        @command = command
       end
 
       def oss
         o = Cero::Ops::Oss.new(services)
-        o.get if action == 'get'
-        o.archive if action == 'archive'
+        o.get if command == 'get'
+        o.archive if command == 'archive'
       end
 
       def homer
@@ -34,11 +34,11 @@ module Cero
       end
 
       def volume
-        Cero::Ops::Volume.new(services, action).run
+        Cero::Ops::Volume.new(services, command).run
       end
 
       def brightness
-        Cero::Ops::Brightness.new(services, action).run
+        Cero::Ops::Brightness.new(services, command).run
       end
 
       public

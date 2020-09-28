@@ -15,16 +15,16 @@ module Cero
 
       def initialize(services, args)
         @services = services
-        @feature = args.deq.to_sym
+        @feature = args.deq
         @command = args.deq
       end
 
       def operations
-        OperationsClient.new(services, command).features[feature]
+        OperationsClient.new(services, command).features[:feature]
       end
 
       def media
-        MediaClient.new(services, command).features[feature]
+        MediaClient.new(services, command).features[:feature]
       end
 
       # def projects
@@ -40,7 +40,7 @@ module Cero
       def all_sections
         {
           operation: operations,
-          media: media
+          media: media,
           # projects: projects,
           # distro: distro
         }
