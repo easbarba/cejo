@@ -15,40 +15,36 @@ module Cero
 
       def initialize(services, args)
         @services = services
-        @feature = args.deq
+        @feature = args.deq.to_sym
         @command = args.deq
       end
 
       def operations
-        OperationsClient.new(services, command).features[:feature]
+        OperationsClient.new(services, command).features[feature]
       end
 
       def media
-        MediaClient.new(services, command).features[:feature]
+        MediaClient.new(services, command).features[feature]
       end
 
-      # def projects
-      #   ProjectsClient.new(services, command).features[feature]
-      # end
+      def projects
+        ProjectsClient.new(services, command).features[feature]
+      end
 
-      # def distro
-      #   DistroClient.new(services, command).run
-      # end
+      def distro
+        DistroClient.new(services, command).run
+      end
 
       public
 
-      def all_sections
+      ## Return available sections.
+      def sections
         {
           operation: operations,
           media: media,
-          # projects: projects,
-          # distro: distro
+          projects: projects,
+          distro: distro
         }
-      end
-
-      ## Return available sections.
-      def sections
-        all_sections
       end
     end
   end

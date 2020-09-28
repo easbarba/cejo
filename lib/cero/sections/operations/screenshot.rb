@@ -41,8 +41,7 @@ module Cero
       end
 
       def run
-        p run_args
-        # Dir.chdir(screen_folder) { system(run_args) }
+        Dir.chdir(screen_folder) { system(run_args) }
       end
     end
   end

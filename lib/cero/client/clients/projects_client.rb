@@ -4,16 +4,16 @@ module Cero
   module Client
     # Projects features
     class ProjectsClient
-      attr_reader :services, :action
+      attr_reader :services, :command
 
       private
 
-      def initialize(services, action)
+      def initialize(services, command)
         @services = services
-        @action = action
+        @command = command
       end
 
-      # public
+      public
 
       def features
         {}

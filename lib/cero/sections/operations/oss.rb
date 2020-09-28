@@ -63,10 +63,10 @@ module Cero
         end
       end
 
-      def mapc(action)
+      def mapc(command)
         oss_projects.each do |language, projects|
           puts "\n--> #{language}"
-          projects.each { |project| action.call(project_info(project, language), git) }
+          projects.each { |project| command.call(project_info(project, language), git) }
         end
       end
 

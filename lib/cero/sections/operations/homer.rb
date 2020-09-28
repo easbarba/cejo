@@ -10,9 +10,12 @@ module Cero
         Pathname.new('/dados')
       end
 
+      def home
+        Pathname.new(Dir.home)
+      end
+
       def prepare_folders
         new_folders = {}
-        home = Pathname.new(Dir.home)
 
         source_folders.each_child do |folder|
           new_folders[folder] = home.join(folder.basename)

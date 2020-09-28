@@ -2,7 +2,7 @@
 
 module Cero
   module Cli
-    # Get Cli Arguments
+    # Collect and provide cli arguments.
     class Arguments
       def grab_arguments(arguments)
         args = Queue.new

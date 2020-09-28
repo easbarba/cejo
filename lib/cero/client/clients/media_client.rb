@@ -6,17 +6,17 @@ module Cero
   module Client
     # Media features
     class MediaClient
-      attr_reader :services, :action
+      attr_reader :services, :command
 
       private
 
-      def initialize(services, action)
+      def initialize(services, command)
         @services = services
-        @action = action
+        @command = command
       end
 
       def play
-        Cero::Media::Play.new(action).run
+        Cero::Media::Play.new(command).run
       end
 
       public

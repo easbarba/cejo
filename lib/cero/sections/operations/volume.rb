@@ -10,7 +10,7 @@ module Cero
 
       def initialize(services, state)
         @services = services
-        @state = state if %w[up down toggle].include? state
+        @state = state.to_sym if %w[up down toggle].include? state
       end
 
       def step
@@ -18,8 +18,8 @@ module Cero
       end
 
       def sound_manager
-        fetch_sound_manager = %w[pactl amixer mixer].first { |manager| services.os_utils.which?(manager) }
-        fetch_sound_manager
+        manager = %w[pactl amixer mixer].first { |m| services.os_utils.which?(m) }
+        manager.to_sym
       end
 
       def states
@@ -34,7 +34,7 @@ module Cero
         {
           name: 'amixer',
           toggle: '-q sset Master toggle',
-          updown: "set Master #{step}%#{states[:state]}"
+          updown: "set Master #{step}%#{states[state]}"
         }
       end
 
@@ -42,7 +42,7 @@ module Cero
         {
           name: 'pactl',
           toggle: 'set-sink-mute 0 toggle',
-          updown: "set-sink-volume 0 #{states[:state]}#{step}%"
+          updown: "set-sink-volume 0 #{states[state]}#{step}%"
         }
       end
 
@@ -50,39 +50,62 @@ module Cero
         {
           name: 'mixer',
           toggle: '',
-          updown: "mixer vol #{states[:state]} #{step}"
+          updown: "mixer vol #{states[state]} #{step}"
         }
+      end
+
+      def pactl_toggle
+        "#{pactl[:name]} #{pactl[:toggle]}"
+      end
+
+      def amixer_toggle
+        "#{amixer[:name]} #{amixer[:toggle]}"
+      end
+
+      def mixer_toggle
+        "#{mixer[:name]} #{mixer[:toggle]}"
       end
 
       def toggle
         {
-          pactl: "#{pactl[:name]} #{pactl[:toggle]}",
-          amixer: "#{amixer[:name]} #{amixer[:toggle]}",
-          mixer: "#{mixer[:name]} #{mixer[:toggle]}"
+          pactl: pactl_toggle,
+          amixer: amixer_toggle,
+          mixer: mixer_toggle
         }
+      end
+
+      def pactl_updown
+        "#{pactl[:name]} #{pactl[:updown]}"
+      end
+
+      def amixer_updown
+        "#{amixer[:name]} #{amixer[:updown]}"
+      end
+
+      def mixer_updown
+        "#{mixer[:name]} #{mixer[:updown]}"
       end
 
       def updown
         {
-          pactl: "#{pactl[:name]} #{pactl[:updown]}",
-          amixer: "#{amixer[:name]} #{amixer[:updown]}",
-          mixer: "#{mixer[:name]} #{mixer[:updown]}"
+          pactl: pactl_updown,
+          amixer: amixer_updown,
+          mixer: mixer_updown
         }
       end
 
       def mode
         {
-          toggle: toggle[:sound_manager],
-          up: updown[:sound_manager],
-          down: updown[:sound_manager]
+          toggle: toggle[sound_manager],
+          up: updown[sound_manager],
+          down: updown[sound_manager]
         }
       end
 
       public
 
       def run_args
-        p state
-        mode[:state]
+        mode[state]
       end
 
       def run

@@ -27,7 +27,8 @@ module Cero
     public
 
     def run
-      clients.sections[:arguments.deq]
+      section = arguments.deq.to_sym
+      clients.sections[section]
     end
   end
 end

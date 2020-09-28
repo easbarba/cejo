@@ -13,7 +13,7 @@ module Cero
         @command = command
       end
 
-      # public
+      public
 
       def run; end
     end
