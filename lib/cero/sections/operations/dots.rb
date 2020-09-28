@@ -6,13 +6,11 @@ module Cero
     class Dots
       private
 
-      def initialize
-      end
+      def initialize; end
 
       public
 
-      def run
-      end
+      def run; end
     end
   end
 end
