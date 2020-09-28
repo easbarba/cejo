@@ -15,8 +15,7 @@ module Cero
 
       # public
 
-      # def run
-      # end
+      def run; end
     end
   end
 end

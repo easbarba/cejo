@@ -9,7 +9,7 @@ module Cero
   module Media
     # Play file, random media in folder or with url provided by clipboard text.
     class Play
-      attr_reader :projects, :git, :file_path
+      attr_reader :file_path
 
       private
 

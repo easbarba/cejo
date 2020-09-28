@@ -8,13 +8,16 @@ module Cero
   module Ops
     # Open Source Projects utilities
     class Oss
-      attr_reader :services, :git
+      attr_reader :services
 
       private
 
       def initialize(services)
         @services = services
-        @git = services.git
+      end
+
+      def git
+        services.git
       end
 
       def projects

@@ -9,44 +9,46 @@ module Cero
   module Client
     # Provide Clients
     class ClientsFactory
-      attr_reader :services, :args, :feature, :command
+      attr_reader :services, :feature, :command
 
       private
 
       def initialize(services, args)
         @services = services
-        @feature = args.deq
+        @feature = args.deq.to_sym
         @command = args.deq
       end
 
-      def media
-        MediaClient.new(services, command)
-      end
-
-      def projects
-        ProjectsClient.new(services, command)
-      end
-
       def operations
-        OperationsClient.new(services, command)
+        OperationsClient.new(services, command).features[feature]
       end
 
-      def distro
-        DistroClient.new(services, command)
+      def media
+        MediaClient.new(services, command).features[feature]
       end
+
+      # def projects
+      #   ProjectsClient.new(services, command).features[feature]
+      # end
+
+      # def distro
+      #   DistroClient.new(services, command).run
+      # end
 
       public
 
-      ## Return available sections.
-      def sections(section)
-        pick = {
-          media: media,
-          projects: projects,
+      def all_sections
+        {
           operation: operations,
-          distro: distro
+          media: media
+          # projects: projects,
+          # distro: distro
         }
+      end
 
-        pick[section.to_sym].features[feature]
+      ## Return available sections.
+      def sections
+        all_sections
       end
     end
   end

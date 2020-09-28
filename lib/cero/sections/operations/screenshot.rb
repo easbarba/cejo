@@ -27,19 +27,22 @@ module Cero
       end
 
       def screen_folder
-        Pathname.new(Dir.home)
-                .join('Pictures')
-                .join("screenshot-#{current_time}.png")
+        Pathname.new(Dir.home).join('Pictures')
+      end
+
+      def screen_name
+        "screenshot-#{current_time}.png"
       end
 
       public
 
       def run_args
-        "#{shotter_avaiable} #{screen_folder}"
+        "#{shotter_avaiable} #{screen_name}"
       end
 
       def run
-        system(run_args)
+        p run_args
+        # Dir.chdir(screen_folder) { system(run_args) }
       end
     end
   end

@@ -15,11 +15,9 @@ module Cero
 
       # public
 
-      # def features
-      #   {
-
-      #   }
-      # end
+      def features
+        {}
+      end
     end
   end
 end
