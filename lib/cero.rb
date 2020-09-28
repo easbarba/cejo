@@ -8,8 +8,8 @@ require_relative 'cero/services/configure_services.rb'
 
 # Unix Utilities.
 module Cero
-  # Praise the sun
-  class Start
+  # and so it begins...
+  class Begin
     attr_reader :arguments
 
     private
@@ -35,4 +35,4 @@ module Cero
   end
 end
 
-Cero::Start.new.run
+Cero::Begin.new.run
