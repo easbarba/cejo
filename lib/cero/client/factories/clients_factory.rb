@@ -32,7 +32,7 @@ module Cero
           distro: DistroClient.new(services, command)
         }
 
-        pick[section].features[feature]
+        pick[section].features[feature.to_sym]
       end
     end
   end

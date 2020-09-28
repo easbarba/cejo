@@ -4,6 +4,7 @@ require_relative '../../sections/operations/oss.rb'
 require_relative '../../sections/operations/homer.rb'
 require_relative '../../sections/operations/screenshot.rb'
 require_relative '../../sections/operations/volume.rb'
+require_relative '../../sections/operations/brightness.rb'
 
 module Cero
   module Client
@@ -36,6 +37,10 @@ module Cero
         Cero::Ops::Volume.new(services, action).run
       end
 
+      def brightness
+        Cero::Ops::Brightness.new(services, action).run
+      end
+
       public
 
       def features
@@ -43,7 +48,8 @@ module Cero
           oss: oss,
           homer: homer,
           screenshot: screenshot,
-          volume: volume
+          volume: volume,
+          brightness: brightness
         }
       end
     end

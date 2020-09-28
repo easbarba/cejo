@@ -2,16 +2,36 @@
 
 module Cero
   module Ops
-    # Symlink Dotfiles to $HOME
+    # Manage System brightness.
     class Brightness
+      attr_reader :services, :brighter, :state, :step
+
       private
 
-      def initialize
+      def initialize(services, state)
+        @services = services
+        @state = state.to_sym if %w[up down].include? state
+
+        @brighter = 'brightnessctl'
+        @step = 5
+      end
+
+      def states
+        {
+          up: "set #{step}%+",
+          down: "set #{step}%-"
+        }
       end
 
       public
 
+      def run_args
+        brighter + ' ' + states[state]
+      end
+
       def run
+        puts run_args
+        system(run_args)
       end
     end
   end
