@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative 'client/factories/clients_factory'
 require_relative 'cli/arguments'
+require_relative 'client/factories/clients_factory'
 require_relative 'services/configure_services'
 
 # Unix Utilities.
