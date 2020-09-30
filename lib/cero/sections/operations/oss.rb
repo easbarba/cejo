@@ -82,11 +82,7 @@ module Cero
       end
 
       def run
-        if command == 'get'
-          get
-        elsif command == 'archive'
-          archive
-        end
+        public_send(command)
       end
     end
   end
