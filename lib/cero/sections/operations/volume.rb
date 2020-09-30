@@ -6,16 +6,14 @@ module Cero
     class Volume
       attr_reader :state
 
-      private
+      STEP = 5
 
       def initialize(services, state)
         @services = services
         @state = state.to_sym if %w[up down toggle].include? state
       end
 
-      def step
-        5
-      end
+      private
 
       def sound_manager
         manager = %w[pactl amixer mixer].first { |m| services.os_utils.which?(m) }
@@ -34,7 +32,7 @@ module Cero
         {
           name: 'amixer',
           toggle: '-q sset Master toggle',
-          updown: "set Master #{step}%#{states[state]}"
+          updown: "set Master #{STEP}%#{states[state]}"
         }
       end
 
@@ -42,7 +40,7 @@ module Cero
         {
           name: 'pactl',
           toggle: 'set-sink-mute 0 toggle',
-          updown: "set-sink-volume 0 #{states[state]}#{step}%"
+          updown: "set-sink-volume 0 #{states[state]}#{STEP}%"
         }
       end
 
@@ -50,7 +48,7 @@ module Cero
         {
           name: 'mixer',
           toggle: '',
-          updown: "mixer vol #{states[state]} #{step}"
+          updown: "mixer vol #{states[state]} #{STEP}"
         }
       end
 

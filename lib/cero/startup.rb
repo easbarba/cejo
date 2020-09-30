@@ -30,9 +30,7 @@ module Cero
     public
 
     def run
-      clients.sections[section]
-             .features[feature]
-             .run
+      clients.sections[section].features[feature].run
     end
   end
 end

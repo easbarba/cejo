@@ -4,21 +4,19 @@ module Cero
   module Ops
     # Manage System brightness.
     class Brightness
-      attr_reader :services, :state
+      attr_reader :services, :state, :step
 
-      private
+      STEP = 5
 
       def initialize(services, state)
         @services = services
         @state = state.to_sym if %w[up down].include? state
       end
 
+      private
+
       def brighter
         'brightnessctl'
-      end
-
-      def step
-        5
       end
 
       def states
