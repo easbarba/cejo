@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "cero"
+require_relative "../lib/cero.rb"
 
-require "irb"
-IRB.start(__FILE__)
+Cero::Startup.new.run
