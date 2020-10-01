@@ -21,8 +21,8 @@ module Cero
 
       def states
         {
-          up: "set #{step}%+",
-          down: "set #{step}%-"
+          up: "set #{STEP}%+",
+          down: "set #{STEP}%-"
         }
       end
 
