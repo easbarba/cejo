@@ -5,6 +5,7 @@ require_relative '../../sections/operations/homer'
 require_relative '../../sections/operations/screenshot'
 require_relative '../../sections/operations/volume'
 require_relative '../../sections/operations/brightness'
+require_relative '../../sections/operations/dots'
 
 module Cero
   module Client
@@ -21,6 +22,10 @@ module Cero
 
       def oss
         Cero::Ops::Oss.new(services, command)
+      end
+
+      def dots
+        Cero::Ops::Dots.new
       end
 
       def homer
@@ -43,6 +48,7 @@ module Cero
 
       def features
         {
+          dots: dots,
           oss: oss,
           homer: homer,
           screenshot: screenshot,
