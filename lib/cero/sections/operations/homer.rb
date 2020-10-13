@@ -6,19 +6,14 @@ module Cero
     class Homer
       private
 
-      def source_folders
-        Pathname.new('/dados')
-      end
-
-      def home
-        Pathname.new(Dir.home)
-      end
+      HOME = Pathname.new(Dir.home)
 
       def prepare_folders
+        root = Pathname.new('/dados')
         new_folders = {}
 
-        source_folders.each_child do |folder|
-          new_folders[folder] = home.join(folder.basename)
+        root.each_child do |folder|
+          new_folders[folder] = HOME.join(folder.basename)
         end
 
         new_folders
