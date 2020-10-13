@@ -10,17 +10,18 @@ module Cero
       private
 
       HOME = Pathname.new(Dir.home)
+      ROOT = Pathname.new('/dados/Pessoal/lar')
+      IGNORE = ['LICENSE', ROOT.join('.git').to_path.to_s].freeze
 
       def root_files_folders
-        root = Pathname.new('/dados/Pessoal/lar')
         files = []
         folders = []
 
-        Find.find(root) do |file|
+        Find.find(ROOT) do |file|
           filepath = Pathname.new file
 
-          next if filepath == root
-          next if file.start_with? root.join('.git').to_path.to_s
+          next if filepath == ROOT
+          next if file.start_with? ROOT.join('.git').to_path.to_s
 
           files << filepath if filepath.file?
           folders << filepath if filepath.directory?
@@ -29,37 +30,45 @@ module Cero
         { folders: folders, files: files }
       end
 
-      # def prepare_folders
-      #   Find.find(a) do |f|
-      #     next if f.start_with? a.join('.git').to_path # ignore .git folder
+      def to_home(this)
+        Pathname.new(this.to_path.gsub(ROOT.to_path, HOME.to_path))
+      end
 
-      #     x = Pathname.new f
-      #     puts x.parent.to_path
-      #   end
+      def create_home_folders
+        root_files_folders[:folders].each do |f|
+          folder = to_home f
+          next if folder.exist?
 
-      #   # result = {}
+          puts folder
+          folder.mkdir
+        end
+      end
 
-      #   # SOURCE_FOLDER.children.each do |f|
-      #   #   next unless f.basename.to_s != '.git' && f.directory?
+      # def backup_this(this)
+      #   # next if this.symlink?
 
-      #   #   x = get_name_files f
-      #   #   result[x.keys.first] = x.values
-      #   # end
-
-      #   # result
+      #   backup = Pathname.new HOME.join('backup')
+      #   p backup
       # end
 
-      # def target_link
-      #   get_name_files # TODO: require/provide one at request
-      # end
+      def symlink_files
+        root_files_folders[:files].each do |f|
+          next if IGNORE.include? f.basename.to_s
+
+          file = to_home f
+
+          file.delete if file.exist?
+
+          puts "#{f} --> #{file}"
+          file.make_symlink f
+        end
+      end
 
       public
 
       def run
-        root_files_folders[:folders].each { |f| puts f }
-        # target_link.each do |target, link|
-        #   File.symlink(target, link) if !link.exist? && target.basename.to_s != 'lost+found'
-        # end
+        create_home_folders
+        symlink_files
       end
     end
   end
