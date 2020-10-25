@@ -9,7 +9,7 @@ module Cero
       HOME = Pathname.new(Dir.home)
 
       def prepare_folders
-        root = Pathname.new('/dados')
+        root = Pathname.new('/data')
         new_folders = {}
 
         root.each_child do |folder|

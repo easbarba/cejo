@@ -10,7 +10,7 @@ module Cero
       private
 
       HOME = Pathname.new(Dir.home)
-      ROOT = Pathname.new('/dados/Pessoal/lar')
+      ROOT = Pathname.new('/data/Personal/lar')
       IGNORE = ['LICENSE', ROOT.join('.git').to_path.to_s].freeze
 
       def root_files_folders
