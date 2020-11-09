@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['E. Alexander Barbosa']
   spec.email         = ['elxbarbosa@gmail.com']
 
-  spec.summary       = 'Unix utilities and software interface'
+  spec.summary       = 'Miscellaneous Unix toolings front-end and utilities'
   spec.homepage      = 'https://github.com/elxbarbosa/cero'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.license = 'GPL-3.0'
