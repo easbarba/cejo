@@ -23,7 +23,7 @@ module Cero
     end
 
     def clients
-      command = arguments.deq
+      command = arguments.empty? ? '' : arguments.deq
       Cero::Client::ClientsFactory.new(services, command)
     end
 
