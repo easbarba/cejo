@@ -25,7 +25,7 @@ module Cero
       end
 
       def dots
-        Cero::Ops::Dots.new
+        Cero::Ops::Dots.new(command)
       end
 
       def homer

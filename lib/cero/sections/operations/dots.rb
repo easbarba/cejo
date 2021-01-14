@@ -7,21 +7,26 @@ module Cero
   module Ops
     # Mirror Lar files in $HOME.
     class Dots
-      private
+      attr_reader :root, :ignore_these
 
       HOME = Pathname.new(Dir.home)
-      ROOT = Pathname.new('/data/Personal/lar')
-      IGNORE = ['LICENSE', ROOT.join('.git').to_path.to_s].freeze
+
+      private
+
+      def initialize(root)
+        @root = Pathname.new(root)
+        @ignore_these = ['LICENSE', @root.join('.git').to_path.to_s].freeze
+      end
 
       def root_files_folders
         files = []
         folders = []
 
-        Find.find(ROOT) do |file|
+        Find.find(@root) do |file|
           filepath = Pathname.new file
 
-          next if filepath == ROOT
-          next if file.start_with? ROOT.join('.git').to_path.to_s
+          next if filepath == @root
+          next if file.start_with? @root.join('.git').to_path.to_s
 
           files << filepath if filepath.file?
           folders << filepath if filepath.directory?
@@ -31,7 +36,10 @@ module Cero
       end
 
       def to_home(this)
-        Pathname.new(this.to_path.gsub(ROOT.to_path, HOME.to_path))
+        origin = this.to_path
+        homey = HOME.to_path.concat('/')
+        result = origin.gsub(@root.to_path, homey)
+        Pathname.new(result)
       end
 
       def create_home_folders
@@ -44,22 +52,20 @@ module Cero
         end
       end
 
-      # def backup_this(this)
-      #   # next if this.symlink?
-
-      #   backup = Pathname.new HOME.join('backup')
-      #   p backup
-      # end
+      def backup_this(this)
+        p "Deleting or Moving: #{this}"
+        this.delete if this.exist?
+      end
 
       def symlink_files
         root_files_folders[:files].each do |f|
-          next if IGNORE.include? f.basename.to_s
+          next if @ignore_these.include? f.basename.to_s
 
           file = to_home f
 
-          file.delete if file.exist?
+          backup_this file
 
-          puts "#{f} --> #{file}"
+          puts "#{f} --> #{file}" # print all files uniformly as a table
           file.make_symlink f
         end
       end
