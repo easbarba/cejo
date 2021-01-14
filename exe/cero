@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/cero.rb"
+
+Cero::Startup.new.run
