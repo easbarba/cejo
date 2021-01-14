@@ -1,7 +1,0 @@
-
-* TODO git flow
-  Adopt git flow from here on
-* TODO Scrum/Kanban
-  kind of sticking per tags
-* TODO golang
-  i would like the C way, but golang is more than enough :)
