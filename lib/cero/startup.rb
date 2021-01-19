@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'cli/arguments'
-require_relative 'client/factories/clients_factory'
 require_relative 'services/configure_services'
+require_relative 'client/factories/clients_factory'
 
 # Unix Utilities.
 module Cero
@@ -18,13 +18,15 @@ module Cero
       @feature = arguments.deq.to_sym
     end
 
+    # TODO: Use IoC
     def services
-      Cero::Services::ConfigureServices.new # TODO: Use IoC
+      Cero::Services::ConfigureServices.new
     end
 
     def clients
-      command = arguments.empty? ? '' : arguments.deq
-      Cero::Client::ClientsFactory.new(services, command)
+      command = arguments.empty? ? nil : arguments.deq
+      subcommand = arguments.empty? ? nil : arguments.deq
+      Cero::Client::ClientsFactory.new(services, command, subcommand)
     end
 
     public
