@@ -31,7 +31,7 @@ module Cero
 
         media = Pathname.new(file_path)
 
-        return media.to_s if file_path.file?
+        return media.to_s if media.file?
 
         return pick_random_media_in_folder(media) if media.directory?
       end
