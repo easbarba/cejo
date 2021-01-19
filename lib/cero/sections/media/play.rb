@@ -11,38 +11,35 @@ module Cero
     class Play
       attr_reader :file_path
 
+      PLAYER = 'mpv'
+      PLAYER_CONFIG = '--no-config --no-audio-display --ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
+
       private
 
       def initialize(file_path)
-        @file_path = Pathname(file_path)
-      end
-
-      def player
-        'mpv'
-      end
-
-      def player_config
-        '--no-config --no-audio-display --ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
+        @file_path = file_path
       end
 
       ## play random media in folder
-      def pick_folder_random_media
-        file_path.join(Dir.entries(file_path).sample).to_s.shellescape
+      def pick_random_media_in_folder(media)
+        media.join(Dir.entries(media).sample).to_s.shellescape
       end
 
       ## play media from clipboard url or file
       def choose_media_to_play
-        return file_path.to_s if file_path.file?
+        return Clipboard.paste if file_path.nil?
 
-        return pick_folder_random_media if file_path.directory?
+        media = Pathname.new(file_path)
 
-        Clipboard.paste
+        return media.to_s if file_path.file?
+
+        return pick_random_media_in_folder(media) if media.directory?
       end
 
       public
 
       def run_args
-        "#{player} #{player_config} #{choose_media_to_play}"
+        "#{PLAYER} #{PLAYER_CONFIG} #{choose_media_to_play}"
       end
 
       def run
