@@ -6,6 +6,7 @@ require_relative '../../sections/operations/screenshot'
 require_relative '../../sections/operations/volume'
 require_relative '../../sections/operations/brightness'
 require_relative '../../sections/operations/dots'
+require_relative '../../sections/operations/sysinfo'
 
 module Cero
   module Client
@@ -44,6 +45,10 @@ module Cero
         Cero::Ops::Brightness.new(services, command)
       end
 
+      def sysinfo
+        Cero::Ops::Sysinfo.new(services, command)
+      end
+
       public
 
       def features
@@ -53,7 +58,8 @@ module Cero
           homer: homer,
           screenshot: screenshot,
           brightness: brightness,
-          volume: volume
+          volume: volume,
+          sysinfo: sysinfo
         }
       end
     end
