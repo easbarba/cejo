@@ -9,13 +9,14 @@ module Cero
   module Client
     # Provide Clients
     class ClientsFactory
-      attr_reader :services, :feature, :command
+      attr_reader :services, :feature, :command, :subcommand
 
       private
 
-      def initialize(services, command)
+      def initialize(services, command, subcommand)
         @services = services
         @command = command
+        @subcommand = subcommand
       end
 
       def operations
@@ -23,7 +24,7 @@ module Cero
       end
 
       def media
-        MediaClient.new(services, command)
+        MediaClient.new(services, command, subcommand)
       end
 
       def projects
@@ -31,7 +32,7 @@ module Cero
       end
 
       def distro
-        DistroClient.new(services, command) # run
+        DistroClient.new(services, command)
       end
 
       public
