@@ -12,9 +12,10 @@ module Cero
       end
 
       def info_and_exit(foo, *options)
-        options.each { |op| puts "option: #{op}" }
+        return unless foo.nil?
 
-        exit if foo.nil?
+        options.each { |op| puts "option: #{op}" }
+        exit
       end
     end
   end
