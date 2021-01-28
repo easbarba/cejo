@@ -10,7 +10,7 @@ module Cero
 
       def initialize(services, state)
         @services = services
-        @state = state.to_sym if %w[up down].include? state
+        @state = state
       end
 
       private
@@ -33,6 +33,9 @@ module Cero
       end
 
       def run
+        @services.utils.info_and_exit(state, '+', '-')
+        @state = state.to_sym if %w[up down].include? state
+
         system(run_args)
       end
     end

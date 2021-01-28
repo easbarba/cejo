@@ -82,6 +82,8 @@ module Cero
       end
 
       def run
+        services.utils.info_and_exit(command, 'get', 'archive')
+
         public_send(command)
       end
     end

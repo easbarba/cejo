@@ -13,9 +13,9 @@ module Cero
 
       private
 
-      def initialize(root)
-        @root = Pathname.new(root)
-        @ignore_these = ['LICENSE', @root.join('.git').to_path.to_s].freeze
+      def initialize(services, root)
+        @services = services
+        @root = root
       end
 
       def root_files_folders
@@ -73,6 +73,10 @@ module Cero
       public
 
       def run
+        @services.utils.info_and_exit(root, 'path to folder')
+        @root = Pathname.new(root) # TODO: check if is a folder
+        @ignore_these = ['LICENSE', @root.join('.git').to_path.to_s].freeze
+
         create_home_folders
         symlink_files
       end
