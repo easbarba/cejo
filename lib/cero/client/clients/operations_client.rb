@@ -12,21 +12,21 @@ module Cero
   module Client
     # Return Operations features
     class OperationsClient
-      attr_reader :services, :command
+      attr_reader :services, :subcommand
 
       private
 
-      def initialize(services, command)
+      def initialize(services, subcommand)
         @services = services
-        @command = command
+        @subcommand = subcommand
       end
 
       def oss
-        Cero::Ops::Oss.new(services, command)
+        Cero::Ops::Oss.new(services, subcommand)
       end
 
       def dots
-        Cero::Ops::Dots.new(command)
+        Cero::Ops::Dots.new(services, subcommand)
       end
 
       def homer
@@ -38,15 +38,15 @@ module Cero
       end
 
       def volume
-        Cero::Ops::Volume.new(services, command)
+        Cero::Ops::Volume.new(services, subcommand)
       end
 
       def brightness
-        Cero::Ops::Brightness.new(services, command)
+        Cero::Ops::Brightness.new(services, subcommand)
       end
 
       def sysinfo
-        Cero::Ops::Sysinfo.new(services, command)
+        Cero::Ops::Sysinfo.new(services, subcommand)
       end
 
       public
