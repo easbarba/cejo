@@ -73,7 +73,7 @@ module Cero
       public
 
       def run
-        @services.utils.info_and_exit(root, 'path to folder')
+        @services.utils.info_and_exit(root, '/path/to/folder')
         @root = Pathname.new(root) # TODO: check if is a folder
         @ignore_these = ['LICENSE', @root.join('.git').to_path.to_s].freeze
 
