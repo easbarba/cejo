@@ -22,11 +22,11 @@ module Cero
         files = []
         folders = []
 
-        Find.find(@root) do |file|
+        Find.find(root) do |file|
           filepath = Pathname.new file
 
-          next if filepath == @root
-          next if file.start_with? @root.join('.git').to_path.to_s
+          next if filepath == root
+          next if file.start_with? root.join('.git').to_path.to_s
 
           files << filepath if filepath.file?
           folders << filepath if filepath.directory?
@@ -38,7 +38,7 @@ module Cero
       def to_home(this)
         origin = this.to_path
         homey = HOME.to_path.concat('/')
-        result = origin.gsub(@root.to_path, homey)
+        result = origin.gsub(root.to_path, homey)
         Pathname.new(result)
       end
 
@@ -59,7 +59,7 @@ module Cero
 
       def symlink_files
         root_files_folders[:files].each do |f|
-          next if @ignore_these.include? f.basename.to_s
+          next if ignore_these.include? f.basename.to_s
 
           file = to_home f
 
@@ -75,7 +75,7 @@ module Cero
       def run
         @services.utils.info_and_exit(root, '/path/to/folder')
         @root = Pathname.new(root) # TODO: check if is a folder
-        @ignore_these = ['LICENSE', @root.join('.git').to_path.to_s].freeze
+        @ignore_these = ['LICENSE', root.join('.git').to_path.to_s].freeze
 
         create_home_folders
         symlink_files
