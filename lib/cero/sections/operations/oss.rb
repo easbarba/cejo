@@ -26,8 +26,8 @@ module Cero
       end
 
       def oss_projects
-        @ossfile_path ||= services.folders.cero_config + 'oss.json'
-        JSON.parse(File.read(@ossfile_path))
+        ossfile_path ||= services.folders.cero_config.join('oss').join('oss.json')
+        JSON.parse(File.read(ossfile_path))
       end
 
       Data = Struct.new(:url, :name, :folder)
