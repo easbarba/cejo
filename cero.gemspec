@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/cero/version'
+require 'cero/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'cero'
@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['EAS Barbosa']
   spec.email         = ['easbarbosa@pm.me']
 
-  spec.summary       = 'Miscellaneous Unix toolings front-end and utilities'
-  spec.homepage      = 'https://gitlab.com/elxbarbosa/cero'
+  spec.summary       = 'Miscellaneous Unix automation and services utilities.'
+  spec.homepage      = 'https://gitlab.com/easbarbosa/cero'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.license = 'GPL-3.0'
 
