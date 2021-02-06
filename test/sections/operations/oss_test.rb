@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'test/unit'
 
-require_relative '../../../lib/cero/sections/operations/oss.rb'
-require_relative '../../../lib/cero/services/configure_services.rb'
+require 'cero/sections/operations/oss'
+require 'cero/services/configure_services'
 
 # Test Oss
 class OssTest < Test::Unit::TestCase
