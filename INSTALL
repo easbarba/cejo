@@ -1,0 +1,2 @@
+gem build cero.gemspec
+gem install --user-install pkg/cero-VERSION.gem
