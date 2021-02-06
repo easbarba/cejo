@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
-require_relative "../lib/cero.rb"
+# frozen_string_literal: true
+
+require 'cero/startup'
 
 Cero::Startup.new.run
