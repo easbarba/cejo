@@ -1,13 +1,16 @@
 require 'test/unit'
-require 'sections/operations/oss.rb'
-require 'services/git.rb'
 
+require_relative '../../../lib/cero/sections/operations/oss.rb'
+require_relative '../../../lib/cero/services/configure_services.rb'
+
+# Test Oss
 class OssTest < Test::Unit::TestCase
   def setup
-    git = Cero::Services::Git.new
-    @oss = Cero::Operations::Oss.new(git)
+    @services = Cero::Services::ConfigureServices.new
   end
 
-  def test_Get
-    @oss.run()
+  def test_get
+    oss = Cero::Ops::Oss.new(@services, 'get')
+    oss.ARCHIVE_THESE
   end
+end
