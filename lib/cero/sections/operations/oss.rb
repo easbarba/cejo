@@ -8,6 +8,10 @@ module Cero
   module Ops
     # Open Source Projects utilities
     class Oss
+      ARCHIVE_THESE = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
+                       'rubygems', 'rubocop', 'rails', 'emacs-async',
+                       'use-package', 'lsp-mode', 'emacs'].freeze
+
       attr_reader :services, :command
 
       private
@@ -15,48 +19,26 @@ module Cero
       def initialize(services, command)
         @services = services
         @command =  command
+
+        @git = services.git
+        @projects = Pathname.new(File.join(Dir.home, 'Projects'))
       end
 
-      def git
-        services.git
-      end
+      DATA = Struct.new(:url, :name, :folder)
 
-      def projects
-        Pathname.new(File.join(Dir.home, 'Projects'))
-      end
-
-      def oss_projects
-        ossfile_path ||= services.folders.cero_config.join('oss').join('oss.json')
-        JSON.parse(File.read(ossfile_path))
-      end
-
-      Data = Struct.new(:url, :name, :folder)
-
-      def project_info(project, language)
-        url = URI(project)
-        name = url.path.split('/').last
-        folder = projects.join(language, name)
-
-        Data.new url, name, folder
-      end
-
-      ARCHIVE_THESE = ['cero', 'lxbarbosa.github.io', 'documentos', 'ruby',
-                       'rubygems', 'rubocop', 'rails', 'emacs-async',
-                       'use-package', 'lsp-mode', 'emacs'].freeze
-
-      ## Archive desired FLOSS projects
-      Archive_this = lambda do |project, git|
+      # Archive desired FLOSS projects
+      ARCHIVE_THIS = lambda do |project, git|
         return unless ARCHIVE_THESE.include?(project.name)
 
         archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
         Dir.mkdir(archives_folder) unless archives_folder.exist?
 
         to = archives_folder + project.name
-        git.archive to, project.folder # archive thread
+        @git.archive to, project.folder # archive thread
       end
 
-      ## Clone FLOSS Projects
-      Get_this = lambda do |project, git|
+      # Clone FLOSS Projects
+      GET_THIS = lambda do |project, git|
         if project.folder.exist?
           git.pull project.folder
         else
@@ -64,21 +46,34 @@ module Cero
         end
       end
 
+      def oss_projects
+        ossfile_path ||= services.folders.cero_config.join('oss').join('oss.json')
+        JSON.parse(File.read(ossfile_path))
+      end
+
+      def project_info(project, language)
+        url = URI(project)
+        name = url.path.split('/').last
+        folder = @projects.join(language, name)
+
+        DATA.new url, name, folder
+      end
+
       def mapc(command)
         oss_projects.each do |language, projects|
           puts "\n--> #{language}"
-          projects.each { |project| command.call(project_info(project, language), git) }
+          projects.each { |project| command.call(project_info(project, language), @git) }
         end
       end
 
       public
 
       def archive
-        mapc(Archive_this)
+        mapc(ARCHIVE_THIS)
       end
 
       def get
-        mapc(Get_this)
+        mapc(GET_THIS)
       end
 
       def run
