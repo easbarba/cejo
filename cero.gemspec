@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
-require 'cero/version'
-
 Gem::Specification.new do |spec|
   spec.name          = 'cero'
-  spec.version       = Cero::VERSION
+  spec.summary       = 'Miscellaneous Unix automation and services utilities.'
+  spec.description   = File.read(File.join(File.dirname(__FILE__), 'README.org'))
+  spec.version       = '0.0.1'
   spec.authors       = ['EAS Barbosa']
   spec.email         = ['easbarbosa@pm.me']
 
-  spec.summary       = 'Miscellaneous Unix automation and services utilities.'
+  spec.platform      = Gem::Platform::RUBY
+  spec.required_ruby_version = '>=2.7'
   spec.homepage      = 'https://gitlab.com/easbarbosa/cero'
   spec.metadata['homepage_uri'] = spec.homepage
   spec.license = 'GPL-3.0'
@@ -19,8 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ['lib']
   spec.bindir        = 'exe'
-  spec.executables = %w[cero]
-
+  spec.executables   = %w[cero]
+  spec.has_rdoc      = false
   %w[bundler pry reek shoulda].each do |dep|
     spec.add_development_dependency dep
   end
