@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/media/play'
-require_relative '../../sections/media/getmedia'
+require 'sections/media/play'
+require 'sections/media/getmedia'
 
 module Cero
   module Client

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/operations/oss'
-require_relative '../../sections/operations/homer'
-require_relative '../../sections/operations/screenshot'
-require_relative '../../sections/operations/volume'
-require_relative '../../sections/operations/brightness'
-require_relative '../../sections/operations/dots'
-require_relative '../../sections/operations/sysinfo'
+require 'sections/operations/oss'
+require 'sections/operations/homer'
+require 'sections/operations/screenshot'
+require 'sections/operations/volume'
+require 'sections/operations/brightness'
+require 'sections/operations/dots'
+require 'sections/operations/sysinfo'
 
 module Cero
   module Client
