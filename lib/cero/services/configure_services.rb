@@ -5,6 +5,7 @@ require_relative 'git'
 require_relative 'utils'
 
 module Cero
+  # Utilities and System Software front-end.
   module Services
     # Provide Services
     class ConfigureServices
