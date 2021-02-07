@@ -57,7 +57,7 @@ module Cejo
         this.delete if this.exist?
       end
 
-      def symlink_files
+      def symlink_files # TODO: if file exist back/delete up it
         root_files_folders[:files].each do |f|
           next if ignore_these.include? f.basename.to_s
 
