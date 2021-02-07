@@ -4,34 +4,33 @@ require 'cli/arguments'
 require 'services/configure_services'
 require 'client/factories/clients_factory'
 
-# Unix Utilities.
+# Miscellaneous Unix automation and services utilities.
 module Cero
   # and so it begins...
   class Startup
-    attr_reader :arguments, :section, :feature
+    SERVICES = Cero::Services::ConfigureServices.new # TODO: Use IoC
+
+    attr_reader :arguments
 
     private
 
     def initialize
       @arguments = Cero::Cli::Arguments.new.grab_arguments(ARGV)
-      @section = arguments.deq.to_sym
-      @feature = arguments.deq.to_sym
-    end
-
-    # TODO: Use IoC
-    def services
-      Cero::Services::ConfigureServices.new
     end
 
     def clients
-      command = arguments.empty? ? nil : arguments.deq
-      subcommand = arguments.empty? ? nil : arguments.deq
-      Cero::Client::ClientsFactory.new(services, command, subcommand)
+      command = arguments.deq unless arguments.empty?
+      subcommand = arguments.deq unless arguments.empty?
+
+      Cero::Client::ClientsFactory.new(SERVICES, command, subcommand)
     end
 
     public
 
     def run
+      section = arguments.deq.to_sym
+      feature = arguments.deq.to_sym
+
       clients.sections[section].features[feature].run
     end
   end
