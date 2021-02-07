@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'cli/arguments'
-require 'services/configure_services'
-require 'client/factories/clients_factory'
+require_relative 'cli/arguments'
+require_relative 'services/configure_services'
+require_relative 'client/factories/clients_factory'
 
 # Miscellaneous Unix automation and services utilities.
 module Cejo

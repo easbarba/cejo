@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'client/clients/distro_client'
-require 'client/clients/operations_client'
-require 'client/clients/projects_client'
-require 'client/clients/media_client'
+require_relative '../clients/distro_client'
+require_relative '../clients/operations_client'
+require_relative '../clients/projects_client'
+require_relative '../clients/media_client'
 
 module Cejo
   module Client

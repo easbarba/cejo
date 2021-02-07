@@ -2,6 +2,6 @@
 
 # frozen_string_literal: true
 
-require 'cejo/startup'
+require_relative '../lib/cejo/startup'
 
 Cejo::Startup.new.run

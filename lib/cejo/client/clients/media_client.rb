@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'sections/media/play'
-require 'sections/media/getmedia'
+require_relative '../../sections/media/play'
+require_relative '../../sections/media/getmedia'
 
 module Cejo
   module Client
