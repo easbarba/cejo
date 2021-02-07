@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 Gem::Specification.new do |spec|
-  spec.name          = 'cero'
-  spec.summary       = 'Miscellaneous Unix automation and services utilities.'
+  spec.name          = 'cero'.freeze
+  spec.summary       = 'Miscellaneous Unix automation and services utilities.'.freeze
   spec.description   = File.read(File.join(File.dirname(__FILE__), 'README.org'))
   spec.version       = '0.0.1'
-  spec.authors       = ['EAS Barbosa']
-  spec.email         = ['easbarbosa@pm.me']
+  spec.authors       = ['EAS Barbosa'.freeze]
+  spec.email         = ['easbarbosa@pm.me'.freeze]
 
   spec.platform      = Gem::Platform::RUBY
-  spec.required_ruby_version = '>=2.7'
-  spec.homepage      = 'https://gitlab.com/easbarbosa/cero'
+  spec.required_ruby_version = '>=2.7'.freeze
+  spec.homepage      = 'https://gitlab.com/easbarbosa/cero'.freeze
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.license = 'GPL-3.0'
+  spec.license = 'GPL-3.0'.freeze
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
@@ -26,5 +26,5 @@ Gem::Specification.new do |spec|
     spec.add_development_dependency dep
   end
 
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0'.freeze)
 end
