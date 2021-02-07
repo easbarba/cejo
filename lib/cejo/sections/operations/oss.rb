@@ -8,6 +8,9 @@ module Cejo
   module Ops
     # Grab or Archive FLOSS Projects
     class Oss
+      # Folder where Projects repositories will be stored
+      PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
+
       # FLOSS Projects elected to be archived
       ARCHIVE_THESE = %w[cejo ruby rake rubocop rails use-package lsp-mode emacs].freeze
 
@@ -19,22 +22,24 @@ module Cejo
 
       private
 
-      # Archive FLOSS project
+      # Archiving FLOSS project
       ARCHIVE_THIS = lambda do |project, git|
         return unless ARCHIVE_THESE.include?(project.name)
 
-        archives_folder = Pathname.new(File.join(Dir.home, 'Downloads', 'projects'))
-        Dir.mkdir(archives_folder) unless archives_folder.exist?
+        folder.new(File.join(Dir.home, 'Downloads', 'archived'))
+        Dir.mkdir(folder) unless folder.exist?
 
-        to = archives_folder + project.name
-        git.archive to, project.folder # archive thread
+        git.archive(folder.join(project.name), project.folder) # fiber/multithread
       end
 
-      # Clone/Pull FLOSS Project
+      # Cloning/Pulling FLOSS Project
       GRAB_THIS = lambda do |project, git|
-        git.pull(project.folder) if project.folder.exist?
+        if project.folder.exist?
+          git.pull(project.folder)
+          return
+        end
 
-        git.clone(project.url, project.folder) unless project.folder.exist?
+        git.clone(project.url, project.folder)
       end
 
       def initialize(services, command)
@@ -42,14 +47,9 @@ module Cejo
         @command =  command
       end
 
-      # Folder where Projects will be stored
-      def projects # TODO: Check if folder exist, create it otherwise
-        Pathname.new(File.join(Dir.home, 'Projects'))
-      end
-
       # Path of file with desired FLOSS projects
       def oss_filepath
-        services.folders.cejo_config.join('oss', 'oss.json')
+        services.folders.cejo_config.join('oss', 'oss.json') # TODO: Parse all files in oss folder
       end
 
       # Parse FLOSS file path
@@ -57,11 +57,11 @@ module Cejo
         JSON.parse(File.read(oss_filepath))
       end
 
-      # Provide Infomation of current FLOSS project
+      # Provide infomation of current FLOSS project
       def project_info(project, language)
         url = URI(project)
         name = url.path.split('/').last
-        folder = projects.join(language, name)
+        folder = PROJECTS.join(language, name)
 
         DATA.new url, name, folder
       end
@@ -70,7 +70,8 @@ module Cejo
       def mapc(command)
         oss_projects_parsed.each do |language, projects|
           puts "\n--> #{language}"
-          projects.each do |project|
+
+          projects.each do |project| # TODO: avoid nested iteration
             command.call(project_info(project, language), @services.git)
           end
         end
