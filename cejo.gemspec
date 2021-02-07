@@ -21,7 +21,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
-  spec.has_rdoc      = false
   %w[bundler pry reek shoulda].each do |dep|
     spec.add_development_dependency dep
   end
