@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "cero"
+require "cejo"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

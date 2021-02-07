@@ -1,2 +1,2 @@
-gem build cero.gemspec
-gem install --user-install pkg/cero-VERSION.gem
+gem build cejo.gemspec
+gem install --user-install pkg/cejo-VERSION.gem

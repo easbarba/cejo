@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cero (0.0.1)
+    cejo (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -79,7 +79,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  cero!
+  cejo!
   clipboard
   diff-lcs
   parser
