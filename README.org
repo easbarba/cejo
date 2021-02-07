@@ -1,0 +1,9 @@
+#+TILE: Cejo
+
+* Cejo
+  Miscellaneous Unix automation and services utilities
+* Install
+* Why Cejo?
+  Named after my grandparents names: Celina & Joseph
+* License
+  GPL version 3
