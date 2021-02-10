@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'pathname'
-require 'json'
+require 'yaml'
 require 'uri'
 
 module Cejo
@@ -59,7 +59,7 @@ module Cejo
 
         oss_filepath.each_child do |x|
           name = x.basename.sub_ext('').to_s
-          a[name] = JSON.parse(File.read(x)) if x.extname == '.json'
+          a[name] = YAML.load_file x if x.extname == '.yaml'
         end
 
         a
