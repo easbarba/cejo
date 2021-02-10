@@ -36,25 +36,33 @@ module Cejo
       GRAB_THIS = lambda do |project, git|
         if project.folder.exist?
           git.pull(project.folder)
-          return
+        else
+          git.clone(project.url, project.folder)
         end
-
-        git.clone(project.url, project.folder)
       end
 
       def initialize(services, command)
         @services = services
         @command =  command
+
+        @parsed_projects = {}
       end
 
       # Path of file with desired FLOSS projects
       def oss_filepath
-        services.folders.cejo_config.join('oss', 'oss.json') # TODO: Parse all files in oss folder
+        services.folders.cejo_config.join('oss')
       end
 
       # Parse FLOSS file path
-      def oss_projects_parsed
-        JSON.parse(File.read(oss_filepath))
+      def parse_oss_projects
+        a = {}
+
+        oss_filepath.each_child do |x|
+          name = x.basename.sub_ext('').to_s
+          a[name] = JSON.parse(File.read(x))
+        end
+
+        a
       end
 
       # Provide infomation of current FLOSS project
@@ -68,7 +76,8 @@ module Cejo
 
       # Generate list of Projects
       def mapc(command)
-        oss_projects_parsed.each do |language, projects|
+        @parsed_projects = parse_oss_projects
+        @parsed_projects.each do |language, projects|
           puts "\n--> #{language}"
 
           projects.each do |project| # TODO: avoid nested iteration
