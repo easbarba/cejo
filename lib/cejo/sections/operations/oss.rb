@@ -59,7 +59,7 @@ module Cejo
 
         oss_filepath.each_child do |x|
           name = x.basename.sub_ext('').to_s
-          a[name] = JSON.parse(File.read(x))
+          a[name] = JSON.parse(File.read(x)) if x.extname == '.json'
         end
 
         a
