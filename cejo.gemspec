@@ -21,7 +21,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
-  %w[bundler pry reek shoulda].each do |dep|
+
+  spec.add_dependency 'clipboard'
+
+  %w[bundler rake rspec pry reek shoulda].each do |dep|
     spec.add_development_dependency dep
   end
 
