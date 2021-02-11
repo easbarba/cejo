@@ -67,6 +67,7 @@ module Cejo
           backup_this symlink_name
 
           # TODO: Extract this to use in a block
+          # TODO: Symlink only if not exist or symlkin point to nowhere
           puts "#{target} --> #{symlink_name}"
           symlink_name.make_symlink target
         end
