@@ -39,6 +39,7 @@ module Cejo
         origin = this.to_path
         homey = HOME.to_path.concat('/')
         result = origin.gsub(root.to_path, homey)
+
         Pathname.new(result)
       end
 
@@ -53,20 +54,21 @@ module Cejo
       end
 
       def backup_this(this)
-        p "Deleting or Moving: #{this}"
-        this.delete if this.exist?
+        puts "Deleting or Moving: #{this}"
+        this.delete if this.exist?  # TODO: if file exist back/delete up it
       end
 
-      def symlink_files # TODO: if file exist back/delete up it
-        root_files_folders[:files].each do |f|
-          next if ignore_these.include? f.basename.to_s
+      def symlink_files # TODO: As enumerator yielding folder to symlink
+        root_files_folders[:files].each do |target|
+          next if ignore_these.include? target.basename.to_s
 
-          file = to_home f
+          symlink_name = to_home target
 
-          backup_this file
+          backup_this symlink_name
 
-          puts "#{f} --> #{file}" # print all files uniformly as a table
-          file.make_symlink f
+          # TODO: Extract this to use in a block
+          puts "#{target} --> #{symlink_name}"
+          symlink_name.make_symlink target
         end
       end
 
