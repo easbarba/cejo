@@ -22,10 +22,11 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
 
-  spec.add_dependency 'clipboard'
-
-  %w[bundler rake rspec pry reek shoulda].each do |dep|
-    spec.add_development_dependency dep
+  %w[clipboard git].each do |dep|
+    spec.add_dependency dep
+  end
+  %w[bundler rake rspec pry reek shoulda].each do |dev_dep|
+    spec.add_development_dependency dev_dep
   end
 
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0'.freeze)
