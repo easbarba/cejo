@@ -1,5 +1,8 @@
 #+TILE: Timeline
 
 * Scrum/Kaban
+* Checker/Exception
+  Need to check if every is correct.
+* TDD/BDD
 * Refactoring
   - Simpler/Smaller methods
