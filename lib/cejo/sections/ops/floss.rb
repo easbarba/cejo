@@ -29,14 +29,13 @@ module Cejo
         return unless ARCHIVE_THESE.include?(project.name)
 
         folder = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
-        Dir.mkdir(folder) unless folder.exist?
+        repo = git.open(project.folder)
         fmt = 'tar'
+        name = "#{folder.join(project.name)}.#{fmt}"
 
-        Dir.chdir project.folder do
-          repo = git.open(project.folder)
-          name = "#{folder.join(project.name)}.#{fmt}"
-          repo.archive(repo.current_branch, name, format: 'tar') # fiber/multithread
-        end
+        Dir.mkdir(folder) unless folder.exist?
+
+        repo.archive(repo.current_branch, name, format: fmt) # fiber/multithread
       end
 
       # Cloning/Pulling FLOSS Project
