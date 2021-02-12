@@ -2,17 +2,17 @@
 
 require 'test/unit'
 
-require 'cejo/sections/operations/oss'
+require 'cejo/sections/operations/floss'
 require 'cejo/services/configure_services'
 
 # Test Oss
-class OssTest < Test::Unit::TestCase
+class FlossTest < Test::Unit::TestCase
   def setup
     @services = Cejo::Services::ConfigureServices.new
   end
 
   def test_get
-    oss = Cejo::Ops::Oss.new(@services, 'get')
-    oss.ARCHIVE_THESE
+    floss = Cejo::Ops::Floss.new(@services, 'get')
+    floss.ARCHIVE_THESE
   end
 end

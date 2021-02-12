@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/operations/oss'
+require_relative '../../sections/operations/floss'
 require_relative '../../sections/operations/homer'
 require_relative '../../sections/operations/screenshot'
 require_relative '../../sections/operations/volume'
@@ -21,8 +21,8 @@ module Cejo
         @subcommand = subcommand
       end
 
-      def oss
-        Cejo::Ops::Oss.new(services, subcommand)
+      def floss
+        Cejo::Ops::Floss.new(services, subcommand)
       end
 
       def dots
@@ -54,7 +54,7 @@ module Cejo
       def features
         {
           dots: dots,
-          oss: oss,
+          floss: floss,
           homer: homer,
           screenshot: screenshot,
           brightness: brightness,
