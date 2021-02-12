@@ -1,7 +1,17 @@
 #+TILE: Timeline
 
 * Sprints
+** Help
+** Rubygem
+** Container
+** Sensible default but Configurable
+** Easy Install
 ** Modification as branches
+** Prettier print/format
+** General User
+** Power User
+** More user interaction
+** Hotfix way
 ** Improve Cli
 *** TODO Better Parser
 *** TODO Return symbols
@@ -10,7 +20,7 @@
 *** TODO Client
 *** TODO Cli
 *** TODO Sections
-** Checker/Exception
+** Fails gracefully
 *** TODO Oss
 *** TODO Dots
 ** Distro - extract to as a standalone app
