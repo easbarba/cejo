@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'git'
+
 require 'pathname'
 require 'yaml'
 require 'uri'
@@ -12,7 +14,7 @@ module Cejo
       PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
 
       # FLOSS Projects elected to be archived
-      ARCHIVE_THESE = %w[cejo ruby rake rubocop rails use-package lsp-mode emacs].freeze
+      ARCHIVE_THESE = %w[cejo ruby rake pry rails use-package lsp-mode emacs].freeze
 
       # Skeleton information of projects: url, name, folder
       DATA = Struct.new(:url, :name, :folder)
@@ -26,18 +28,25 @@ module Cejo
       ARCHIVE_THIS = lambda do |project, git|
         return unless ARCHIVE_THESE.include?(project.name)
 
-        folder.new(File.join(Dir.home, 'Downloads', 'archived'))
+        folder = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
         Dir.mkdir(folder) unless folder.exist?
+        fmt = 'tar'
 
-        git.archive(folder.join(project.name), project.folder) # fiber/multithread
+        Dir.chdir project.folder do
+          repo = git.open(project.folder)
+          name = "#{folder.join(project.name)}.#{fmt}"
+          repo.archive(repo.current_branch, name, format: 'tar') # fiber/multithread
+        end
       end
 
       # Cloning/Pulling FLOSS Project
       GRAB_THIS = lambda do |project, git|
         if project.folder.exist?
-          git.pull(project.folder)
+          repo = git.open(project.folder)
+          repo.pull('origin', repo.current_branch)
         else
-          git.clone(project.url, project.folder)
+          repo = "#{project.url}.git"
+          git.clone(repo, project.folder)
         end
       end
 
@@ -46,6 +55,13 @@ module Cejo
         @command =  command
 
         @parsed_projects = {}
+      end
+
+      # Display Project information
+      def show_project_info(url, folder)
+        puts "repository: #{url}"
+        puts "folder: #{folder}"
+        puts
       end
 
       # Path of file with desired FLOSS projects
@@ -67,11 +83,11 @@ module Cejo
 
       # Provide infomation of current FLOSS project
       def project_info(project, language)
-        url = URI(project)
+        url = URI.parse project
         name = url.path.split('/').last
         folder = PROJECTS.join(language, name)
 
-        DATA.new url, name, folder
+        DATA.new(url, name, folder)
       end
 
       # Generate list of Projects
@@ -81,7 +97,11 @@ module Cejo
           puts "\n--> #{language}"
 
           projects.each do |project| # TODO: avoid nested iteration
-            command.call(project_info(project, language), @services.git)
+            info = project_info(project, language)
+
+            show_project_info(info.url, info.folder)
+
+            command.call(info, Git) # imperative call intead
           end
         end
       end
