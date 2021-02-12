@@ -1,8 +1,19 @@
 #+TILE: Timeline
 
-* Scrum/Kaban
-* Checker/Exception
-  Need to check if every is correct.
-* TDD/BDD
-* Refactoring
-  - Simpler/Smaller methods
+* Sprints
+** Modification as branches
+** Improve Cli
+*** TODO Better Parser
+*** TODO Return symbols
+** TDD/BDD
+*** TODO Startup
+*** TODO Client
+*** TODO Cli
+*** TODO Sections
+** Checker/Exception
+*** TODO Oss
+*** TODO Dots
+** Distro - extract to as a standalone app
+*** TODO Distro section require different cli arg organization and parser, as way more args
+** Refactoring
+*** TODO Simpler/Smaller methods
