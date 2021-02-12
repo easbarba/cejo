@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/operations/floss'
-require_relative '../../sections/operations/homer'
-require_relative '../../sections/operations/screenshot'
-require_relative '../../sections/operations/volume'
-require_relative '../../sections/operations/brightness'
-require_relative '../../sections/operations/dots'
-require_relative '../../sections/operations/sysinfo'
+require_relative '../../sections/ops/floss'
+require_relative '../../sections/ops/homer'
+require_relative '../../sections/ops/screenshot'
+require_relative '../../sections/ops/volume'
+require_relative '../../sections/ops/brightness'
+require_relative '../../sections/ops/dots'
+require_relative '../../sections/ops/sysinfo'
 
 module Cejo
   module Client
-    # Return Operations features
-    class OperationsClient
+    # Return Ops features
+    class OpsClient
       attr_reader :services, :subcommand
 
       private

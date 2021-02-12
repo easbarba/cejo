@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../clients/distro_client'
-require_relative '../clients/operations_client'
+require_relative '../clients/ops_client'
 require_relative '../clients/projects_client'
 require_relative '../clients/media_client'
 
@@ -19,8 +19,8 @@ module Cejo
         @subcommand = subcommand
       end
 
-      def operations
-        OperationsClient.new(services, command)
+      def ops
+        OpsClient.new(services, command)
       end
 
       def media
@@ -41,7 +41,7 @@ module Cejo
       def sections
         {
           media: media,
-          operation: operations,
+          ops: ops,
           projects: projects,
           distro: distro
         }

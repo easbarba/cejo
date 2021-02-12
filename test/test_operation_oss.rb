@@ -2,7 +2,7 @@
 
 require 'test/unit'
 
-require 'cejo/sections/operations/floss'
+require 'cejo/sections/ops/floss'
 require 'cejo/services/configure_services'
 
 # Test Oss
