@@ -1,29 +1,34 @@
 #+TILE: Timeline
 
-* Sprints
-** Help
-** Rubygem
-** Container
-** Sensible default but Configurable
-** Easy Install
-** Modification as branches
-** Prettier print/format
-** General User
-** Power User
-** More user interaction
-** Hotfix way
-** Improve Cli
-*** TODO Better Parser
-*** TODO Return symbols
-** TDD/BDD
-*** TODO Startup
-*** TODO Client
-*** TODO Cli
-*** TODO Sections
-** Fails gracefully
-*** TODO Oss
-*** TODO Dots
-** Distro - extract to as a standalone app
-*** TODO Distro section require different cli arg organization and parser, as way more args
-** Refactoring
-*** TODO Simpler/Smaller methods
+* Help
+* Rubygem
+* Container
+* Sensible default but Configurable
+** Ops/Oss
+   - choose which project to manage
+   - choose folder to store projects
+   - parser if list is correct format
+   - clean up
+
+* asy Install
+* Modification as branches
+* Prettier print/format
+* General User
+* Power User
+* More user interaction
+* Hotfix way
+* Improve Cli
+** TODO Better Parser
+** TODO Return symbols
+* TDD/BDD
+** TODO Startup
+** TODO Client
+** TODO Cli
+** TODO Sections
+* Fails gracefully
+** TODO Oss
+** TODO Dots
+* Distro - extract to as a standalone app
+** TODO Distro section require different cli arg organization and parser, as way more args
+* Refactoring
+** TODO Simpler/Smaller methods
