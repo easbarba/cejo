@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'clipboard'
   spec.add_dependency 'git'
   spec.add_dependency 'tty-spinner'
+  spec.add_dependency 'colorize'
 
   # development
   spec.add_development_dependency 'gli'
