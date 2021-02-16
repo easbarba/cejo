@@ -14,7 +14,7 @@ module Cejo
       PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
 
       # FLOSS Projects elected to be archived
-      ARCHIVE_THESE = %w[cejo ruby rake pry rails use-package lsp-mode emacs].freeze
+      ARCHIVE_THESE = %w[cejo ruby rake pry rails use-package lsp-mode emacs blog].freeze
 
       # Skeleton information of projects: url, name, folder
       DATA = Struct.new(:url, :name, :folder)
