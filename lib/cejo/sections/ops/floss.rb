@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'git'
+require 'tty-spinner'
 
 require 'pathname'
 require 'yaml'
@@ -41,11 +42,15 @@ module Cejo
       # Cloning/Pulling FLOSS Project
       GRAB_THIS = lambda do |project, git|
         if project.folder.exist?
+          puts '--> Pulling'
+
           repo = git.open(project.folder)
           repo.pull('origin', repo.current_branch)
         else
-          repo = "#{project.url}.git"
-          git.clone(repo, project.folder)
+          puts '--> Cloning'
+
+          repo = "#{project.url}"
+          git.clone(repo, path: project.folder)
         end
       end
 
@@ -83,7 +88,7 @@ module Cejo
       # Provide infomation of current FLOSS project
       def project_info(project, language)
         url = URI.parse project
-        name = url.path.split('/').last
+        name = File.basename(url.path.split('/').last, '.git')
         folder = PROJECTS.join(language, name)
 
         DATA.new(url, name, folder)
