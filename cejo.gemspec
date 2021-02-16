@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   # production
   spec.add_dependency 'clipboard'
   spec.add_dependency 'git'
+  spec.add_dependency 'tty-spinner'
 
   # development
   spec.add_development_dependency 'gli'
