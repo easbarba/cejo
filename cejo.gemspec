@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'cejo'.freeze
-  spec.summary       = 'Miscellaneous Unix automation and services utilities.'.freeze
+  spec.summary       = 'Debian automation and services utilities.'.freeze
   spec.description   = File.read(File.join(File.dirname(__FILE__), 'README.org'))
   spec.version       = '0.0.1'
   spec.authors       = ['EAS Barbosa'.freeze]
@@ -22,12 +22,19 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
 
-  %w[clipboard git].each do |dep|
-    spec.add_dependency dep
-  end
-  %w[bundler rake rspec pry reek shoulda].each do |dev_dep|
-    spec.add_development_dependency dev_dep
-  end
+  # production
+  spec.add_dependency clipboard
+  spec.add_dependency git
+
+  # development
+  spec.add_development_dependency gli
+  spec.add_development_dependency bundler
+  spec.add_development_dependency rake
+  spec.add_development_dependency rspec
+  spec.add_development_dependency pry
+  spec.add_development_dependency rufo
+  spec.add_development_dependency reek
+  spec.add_development_dependency shoulda
 
   spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0'.freeze)
 end
