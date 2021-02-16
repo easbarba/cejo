@@ -10,14 +10,16 @@
    - parser if list is correct format
    - clean up
 
-* asy Install
+* Easy Install
 * Modification as branches
 * Prettier print/format
 * General User
 * Power User
 * More user interaction
 * Hotfix way
-* Improve Cli
+* Cli
+** GNU structure
+   <command> [opitions] <command-option> <argument>
 ** TODO Better Parser
 ** TODO Return symbols
 * TDD/BDD
