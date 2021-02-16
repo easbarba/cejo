@@ -43,14 +43,16 @@ module Cejo
       GRAB_THIS = lambda do |project, git|
         if project.folder.exist?
           puts '--> Pulling'
+          puts
 
           repo = git.open(project.folder)
           repo.pull('origin', repo.current_branch)
         else
           puts '--> Cloning'
+          puts
 
           repo = "#{project.url}"
-          git.clone(repo, path: project.folder)
+          git.clone(repo, project.folder)
         end
       end
 
