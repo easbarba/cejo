@@ -2,6 +2,7 @@
 
 require 'git'
 require 'tty-spinner'
+require 'colorize'
 
 require 'pathname'
 require 'yaml'
@@ -41,12 +42,18 @@ module Cejo
 
       # Cloning/Pulling FLOSS Project
       GRAB_THIS = lambda do |project, git|
+
         if project.folder.exist?
-          puts '--> Pulling'
+          spinner = TTY::Spinner.new(":spinner Pulling", format: :dots_6)
+
           puts
+          spinner.auto_spin
 
           repo = git.open(project.folder)
           repo.pull('origin', repo.current_branch)
+
+          spinner.stop('Done!')
+          puts
         else
           puts '--> Cloning'
           puts
@@ -65,9 +72,8 @@ module Cejo
 
       # Display Project information
       def show_project_info(url, folder)
-        puts "repository: #{url}"
-        puts "folder: #{folder}"
-        puts
+        print "repository:".red.bold, url, "\n"
+        print "folder:".blue.bold, folder
       end
 
       # Path of file with desired FLOSS projects
