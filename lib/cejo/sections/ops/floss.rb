@@ -16,7 +16,7 @@ module Cejo
       PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
 
       # FLOSS Projects elected to be archived
-      ARCHIVE_THESE = %w[cejo ruby rake pry rails use-package lsp-mode emacs blog].freeze
+      ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
 
       # Skeleton information of projects: url, name, folder
       DATA = Struct.new(:url, :name, :folder)
@@ -72,8 +72,8 @@ module Cejo
 
       # Display Project information
       def show_project_info(url, folder)
-        print "repository:".red.bold, url, "\n"
-        print "folder:".blue.bold, folder
+        print "repository: ".red.bold, url, "\n"
+        print "folder: ".blue.bold, folder
       end
 
       # Path of file with desired FLOSS projects
