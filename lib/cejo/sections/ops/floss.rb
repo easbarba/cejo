@@ -33,27 +33,51 @@ module Cejo
         @parsed_projects = {}
       end
 
+      # Provide infomation of current FLOSS project
+      def self.project_info(project, language)
+        url = URI.parse project
+        name = File.basename(url.path.split('/').last, '.git')
+        folder = PROJECTS.join(language, name)
+
+        DATA.new(url, name, folder)
+      end
+
       # Archiving FLOSS project
-      def archive_this(project)
-        return unless ARCHIVE_THESE.include?(project.name) # only archive listed ones
+      def self.archive_this(project)
+        pname = project.name
+        fmt = 'tar'
+
+        return unless ARCHIVE_THESE.include?(pname) # only archive listed ones
 
         folder = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
         Dir.mkdir(folder) unless folder.exist?
 
-        name = "#{folder.join(project.name)}.tar"
+        name = "#{folder.join(pname)}.#{fmt}"
+
         repo = Git.open(project.folder)
         repo.archive(repo.current_branch, name, format: fmt) # fiber/multithread
       end
 
+      def do_pull(folder)
+        loading('Pulling') do
+          repo = Git.open(folder)
+          repo.pull('origin', repo.current_branch)
+        end
+      end
+
+      def do_clone(url, folder)
+        loading('Cloning') { Git.clone(url, folder) }
+      end
+
       # Cloning/Pulling FLOSS Project
       def grab_this(project)
-        if project.folder.exist?
-          loading('Pulling') do
-            repo = Git.open(project.folder)
-            repo.pull('origin', repo.current_branch)
-          end
+        folder = project.folder
+        url = project.url
+
+        if folder.exist?
+          do_pull folder
         else
-          loading('Cloning') { Git.clone(project.url, project.folder) }
+          do_clone url, folder
         end
       end
 
@@ -82,32 +106,29 @@ module Cejo
 
       # Parse FLOSS file path
       def parse_oss_projects
-        a = {}
+        projects = {}
 
-        floss_filepath.each_child do |x|
-          name = x.basename.sub_ext('').to_s
-          a[name] = YAML.load_file x if x.extname == '.yaml'
+        floss_filepath.each_child do |file|
+          name = file.basename.sub_ext('').to_s
+          projects[name] = YAML.load_file file if file.extname == '.yaml'
         end
 
-        a
-      end
-
-      # Provide infomation of current FLOSS project
-      def project_info(project, language)
-        url = URI.parse project
-        name = File.basename(url.path.split('/').last, '.git')
-        folder = PROJECTS.join(language, name)
-
-        DATA.new(url, name, folder)
+        projects
       end
 
       # Generate list of Projects
-      def mapc
+      def lang_projects
         parse_oss_projects.each do |language, projects|
           puts "\n-- #{language.capitalize} --\n\n"
 
-          projects.each do |project| # TODO: avoid nested iteration
-            info = project_info(project, language)
+          yield(language, projects)
+        end
+      end
+
+      def process_projects
+        lang_projects do |language, projects|
+          projects.each do |project|
+            info = Floss.project_info(project, language)
 
             show_project_info(info.url, info.folder)
 
@@ -120,12 +141,12 @@ module Cejo
 
       # Archive Project
       def archive
-        mapc() { |info| archive_this(info) }
+        process_projects { |info| Floss.archive_this(info) }
       end
 
       # Clone/Pull Project
       def grab
-        mapc() { |info| grab_this(info) }
+        process_projects { |info| grab_this(info) }
       end
 
       def run
