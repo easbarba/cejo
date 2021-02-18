@@ -26,48 +26,47 @@ module Cejo
 
       private
 
-      # Archiving FLOSS project
-      ARCHIVE_THIS = lambda do |project, git|
-        return unless ARCHIVE_THESE.include?(project.name)
-
-        folder = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
-        repo = git.open(project.folder)
-        fmt = 'tar'
-        name = "#{folder.join(project.name)}.#{fmt}"
-
-        Dir.mkdir(folder) unless folder.exist?
-
-        repo.archive(repo.current_branch, name, format: fmt) # fiber/multithread
-      end
-
-      # Cloning/Pulling FLOSS Project
-      GRAB_THIS = lambda do |project, git|
-
-        if project.folder.exist?
-          spinner = TTY::Spinner.new(":spinner Pulling", format: :dots_6)
-
-          puts
-          spinner.auto_spin
-
-          repo = git.open(project.folder)
-          repo.pull('origin', repo.current_branch)
-
-          spinner.stop('Done!')
-          puts
-        else
-          puts '--> Cloning'
-          puts
-
-          repo = "#{project.url}"
-          git.clone(repo, project.folder)
-        end
-      end
-
       def initialize(services, command)
         @services = services
         @command =  command
 
         @parsed_projects = {}
+      end
+
+      # Archiving FLOSS project
+      def archive_this(project)
+        return unless ARCHIVE_THESE.include?(project.name) # only archive listed ones
+
+        folder = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
+        Dir.mkdir(folder) unless folder.exist?
+
+        name = "#{folder.join(project.name)}.tar"
+        repo = Git.open(project.folder)
+        repo.archive(repo.current_branch, name, format: fmt) # fiber/multithread
+      end
+
+      # Cloning/Pulling FLOSS Project
+      def grab_this(project)
+        if project.folder.exist?
+          loading('Pulling') do
+            repo = Git.open(project.folder)
+            repo.pull('origin', repo.current_branch)
+          end
+        else
+          loading('Cloning') { Git.clone(project.url, project.folder) }
+        end
+      end
+
+      def loading(msg)
+        spinner = TTY::Spinner.new(":spinner #{msg}", format: :dots_6)
+
+        puts
+        spinner.auto_spin
+
+        yield
+
+        spinner.stop('Done!')
+        puts
       end
 
       # Display Project information
@@ -103,17 +102,16 @@ module Cejo
       end
 
       # Generate list of Projects
-      def mapc(command)
-        @parsed_projects = parse_oss_projects
-        @parsed_projects.each do |language, projects|
-          puts "\n--> #{language}"
+      def mapc
+        parse_oss_projects.each do |language, projects|
+          puts "\n-- #{language.capitalize} --\n\n"
 
           projects.each do |project| # TODO: avoid nested iteration
             info = project_info(project, language)
 
             show_project_info(info.url, info.folder)
 
-            command.call(info, Git) # imperative call intead
+            yield(info)
           end
         end
       end
@@ -122,12 +120,12 @@ module Cejo
 
       # Archive Project
       def archive
-        mapc(ARCHIVE_THIS)
+        mapc() { |info| archive_this(info) }
       end
 
       # Clone/Pull Project
       def grab
-        mapc(GRAB_THIS)
+        mapc() { |info| grab_this(info) }
       end
 
       def run
