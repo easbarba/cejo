@@ -99,18 +99,18 @@ module Cejo
         print "folder: ".blue.bold, folder
       end
 
-      # Path of file with desired FLOSS projects
-      def floss_filepath
-        services.folders.cejo_config.join('oss')
+      # Files with list of FLOSS projects
+      def floss_files
+        services.folders.cejo_config.join('floss')
       end
 
-      # Parse FLOSS file path
-      def parse_oss_projects
+      # Parse FLOSS files
+      def parse_floss_projects
         projects = {}
 
-        floss_filepath.each_child do |file|
+        floss_files.each_child do |file|
           name = file.basename.sub_ext('').to_s
-          projects[name] = YAML.load_file file if file.extname == '.yaml'
+          projects[name] = YAML.load_file file
         end
 
         projects
@@ -118,7 +118,7 @@ module Cejo
 
       # Generate list of Projects
       def lang_projects
-        parse_oss_projects.each do |language, projects|
+        parse_floss_projects.each do |language, projects|
           puts "\n-- #{language.capitalize} --\n\n"
 
           yield(language, projects)
