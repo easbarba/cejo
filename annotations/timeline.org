@@ -34,3 +34,4 @@
 ** TODO Distro section require different cli arg organization and parser, as way more args
 * Refactoring
 ** TODO Simpler/Smaller methods
+** TODO Floss Class needs to be cohesive. Separating it three class may help with it: clone, pull and core.
