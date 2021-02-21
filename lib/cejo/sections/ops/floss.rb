@@ -1,7 +1,7 @@
+
 # frozen_string_literal: true
 
 require 'git'
-require 'tty-spinner'
 require 'colorize'
 
 require 'pathname'
@@ -10,17 +10,8 @@ require 'uri'
 
 module Cejo
   module Ops
-    # Grab or Archive FLOSS Projects
+    # Manage FLOSS Projects
     class Floss
-      # Folder where Projects repositories will be stored
-      PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
-
-      # FLOSS Projects elected to be archived
-      ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
-
-      # Skeleton information of projects: url, name, folder
-      DATA = Struct.new(:url, :name, :folder)
-
       attr_reader :services
       attr_reader :command
 
@@ -33,14 +24,8 @@ module Cejo
         @parsed_projects = {}
       end
 
-      # Provide infomation of current FLOSS project
-      def self.project_info(project, language)
-        url = URI.parse project
-        name = File.basename(url.path.split('/').last, '.git')
-        folder = PROJECTS.join(language, name)
-
-        DATA.new(url, name, folder)
-      end
+      # FLOSS Projects elected to be archived
+      ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
 
       # Archiving FLOSS project
       def self.archive_this(project)
@@ -59,14 +44,14 @@ module Cejo
       end
 
       def do_pull(folder)
-        loading('Pulling') do
+        services.utils.spin('Pulling') do
           repo = Git.open(folder)
           repo.pull('origin', repo.current_branch)
         end
       end
 
       def do_clone(url, folder)
-        loading('Cloning') { Git.clone(url, folder) }
+        services.utils.spin('Cloning') { Git.clone(url, folder) }
       end
 
       # Cloning/Pulling FLOSS Project
@@ -81,22 +66,25 @@ module Cejo
         end
       end
 
-      def loading(msg)
-        spinner = TTY::Spinner.new(":spinner #{msg}", format: :dots_6)
-
-        puts
-        spinner.auto_spin
-
-        yield
-
-        spinner.stop('Done!')
-        puts
-      end
-
       # Display Project information
       def show_project_info(url, folder)
         print "repository: ".red.bold, url, "\n"
         print "folder: ".blue.bold, folder
+      end
+
+      # Skeleton information of projects: url, name, folder
+      DATA = Struct.new(:url, :name, :folder)
+
+      # Folder where Projects repositories will be stored
+      PROJECTS = Pathname.new(File.join(Dir.home, 'Projects')) # TODO: Check if folder exist, create it otherwise
+
+      # Provide infomation of current FLOSS project
+      def self.project_info(project, language)
+        url = URI.parse project
+        name = File.basename(url.path.split('/').last, '.git')
+        folder = PROJECTS.join(language, name)
+
+        DATA.new(url, name, folder)
       end
 
       # Files with list of FLOSS projects
@@ -110,7 +98,7 @@ module Cejo
 
         floss_files.each_child do |file|
           name = file.basename.sub_ext('').to_s
-          projects[name] = YAML.load_file file
+          projects[name] = YAML.load_file file # instead load per time to avoid errors; enumerator?
         end
 
         projects
@@ -154,6 +142,22 @@ module Cejo
 
         public_send(command)
       end
+    end
+  end
+end
+
+module Cejo
+  module Ops
+    # Grab FLOSS Projects
+    class Grab
+    end
+  end
+end
+
+module Cejo
+  module Ops
+    # Archive FLOSS Projects
+    class Archive
     end
   end
 end
