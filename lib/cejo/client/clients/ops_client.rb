@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/ops/floss'
+require_relative '../../sections/ops/floss/core'
 require_relative '../../sections/ops/homer'
 require_relative '../../sections/ops/screenshot'
 require_relative '../../sections/ops/volume'
@@ -22,7 +22,7 @@ module Cejo
       end
 
       def floss
-        Cejo::Ops::Floss.new(services, subcommand)
+        Cejo::Ops::Floss::Core.new(services, subcommand)
       end
 
       def dots
