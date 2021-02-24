@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require_relative 'cli/base'
+require_relative 'cli/arguments'
 require_relative 'services/container'
 require_relative 'client/factories/clients'
 
 # Miscellaneous Unix automation and services utilities.
 module Cejo
   # Bootstrap program
-  class CLI
+  class Base
     private
 
     attr_reader :services, :args
 
     def initialize
       @services = Cejo::Services::Container.new
-      @args = CLI::Base.arguments(ARGV)
+      @args = Cejo::CLI::Arguments.new(ARGV).get_args
     end
 
     def clients
