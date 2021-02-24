@@ -6,6 +6,7 @@ require_relative 'client/factories/clients'
 
 # Miscellaneous Unix automation and services utilities.
 module Cejo
+  # Bootstrap program
   class CLI
     private
 
