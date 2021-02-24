@@ -7,22 +7,22 @@ module Cejo
   module Client
     # Media features
     class MediaClient
-      attr_reader :services, :command, :subcommand
+      attr_reader :services, :sub_option
 
       private
 
-      def initialize(services, command, subcommand)
+      def initialize(services, sub_option)
         @services = services
-        @command = command
-        @subcommand = subcommand
+        @sub_option = sub_option
       end
 
       def play
-        Cejo::Media::Play.new(command).run
+        puts sub_option
+        Cejo::Media::Play.new(sub_option).run
       end
 
       def getmedia
-        Cejo::Media::Getmedia.new(command, subcommand).run
+        Cejo::Media::Getmedia.new(sub_option).run
       end
 
       public

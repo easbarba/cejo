@@ -2,21 +2,25 @@
 
 module Cejo
   module Client
-    # Projects features
+    # List Projects To build
     class ProjectsClient
-      attr_reader :services, :command
+      attr_reader :services, :sub_option
 
       private
 
-      def initialize(services, command)
+      def initialize(services, sub_option)
         @services = services
-        @command = command
+        @sub_option = sub_option
       end
+
+      def emacs
+      end
+
 
       public
 
       def features
-        {}
+        {emacs: emacs}
       end
     end
   end
