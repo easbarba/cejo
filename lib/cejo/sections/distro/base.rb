@@ -26,8 +26,7 @@ module Cejo
 
         cmd = "#{super_user} #{packer} #{real_action} #{arguments}"
 
-        # system(cmd)
-        puts(cmd)
+        system(cmd)
       end
     end
   end
