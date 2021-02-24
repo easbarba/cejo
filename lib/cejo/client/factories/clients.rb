@@ -27,7 +27,7 @@ module Cejo
       end
 
       def projects
-        ProjectsClient.new(services, sub_option)
+        ProjectsClient.new(services)
       end
 
       def distro

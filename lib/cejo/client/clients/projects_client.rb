@@ -1,26 +1,33 @@
 # frozen_string_literal: true
 
+require_relative '../../sections/projects/emacs'
+require_relative '../../sections/projects/dwm'
+
 module Cejo
   module Client
     # List Projects To build
     class ProjectsClient
-      attr_reader :services, :sub_option
+      attr_reader :services
 
-      private
-
-      def initialize(services, sub_option)
+      def initialize(services)
         @services = services
-        @sub_option = sub_option
       end
 
       def emacs
+        Cejo::Projects::Emacs.new(services)
       end
 
+      def dwm
+        Cejo::Projects::Dwm.new(services)
+      end
 
       public
 
       def features
-        {emacs: emacs}
+        {
+          emacs: emacs,
+          dwm: dwm
+        }
       end
     end
   end
