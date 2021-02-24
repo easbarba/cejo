@@ -56,7 +56,7 @@ module Cejo
         # Clone/Pull Project
         def grab
           action = Cejo::Ops::Floss::Grab.new(services.utils)
-          process_projects { |info| arction.grab_this(info) }
+          process_projects { |info| action.grab_this(info) }
         end
 
         def run
