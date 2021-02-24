@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative 'project_info'
-require_relative 'parsed_projects'
 require_relative 'archive'
 require_relative 'grab'
 
@@ -26,8 +25,8 @@ module Cejo
         end
 
         def parsed_projects
-          folder = services.folders.cejo_config
-          Cejo::Ops::Floss::Parsed_Projects.new(folder).parse_floss_projects
+          folder = services.folders.cejo_config.join("floss")
+          services.utils.parse_folder(folder)
         end
 
         def process_projects
@@ -35,8 +34,9 @@ module Cejo
 
           parsed_projects.each do |language, projects|
             puts "\n-- #{language.capitalize} --\n\n"
+
             projects.each do |project|
-              info = action.project_info(project, language)
+              info = action.project_info(project, language.to_s)
 
               action.show_project_info(info.url, info.folder)
 
@@ -56,7 +56,7 @@ module Cejo
         # Clone/Pull Project
         def grab
           action = Cejo::Ops::Floss::Grab.new(services.utils)
-          process_projects { |info| action.grab_this(info) }
+          process_projects { |info| action.grab_this(info.folder, info.url) }
         end
 
         def run

@@ -2,6 +2,8 @@
 
 require 'tty-spinner'
 
+require 'yaml'
+
 module Cejo
   module Services
     # General Utilities.
@@ -36,6 +38,17 @@ module Cejo
         puts
       end
 
+      # Parse Folder with serialization files
+      def parse_folder(folder)
+        projects = {}
+
+        folder.each_child do |file|
+          name = file.basename.sub_ext("").to_s.to_sym
+          projects[name] = YAML.load_file file # instead load per time to avoid errors; enumerator?
+        end
+
+        projects
+      end
     end
   end
 end

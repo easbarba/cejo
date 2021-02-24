@@ -25,10 +25,7 @@ module Cejo
         end
 
         # Cloning/Pulling FLOSS Project
-        def grab_this(project)
-          folder = project.folder
-          url = project.url
-
+        def grab_this(folder, url)
           if folder.exist?
             do_pull folder
           else
