@@ -9,30 +9,29 @@ module Cejo
   module Client
     # Provide Clients
     class Clients
-      attr_reader :services, :feature, :command, :subcommand
+      attr_reader :services, :sub_option
 
       private
 
-      def initialize(services, command, subcommand)
+      def initialize(services, sub_option)
         @services = services
-        @command = command
-        @subcommand = subcommand
+        @sub_option = sub_option
       end
 
       def ops
-        OpsClient.new(services, command)
+        OpsClient.new(services, sub_option)
       end
 
       def media
-        MediaClient.new(services, command, subcommand)
+        MediaClient.new(services, sub_option)
       end
 
       def projects
-        ProjectsClient.new(services, command)
+        ProjectsClient.new(services, sub_option)
       end
 
       def distro
-        DistroClient.new(services, command)
+        DistroClient.new(services, sub_option)
       end
 
       public
