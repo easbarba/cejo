@@ -25,7 +25,6 @@ module Cejo
         cmd = "#{super_user} #{packer} #{action} #{arguments}"
 
         system(cmd)
-        puts(cmd)
       end
     end
   end
