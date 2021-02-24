@@ -27,14 +27,14 @@ module Cejo
       end
 
       def spin(msg)
-        spinner = TTY::Spinner.new(":spinner #{msg}", format: :dots_6)
+        spinner = TTY::Spinner.new("status: #{msg.downcase} :spinner ", format: :dots_6)
 
         puts
         spinner.auto_spin
 
         yield
 
-        spinner.stop('Done!')
+        spinner.success
         puts
       end
 
