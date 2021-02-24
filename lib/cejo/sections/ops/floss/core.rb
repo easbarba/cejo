@@ -30,22 +30,15 @@ module Cejo
           Cejo::Ops::Floss::Parsed_Projects.new(folder).parse_floss_projects
         end
 
-        # Generate list of Projects
-        def lang_projects
+        def process_projects
+          action = Cejo::Ops::Floss::ProjectInfo.new
+
           parsed_projects.each do |language, projects|
             puts "\n-- #{language.capitalize} --\n\n"
-
-            yield(language, projects)
-          end
-        end
-
-        def process_projects
-          proj = Cejo::Ops::Floss::ProjectInfo.new
-          lang_projects do |language, projects|
             projects.each do |project|
-              info = proj.project_info(project, language)
+              info = action.project_info(project, language)
 
-              proj.show_project_info(info.url, info.folder)
+              action.show_project_info(info.url, info.folder)
 
               yield(info)
             end
@@ -56,14 +49,14 @@ module Cejo
 
         # Archive Project
         def archive
-          arc = Cejo::Ops::Floss::Archive
-          process_projects { |info| arc.archive_this(info) }
+          action = Cejo::Ops::Floss::Archive
+          process_projects { |info| action.archive_this(info) }
         end
 
         # Clone/Pull Project
         def grab
-          grb = Cejo::Ops::Floss::Grab.new(services.utils)
-          process_projects { |info| grb.grab_this(info) }
+          action = Cejo::Ops::Floss::Grab.new(services.utils)
+          process_projects { |info| arction.grab_this(info) }
         end
 
         def run
