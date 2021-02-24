@@ -8,7 +8,7 @@ require_relative '../clients/media_client'
 module Cejo
   module Client
     # Provide Clients
-    class ClientsFactory
+    class Clients
       attr_reader :services, :feature, :command, :subcommand
 
       private
