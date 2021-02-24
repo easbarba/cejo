@@ -17,9 +17,9 @@ module Cejo
       def get_args
         args = parse_args
 
-        command = args.deq.to_sym
-        option = args.deq.to_sym
-        sub_option = args.deq
+        command = args.deq.to_sym unless args.empty?
+        option = args.deq.to_sym unless args.empty?
+        sub_option = args.deq unless args.empty?
 
         ARGS_DATA.new(command, option, sub_option)
       end
