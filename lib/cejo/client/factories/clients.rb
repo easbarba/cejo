@@ -30,7 +30,7 @@ module Cejo
         ProjectsClient.new(services)
       end
 
-      def distro
+      def di
         DistroClient.new(services, sub_option)
       end
 
@@ -42,7 +42,7 @@ module Cejo
           media: media,
           ops: ops,
           projects: projects,
-          distro: distro
+          di: di
         }
       end
     end
