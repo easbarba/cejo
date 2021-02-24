@@ -7,7 +7,7 @@ module Cejo
   module Ops
     module Floss
       # Provides Project Information
-      module ProjectInfo
+      class ProjectInfo
         # Skeleton information of projects: url, name, folder
         DATA = Struct.new(:url, :name, :folder)
 

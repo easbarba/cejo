@@ -5,13 +5,18 @@ module Cejo
   module Ops
     module Floss
       # Good
-      module Parsed_Projects
+      class Parsed_Projects
+        attr_reader :folder
+
+        def initialize(folder)
+          @folder = folder.join("floss")
+        end
+
         # Parse FLOSS files
-        def parse_floss_projects(cejo_config)
-          floss_filepath = cejo_config.join("floss")
+        def parse_floss_projects
           projects = {}
 
-          floss_filepath.each_child do |file|
+          folder.each_child do |file|
             name = file.basename.sub_ext("").to_s
             projects[name] = YAML.load_file file # instead load per time to avoid errors; enumerator?
           end

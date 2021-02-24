@@ -7,20 +7,21 @@ module Cejo
     module Floss
       # Grab FLOSS Projects
       class Grab
-        attr_reader :spin
+        attr_reader :services
 
-        def initialize(spin)
+        def initialize(services)
+          @services = services
         end
 
         def do_pull(folder)
-          spin("Pulling") do
+          services.spin("Pulling") do
             repo = Git.open(folder)
             repo.pull("origin", repo.current_branch)
           end
         end
 
         def do_clone(url, folder)
-          spin("Cloning") { Git.clone(url, folder) }
+          services.spin("Cloning") { Git.clone(url, folder) }
         end
 
         # Cloning/Pulling FLOSS Project

@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_relative 'project_info'
+require_relative 'parsed_projects'
+require_relative 'archive'
+require_relative 'grab'
+
 require "colorize"
 
 require "pathname"
@@ -18,13 +23,16 @@ module Cejo
         def initialize(services, command = 'grab')
           @services = services
           @command = command
+        end
 
-          @parsed_projects = {}
+        def parsed_projects
+          folder = services.folders.cejo_config
+          Cejo::Ops::Floss::Parsed_Projects.new(folder).parse_floss_projects
         end
 
         # Generate list of Projects
         def lang_projects
-          parse_floss_projects.each do |language, projects|
+          parsed_projects.each do |language, projects|
             puts "\n-- #{language.capitalize} --\n\n"
 
             yield(language, projects)
@@ -32,11 +40,12 @@ module Cejo
         end
 
         def process_projects
+          proj = Cejo::Ops::Floss::ProjectInfo.new
           lang_projects do |language, projects|
             projects.each do |project|
-              info = Floss.project_info(project, language)
+              info = proj.project_info(project, language)
 
-              show_project_info(info.url, info.folder)
+              proj.show_project_info(info.url, info.folder)
 
               yield(info)
             end
@@ -47,12 +56,14 @@ module Cejo
 
         # Archive Project
         def archive
-          process_projects { |info| Floss.archive_this(info) }
+          arc = Cejo::Ops::Floss::Archive
+          process_projects { |info| arc.archive_this(info) }
         end
 
         # Clone/Pull Project
         def grab
-          process_projects { |info| grab_this(info) }
+          grb = Cejo::Ops::Floss::Grab.new(services.utils)
+          process_projects { |info| grb.grab_this(info) }
         end
 
         def run

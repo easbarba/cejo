@@ -22,10 +22,10 @@ module Cejo
           folder = Pathname.new(File.join(Dir.home, "Downloads", "archived"))
           Dir.mkdir(folder) unless folder.exist?
 
-          name = "#{folder.join(pname)}.#{fmt}"
+          name = "#{folder.join(pname)}.#{FMT}"
 
           repo = Git.open(project.folder)
-          repo.archive(repo.current_branch, name, format: fmt) # fiber/multithread
+          repo.archive(repo.current_branch, name, format: FMT) # fiber/multithread
         end
       end
     end
