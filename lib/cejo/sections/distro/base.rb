@@ -2,6 +2,7 @@
 
 require_relative 'super_user'
 require_relative 'current_packager'
+require_relative 'parsed_action'
 
 module Cejo
   # Distro Front End
@@ -18,13 +19,15 @@ module Cejo
 
       def run
         packer = Cejo::Distro::CurrentPackager.new.packager(services.utils)
+        real_action = Cejo::Distro::ParsedAction.new(services, action).real_action(packer)
 
         super_or_not = Cejo::Distro::SuperUser.new.needed?(action)
         super_user = super_or_not ? 'sudo' : ''
 
-        cmd = "#{super_user} #{packer} #{action} #{arguments}"
+        cmd = "#{super_user} #{packer} #{real_action} #{arguments}"
 
-        system(cmd)
+        # system(cmd)
+        puts(cmd)
       end
     end
   end

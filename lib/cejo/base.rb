@@ -29,6 +29,7 @@ module Cejo
 
       clients.sections[section].features[feature].run
     end
+
     public :run
   end
 end
