@@ -6,8 +6,8 @@ require_relative 'utils'
 module Cejo
   # Utilities and System Software front-end.
   module Services
-    # Provide Services
-    class ConfigureServices
+    # Provide Services as attributes
+    class Container
       attr_reader :folders, :utils
 
       def initialize
