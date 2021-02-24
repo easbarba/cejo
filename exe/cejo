@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
-
 # frozen_string_literal: true
 
-require_relative '../lib/cejo/startup'
+$LOAD_PATH.unshift("#{__dir__}/../lib")
 
-Cejo::Startup.new.run
+require 'cejo'
+
+Cejo::Cli.new.run
