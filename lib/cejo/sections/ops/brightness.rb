@@ -1,43 +1,41 @@
 # frozen_string_literal: true
 
-module Cejo
-  module Ops
-    # Manage System brightness.
-    class Brightness
-      attr_reader :services, :state, :step
+module Cejo::Ops
+  # Manage System brightness.
+  class Brightness
+    attr_reader :services, :state, :step
 
-      STEP = 5
+    STEP = 5
 
-      def initialize(services, state)
-        @services = services
-        @state = state
-      end
+    def initialize(services, state)
+      @services = services
+      @state = state
+    end
 
-      private
+    private
 
-      def brighter
-        'brightnessctl'
-      end
+    def brighter
+      'brightnessctl'
+    end
 
-      def states
-        {
-          up: "set #{STEP}%+",
-          down: "set #{STEP}%-"
-        }
-      end
+    def states
+      {
+        up: "set #{STEP}%+",
+        down: "set #{STEP}%-"
+      }
+    end
 
-      public
+    public
 
-      def run_args
-        "#{brighter} #{states[state]}"
-      end
+    def run_args
+      "#{brighter} #{states[state]}"
+    end
 
-      def run
-        @services.utils.info_and_exit(state, '+', '-')
-        @state = state.to_sym if %w[up down].include? state
+    def run
+      @services.utils.info_and_exit(state, '+', '-')
+      @state = state.to_sym if %w[up down].include? state
 
-        system(run_args)
-      end
+      system(run_args)
     end
   end
 end

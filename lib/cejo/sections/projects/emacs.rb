@@ -4,22 +4,19 @@ require_relative 'core'
 
 require "pathname"
 
-module Cejo
-  # Build Floss Projects
-  module Projects
-    # GNU Emacs Editor
-    class Emacs
-      attr_reader :services
+module Cejo::Projects
+  # GNU Emacs Editor
+  class Emacs
+    attr_reader :services
 
-      def initialize(services)
-        @services = services
-      end
+    def initialize(services)
+      @services = services
+    end
 
-      public
+    public
 
-      def run
-        Cejo::Projects::Core.new(services, 'emacs').run
-      end
+    def run
+      Cejo::Projects::Core.new(services, 'emacs').run
     end
   end
 end

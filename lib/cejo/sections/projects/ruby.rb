@@ -4,22 +4,19 @@ require_relative 'core'
 
 require "pathname"
 
-module Cejo
-  # Build Floss Projects
-  module Projects
-    # Ruby Programming language
-    class Ruby
-      attr_reader :services
+module Cejo::Projects
+  # Ruby Programming language
+  class Ruby
+    attr_reader :services
 
-      def initialize(services)
-        @services = services
-      end
+    def initialize(services)
+      @services = services
+    end
 
-      public
+    public
 
-      def run
-        Cejo::Projects::Core.new(services, 'ruby').run
-      end
+    def run
+      Cejo::Projects::Core.new(services, 'ruby').run
     end
   end
 end
