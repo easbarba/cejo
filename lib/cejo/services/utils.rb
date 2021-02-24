@@ -49,6 +49,13 @@ module Cejo
 
         projects
       end
+
+      # Program is available
+      def has_program?(program)
+        ENV['PATH'].split(File::PATH_SEPARATOR).any? do |directory|
+          File.executable?(File.join(directory, program.to_s))
+        end
+      end
     end
   end
 end
