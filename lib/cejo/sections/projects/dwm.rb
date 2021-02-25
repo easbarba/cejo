@@ -16,7 +16,7 @@ module Cejo::Projects
     public
 
     def run
-      Cejo::Projects::Core.new(services, 'dwm').run
+     Core.new(services, 'dwm').run
     end
   end
 end

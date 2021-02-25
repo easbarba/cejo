@@ -16,7 +16,7 @@ module Cejo::Projects
     public
 
     def run
-      Cejo::Projects::Core.new(services, 'ruby').run
+      Projects::Core.new(services, 'ruby').run
     end
   end
 end

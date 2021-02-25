@@ -29,16 +29,17 @@ module Cejo
           services.utils.parse_folder(folder)
         end
 
-        def process_projects
-          action = Cejo::Ops::Floss::ProjectInfo.new
+        def project_info
+          ProjectInfo.new
+        end
 
+        def process_projects()
           parsed_projects.each do |language, projects|
             puts "\n-- #{language.capitalize} --\n\n"
 
             projects.each do |project|
-              info = action.project_info(project, language.to_s)
-
-              action.show_project_info(info.url, info.folder)
+              info = project_info.info(project, language.to_s)
+              project_info.show_info(info.url, info.folder)
 
               yield(info)
             end
@@ -49,13 +50,13 @@ module Cejo
 
         # Archive Project
         def archive
-          action = Cejo::Ops::Floss::Archive
+          action = Archive
           process_projects { |info| action.archive_this(info) }
         end
 
         # Clone/Pull Project
         def grab
-          action = Cejo::Ops::Floss::Grab.new(services.utils)
+          action = Grab.new(services.utils)
           process_projects { |info| action.grab_this(info.folder, info.url) }
         end
 

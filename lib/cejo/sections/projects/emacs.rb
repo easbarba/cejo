@@ -16,7 +16,7 @@ module Cejo::Projects
     public
 
     def run
-      Cejo::Projects::Core.new(services, 'emacs').run
+      Projects::Core.new(services, 'emacs').run
     end
   end
 end

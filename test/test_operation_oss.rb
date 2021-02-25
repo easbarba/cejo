@@ -8,11 +8,11 @@ require 'cejo/services/configure_services'
 # Test Oss
 class FlossTest < Test::Unit::TestCase
   def setup
-    @services = Cejo::Services::ConfigureServices.new
+    @services = ConfigureServices.new
   end
 
   def test_get
-    floss = Cejo::Ops::Floss.new(@services, 'get')
+    floss = Floss.new(@services, 'get')
     floss.ARCHIVE_THESE
   end
 end

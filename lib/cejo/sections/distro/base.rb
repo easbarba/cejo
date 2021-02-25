@@ -18,13 +18,11 @@ module Cejo
       end
 
       def run
-        packer = Cejo::Distro::CurrentPackager.new.packager(services.utils)
-        real_action = Cejo::Distro::ParsedAction.new(services, action).real_action(packer)
+        packer = CurrentPackager.new.packager(services.utils)
+        real_action = ParsedAction.new(services, action).real_action(packer)
 
-        super_or_not = Cejo::Distro::SuperUser.new.needed?(action)
-        super_user = super_or_not ? 'sudo' : ''
-
-        cmd = "#{super_user} #{packer} #{real_action} #{arguments}"
+        cmd = "#{packer} #{real_action} #{arguments}"
+        cmd.prepend('sudo', ' ') if SuperUser.new.needed?(action)
 
         system(cmd)
       end

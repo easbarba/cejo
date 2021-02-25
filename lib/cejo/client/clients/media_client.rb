@@ -17,12 +17,11 @@ module Cejo
       end
 
       def play
-        puts sub_option
-        Cejo::Media::Play.new(sub_option).run
+        Media::Play.new(sub_option).run
       end
 
       def getmedia
-        Cejo::Media::Getmedia.new(sub_option).run
+        Media::Getmedia.new(sub_option, sub_option).run
       end
 
       public

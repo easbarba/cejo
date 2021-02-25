@@ -27,7 +27,7 @@ module Cejo
       end
 
       def grab
-        g = Cejo::Ops::Floss::Grab.new(services.utils)
+        g = Ops::Floss::Grab.new(services.utils)
         url = project_info[:url]
 
         g.grab_this(root, url)

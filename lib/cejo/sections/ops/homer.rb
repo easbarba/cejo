@@ -1,34 +1,32 @@
 # frozen_string_literal: true
 
-module Cejo
-  module Ops
-    # Symbolic link selected folders to $HOME.
-    class Homer
-      private
+module Cejo::Ops
+  # Symbolic link selected folders to $HOME.
+  class Homer
+    private
 
-      HOME = Pathname.new(Dir.home)
+    HOME = Pathname.new(Dir.home)
 
-      def prepare_folders
-        root = Pathname.new('/data')
-        new_folders = {}
+    def prepare_folders
+      root = Pathname.new('/data')
+      new_folders = {}
 
-        root.each_child do |folder|
-          new_folders[folder] = HOME.join(folder.basename)
-        end
-
-        new_folders
+      root.each_child do |folder|
+        new_folders[folder] = HOME.join(folder.basename)
       end
 
-      public
+      new_folders
+    end
 
-      def target_link
-        prepare_folders # TODO: require/provide one at request
-      end
+    public
 
-      def run
-        target_link.each do |target, link|
-          File.symlink(target, link) if !link.exist? && target.basename.to_s != 'lost+found'
-        end
+    def target_link
+      prepare_folders # TODO: require/provide one at request
+    end
+
+    def run
+      target_link.each do |target, link|
+        File.symlink(target, link) if !link.exist? && target.basename.to_s != 'lost+found'
       end
     end
   end

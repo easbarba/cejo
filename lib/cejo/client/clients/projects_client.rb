@@ -14,11 +14,11 @@ module Cejo
       end
 
       def emacs
-        Cejo::Projects::Emacs.new(services)
+        Projects::Emacs.new(services)
       end
 
       def dwm
-        Cejo::Projects::Dwm.new(services)
+        Projects::Dwm.new(services)
       end
 
       public

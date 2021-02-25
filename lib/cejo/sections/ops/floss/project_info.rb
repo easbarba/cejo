@@ -15,7 +15,7 @@ module Cejo
         PROJECTS = Pathname.new(File.join(Dir.home, "Projects")) # TODO: Check if folder exist, create it otherwise
 
         # Provide infomation of current FLOSS project
-        def project_info(project, language)
+        def info(project, language)
           url = URI.parse project
           name = File.basename(url.path.split("/").last, ".git")
           folder = PROJECTS.join(language, name)
@@ -24,7 +24,7 @@ module Cejo
         end
 
         # Display Project information
-        def show_project_info(url, folder)
+        def show_info(url, folder)
           print "repository: ".red.bold, url, "\n"
           print "folder: ".blue.bold, folder
         end

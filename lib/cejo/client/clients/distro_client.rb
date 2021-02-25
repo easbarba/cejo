@@ -16,27 +16,27 @@ module Cejo
       end
 
       def install
-        Cejo::Distro::Base.new(services, 'install', arguments)
+        Distro::Base.new(services, 'install', arguments)
       end
 
       def remove
-        Cejo::Distro::Base.new(services, 'remove', arguments)
+        Distro::Base.new(services, 'remove', arguments)
       end
 
       def upgrade
-        Cejo::Distro::Base.new(services, 'upgrade', arguments)
+        Distro::Base.new(services, 'upgrade', arguments)
       end
 
       def autoremove
-        Cejo::Distro::Base.new(services, 'autoremove', arguments)
+        Distro::Base.new(services, 'autoremove', arguments)
       end
 
       def update
-        Cejo::Distro::Base.new(services, 'update', arguments)
+        Distro::Base.new(services, 'update', arguments)
       end
 
       def clean
-        Cejo::Distro::Base.new(services, 'clean', arguments)
+        Distro::Base.new(services, 'clean', arguments)
       end
 
       public

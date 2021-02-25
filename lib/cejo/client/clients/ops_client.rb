@@ -22,31 +22,31 @@ module Cejo
       end
 
       def floss
-        Cejo::Ops::Floss::Core.new(services, sub_option)
+        Ops::Floss::Core.new(services, sub_option)
       end
 
       def dots
-        Cejo::Ops::Dots.new(services, sub_option)
+        Ops::Dots.new(services, sub_option)
       end
 
       def homer
-        Cejo::Ops::Homer.new
+        Ops::Homer.new
       end
 
       def screenshot
-        Cejo::Ops::Screenshot.new(services)
+        Ops::Screenshot.new(services)
       end
 
       def volume
-        Cejo::Ops::Volume.new(services, sub_option)
+        Ops::Volume.new(services, sub_option)
       end
 
       def brightness
-        Cejo::Ops::Brightness.new(services, sub_option)
+        Ops::Brightness.new(services, sub_option)
       end
 
       def sysinfo
-        Cejo::Ops::Sysinfo.new(services, sub_option)
+        Ops::Sysinfo.new(services, sub_option)
       end
 
       public

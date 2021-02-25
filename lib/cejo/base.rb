@@ -10,23 +10,22 @@ module Cejo
   class Base
     private
 
-    attr_reader :services, :args
+    def services
+      Services::Container.new
+    end
 
-    def initialize
-      @services = Cejo::Services::Container.new
-      @args = Cejo::CLI::Arguments.new(ARGV).get_args
+    def args
+      CLI::Arguments.new(ARGV).get_args
     end
 
     def clients
       sub_option = args.sub_option
-
-      Cejo::Client::Clients.new(services, sub_option)
+      Client::Clients.new(services, sub_option)
     end
 
     def run
       section = args.command
       feature = args.option
-
       clients.sections[section].features[feature].run
     end
 
