@@ -19,7 +19,7 @@ module Cejo::Distro
     end
 
     def real_action(packager)
-      commands[packager.to_sym][action]
+      commands[packager][action]
     end
   end
 end

@@ -16,15 +16,16 @@ module Cejo
       def initialize(services, arguments, action)
         @services = services
         @arguments = arguments
-        @action = action
+        @action = action.to_sym
       end
 
-      def packer
+      def packager
         CurrentPackager.new.packager(services.utils)
       end
 
       def real_action
-        ParsedAction.new(services, action).real_action(packer)
+        parsed_action = ParsedAction.new(services, action)
+        parsed_action.real_action(packager)
       end
 
       def super_needed?
@@ -32,7 +33,7 @@ module Cejo
       end
 
       def command
-        cmd = [packer, real_action, arguments]
+        cmd = [packager, real_action, arguments]
         cmd.prepend 'sudo' if super_needed?
         cmd.join(' ')
       end
@@ -40,7 +41,7 @@ module Cejo
       public
 
       def run
-        puts command
+        system command
       end
     end
   end

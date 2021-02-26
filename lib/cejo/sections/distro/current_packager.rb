@@ -8,7 +8,7 @@ module Cejo::Distro
     def packager(utils)
       PackagersSupported::ALL.find do
         |x| utils.has_program?(x)
-      end
+      end.to_sym
     end
   end
 end
