@@ -2,7 +2,7 @@ require_relative '../../lib/cejo/sections/distro/need'
 
 require 'spec_helper'
 
-RSpec.describe 'The needs of one' do
+RSpec.describe 'The Needs of one' do
   it 'needs to be admin' do
     need = Cejo::Distro::Need.new(:install)
     expect(need.admin?).to eq(true)
