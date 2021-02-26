@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'super_user'
+require_relative 'action'
+require_relative 'config_folder'
+require_relative 'commands'
 require_relative 'current_packager'
-require_relative 'parsed_action'
+require_relative 'need'
 
 module Cejo
   # Distro Front End
@@ -19,28 +21,34 @@ module Cejo
         @action = action
       end
 
+      def commands
+        raw_cmds = ConfigFolder.new(services).raw_commands
+        Commands.new(raw_cmds).all
+      end
+
       def packer
-        CurrentPackager.new.packager(services.utils)
+        pack = CurrentPackager.new(services.utils, commands.all)
+        pack.packager
       end
 
       def real_action
-        ParsedAction.new(services, action).real_action(packer)
+        Action.new(services, action).real_action(packer)
       end
 
-      def super_needed?
-        SuperUser.new.needed? real_action
+      def need
+        Need.new
       end
 
-      def command
+      def final_command
         cmd = [packer, real_action, arguments]
-        cmd.prepend 'sudo' if super_needed?
+        cmd.prepend 'sudo' if need.admin?(real_action)
         cmd.join(' ')
       end
 
       public
 
       def run
-        puts command
+        puts final_command
       end
     end
   end

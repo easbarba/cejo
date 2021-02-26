@@ -1,13 +1,20 @@
 # frozen_string_literal: true
 
-require_relative 'packagers_supported'
+module Cejo
+  module Distro
+    # Base
+    class CurrentPackager
+      attr_reader :utils, :all_commands
 
-module Cejo::Distro
-  # Base
-  class CurrentPackager
-    def packager(utils)
-      PackagersSupported::ALL.find do
-        |x| utils.has_program?(x)
+      def initialize(utils, all_commands)
+        @utils = utils
+        @all_commands = all_commands
+      end
+
+      def packager
+        all_commands.find do
+          |p| utils.has_program? p
+        end
       end
     end
   end
