@@ -33,7 +33,8 @@ module Cejo
       end
 
       def command
-        cmd = [packager, real_action, arguments]
+        cmd = packager, real_action
+        cmd.append arguments unless arguments.nil?
         cmd.prepend 'sudo' if super_needed?
         cmd.join(' ')
       end
@@ -41,7 +42,7 @@ module Cejo
       public
 
       def run
-        system command
+        puts command
       end
     end
   end
