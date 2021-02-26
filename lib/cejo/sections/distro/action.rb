@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
-module Cejo::Distro
-  # Base
-  class Action
-    attr_reader :services, :action
-
-    def initialize(services, action)
-      @services = services
-      @action = action
-    end
-
-    def real_action(packager)
-      packager = packager.to_sym
-      packagers_commands[packager][action]
+module Cejo
+  module Distro
+    # Translate Raw Action
+    class Action
+      # Translated action
+      def real_action(commands, packager, action)
+        commands[packager][action]
+      end
     end
   end
 end
