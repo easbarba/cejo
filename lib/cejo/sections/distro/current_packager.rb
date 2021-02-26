@@ -12,9 +12,7 @@ module Cejo
       end
 
       def packager
-        all_commands.find do
-          |p| utils.has_program? p
-        end
+        all_commands.find { |p| utils.has_program? p }.to_sym
       end
     end
   end

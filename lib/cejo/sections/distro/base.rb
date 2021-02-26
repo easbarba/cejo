@@ -18,7 +18,7 @@ module Cejo
       def initialize(services, arguments, action)
         @services = services
         @arguments = arguments
-        @action = action
+        @action = action.to_sym
       end
 
       def commands
@@ -26,13 +26,13 @@ module Cejo
         Commands.new(raw_cmds).all
       end
 
-      def packer
-        pack = CurrentPackager.new(services.utils, commands.all)
-        pack.packager
+      def packager
+        cpackager = CurrentPackager.new(services.utils, commands.all)
+        cpackager.packager
       end
 
       def real_action
-        Action.new(services, action).real_action(packer)
+        Action.new(services, action).real_action(packager)
       end
 
       def need
@@ -40,8 +40,9 @@ module Cejo
       end
 
       def final_command
-        cmd = [packer, real_action, arguments]
-        cmd.prepend 'sudo' if need.admin?(real_action)
+        cmd = packager, real_action
+        cmd.append arguments unless arguments.nil?
+        cmd.prepend 'sudo' if super_needed?
         cmd.join(' ')
       end
 
