@@ -11,20 +11,27 @@ module Cejo
     class Base
       attr_reader :services, :action, :arguments
 
+      private
+
       def initialize(services, action, arguments)
         @services = services
         @arguments = arguments
         @action = action
       end
 
-      def run
+      def final_command
         packer = CurrentPackager.new.packager(services.utils)
         real_action = ParsedAction.new(services, action).real_action(packer)
 
-        cmd = "#{packer} #{real_action} #{arguments}"
-        cmd.prepend('sudo', ' ') if SuperUser.new.needed?(action)
+        cmd = [packer, real_action, arguments]
+        cmd.prepend 'sudo' if SuperUser.new.needed?(action)
+        cmd.join(' ')
+      end
 
-        system(cmd)
+      public
+
+      def run
+        system(final_command)
       end
     end
   end
