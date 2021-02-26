@@ -42,7 +42,7 @@ module Cejo
       public
 
       def run
-        puts command
+        system command
       end
     end
   end
