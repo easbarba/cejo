@@ -9,29 +9,38 @@ module Cejo
   module Distro
     # Base
     class Base
-      attr_reader :services, :action, :arguments
+      attr_reader :services, :arguments, :action
 
       private
 
-      def initialize(services, action, arguments)
+      def initialize(services, arguments, action)
         @services = services
         @arguments = arguments
         @action = action
       end
 
-      def final_command
-        packer = CurrentPackager.new.packager(services.utils)
-        real_action = ParsedAction.new(services, action).real_action(packer)
+      def packer
+        CurrentPackager.new.packager(services.utils)
+      end
 
+      def real_action
+        ParsedAction.new(services, action).real_action(packer)
+      end
+
+      def super_needed?
+        SuperUser.new.needed? real_action
+      end
+
+      def command
         cmd = [packer, real_action, arguments]
-        cmd.prepend 'sudo' if SuperUser.new.needed?(action)
+        cmd.prepend 'sudo' if super_needed?
         cmd.join(' ')
       end
 
       public
 
       def run
-        system(final_command)
+        puts command
       end
     end
   end

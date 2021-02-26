@@ -23,12 +23,12 @@ module Cejo
       Client::Clients.new(services, sub_option)
     end
 
+    public
+
     def run
       section = args.command
       feature = args.option
       clients.sections[section].features[feature].run
     end
-
-    public :run
   end
 end
