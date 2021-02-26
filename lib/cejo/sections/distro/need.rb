@@ -14,7 +14,7 @@ module Cejo
 
       # Action need any argument
       def arguments?
-        return NOPE.include?action) ? true : false
+        return NOPE.include?(action) ? true : false
       end
     end
   end
