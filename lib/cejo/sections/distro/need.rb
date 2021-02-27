@@ -6,9 +6,9 @@ module Cejo
     class Need
       attr_reader :action
 
-      ADMIN     = [:install, :remove, :purge, :update, :upgrade, :clean, :autoremove].freeze
+      ADMIN = [:install, :remove, :purge, :update, :upgrade, :clean, :autoremove].freeze
       ARGUMENTS = [:install, :remove, :purge, :dependencies].freeze
-      WHATEVER  = [:autoremove].freeze
+      WHATEVER = [:autoremove].freeze
 
       def initialize(action)
         @action = action
