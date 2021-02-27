@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-spinner'
-
-require 'yaml'
-
 module Cejo::Services
   # General Utilities.
   class Utils
@@ -26,6 +22,7 @@ module Cejo::Services
     end
 
     def spin(msg)
+      require 'tty-spinner'
       spinner = TTY::Spinner.new("status: #{msg.downcase} :spinner ", format: :dots_6)
 
       puts
@@ -39,6 +36,7 @@ module Cejo::Services
 
     # Parse Folder with serialization files
     def parse_folder(folder)
+      require 'yaml'
       projects = {}
 
       folder.each_child do |file|
