@@ -43,7 +43,7 @@ module Cejo::Services
 
       folder.each_child do |file|
         name = file.basename.sub_ext("").to_s.to_sym
-        projects[name] = YAML.load_file file # instead load per time to avoid errors; enumerator?
+        projects[name] = YAML.load_file(file, symbolize_names: true) # instead load per time to avoid errors; enumerator?
       end
 
       projects
