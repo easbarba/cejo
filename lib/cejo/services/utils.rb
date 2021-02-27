@@ -34,14 +34,27 @@ module Cejo::Services
       puts
     end
 
+    # Load file with famous serialization formats
+    def load_this(file, ext)
+      case ext # TODO: load lazily per time. enumerator?
+      when 'yaml'
+        require 'yaml'
+        YAML.load_file(file, symbolize_names: true)
+      when 'json'
+        require 'json'
+        JSON.parse(file, symbolize_names: true)
+      else
+        return
+      end
+    end
+
     # Parse Folder with serialization files
-    def parse_folder(folder)
-      require 'yaml'
+    def parse_folder(folder, ext='yaml')
       projects = {}
 
       folder.each_child do |file|
         name = file.basename.sub_ext("").to_s.to_sym
-        projects[name] = YAML.load_file(file, symbolize_names: true) # instead load per time to avoid errors; enumerator?
+        projects[name] = load_this(file, ext)
       end
 
       projects
