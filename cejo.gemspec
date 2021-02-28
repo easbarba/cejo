@@ -23,10 +23,10 @@ Gem::Specification.new do |spec|
   spec.executables   = %w[cejo]
 
   # production
-  spec.add_dependency 'clipboard'
-  spec.add_dependency 'git'
-  spec.add_dependency 'tty-spinner'
-  spec.add_dependency 'colorize'
+  spec.add_runtime_dependency 'clipboard'
+  spec.add_runtime_dependency 'git'
+  spec.add_runtime_dependency 'tty-spinner'
+  spec.add_runtime_dependency 'colorize'
 
   # development
   spec.add_development_dependency 'rubocop'
