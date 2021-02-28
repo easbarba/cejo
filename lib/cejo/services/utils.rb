@@ -25,14 +25,10 @@ module Cejo
 
         require 'tty-spinner'
         spinner = TTY::Spinner.new("#{warning} #{msg.downcase} :spinner ", format: :dots_6)
-
-        puts
         spinner.auto_spin
 
         yield
-
         spinner.success
-        puts
       end
 
       # Load file with famous serialization formats
