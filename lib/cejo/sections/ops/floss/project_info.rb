@@ -25,6 +25,7 @@ module Cejo
 
         # Display Project information
         def show_info(url, folder)
+          require "colorize"
           print "repository: ".red.bold, url, "\n"
           print "folder: ".blue.bold, folder
         end
