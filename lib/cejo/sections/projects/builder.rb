@@ -39,7 +39,7 @@ module Cejo
       end
 
       def grab
-        Ops::Floss::Grab.new(utils).grab_this(root, url)
+        Ops::Floss::Grab.new(utils, root, url).grab_this
       end
 
       def tag
@@ -65,7 +65,7 @@ module Cejo
       def install
         Dir.chdir(root) do
           commands.each do |command|
-            command.gsub!("{0}", install_folder.to_s)
+            command.gsub!("{0}", folders.local.to_s)
             system command
           end
         end
