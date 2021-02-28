@@ -4,8 +4,6 @@ require_relative 'project_info'
 require_relative 'archive'
 require_relative 'grab'
 
-require "colorize"
-
 require "pathname"
 
 module Cejo
@@ -14,19 +12,20 @@ module Cejo
     module Floss
       # Core Management FLOSS Projects
       class Core
-        attr_reader :services
+        attr_reader :services, :folders, :utils
         attr_reader :command
 
         private
 
         def initialize(services, command = 'grab')
-          @services = services
+          @folders = services.folders
+          @utils = services.utils
           @command = command
         end
 
         def parsed_projects
-          folder = services.folders.cejo_config.join("floss")
-          services.utils.parse_folder(folder)
+          folder = folders.cejo_config.join("floss")
+          utils.parse_folder(folder)
         end
 
         def project_info
@@ -48,20 +47,19 @@ module Cejo
 
         public
 
-        # Archive Project
         def archive
-          action = Archive
-          process_projects { |info| action.archive_this(info) }
+          process_projects { |info| Archive.archive_this(info) }
         end
 
-        # Clone/Pull Project
         def grab
-          action = Grab.new(services.utils)
-          process_projects { |info| action.grab_this(info.folder, info.url) }
+          process_projects do |info|
+            Grab.new(utils, info.folder, info.url)
+                .grab_this
+          end
         end
 
         def run
-          services.utils.info_and_exit(command, "grab", "archive")
+          utils.info_and_exit(command, "grab", "archive")
 
           public_send(command)
         end
