@@ -28,18 +28,16 @@ module Cejo
           utils.parse_folder(folder)
         end
 
-        def project_info
-          ProjectInfo.new
-        end
-
         def process_projects()
           parsed_projects.each do |language, projects|
-            puts "\n-- #{language.capitalize} --\n\n"
+            print <<~EOF
 
-            projects.each do |project|
-              info = project_info.info(project, language.to_s)
-              project_info.show_info(info.url, info.folder)
+            ❯ #{language.capitalize}
 
+            EOF
+
+            projects.each do |url|
+              info = ProjectInfo.new(url, language.to_s)
               yield(info)
             end
           end
@@ -48,12 +46,14 @@ module Cejo
         public
 
         def archive
-          process_projects { |info| Archive.archive_this(info) }
+          process_projects do |info|
+            Archive.new(utils).archive_this(info)
+          end
         end
 
         def grab
           process_projects do |info|
-            Grab.new(utils, info.folder, info.url)
+            Grab.new(utils, info)
                 .grab_this
           end
         end

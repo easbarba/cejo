@@ -7,12 +7,13 @@ module Cejo
     module Floss
       # Grab FLOSS Projects
       class Grab
-        attr_reader :utils, :folder, :url
+        attr_reader :utils, :folder, :url, :info
 
-        def initialize(utils, folder, url)
+        def initialize(utils, info)
           @utils = utils
-          @folder = folder
-          @url = url
+          @folder = info.folder
+          @url = info.url
+          @info = info
         end
 
         def do_pull
@@ -30,11 +31,14 @@ module Cejo
 
         # Cloning/Pulling FLOSS Project
         def grab_this
+          puts info.to_s
+
           if folder.exist?
             do_pull
           else
             do_clone
           end
+          puts
         end
       end
     end

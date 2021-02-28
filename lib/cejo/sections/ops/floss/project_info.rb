@@ -8,26 +8,22 @@ module Cejo
     module Floss
       # Provides Project Information
       class ProjectInfo
-        # Skeleton information of projects: url, name, folder
-        DATA = Struct.new(:url, :name, :folder)
+        attr_reader :url, :name, :folder
 
-        # Folder where Projects repositories will be stored
-        PROJECTS = Pathname.new(File.join(Dir.home, "Projects")) # TODO: Check if folder exist, create it otherwise
-
-        # Provide infomation of current FLOSS project
-        def info(project, language)
-          url = URI.parse project
-          name = File.basename(url.path.split("/").last, ".git")
-          folder = PROJECTS.join(language, name)
-
-          DATA.new(url, name, folder)
+        def initialize(url, language)
+          @url = URI.parse url
+          @language = language
+          @name = File.basename(@url.path.split("/").last, ".git")
+          projects = Pathname.new(File.join(Dir.home, "Projects"))
+          @folder = projects.join(language, name)
         end
 
-        # Display Project information
-        def show_info(url, folder)
+        def to_s
           require "colorize"
-          print "repository: ".red.bold, url, "\n"
-          print "folder: ".blue.bold, folder
+          <<~EOF
+          #{"repository".red.bold}: #{url}
+          #{"folder".blue.bold}: #{folder}
+          EOF
         end
       end
     end
