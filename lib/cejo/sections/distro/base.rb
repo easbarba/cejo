@@ -1,55 +1,56 @@
 # frozen_string_literal: true
 
-require_relative 'action'
-require_relative 'config_folder'
-require_relative 'commands'
-require_relative 'current_packager'
-require_relative 'need'
+require_relative "translate_action"
+require_relative "config_folder"
+require_relative "commands"
+require_relative "current_packager"
+require_relative "need"
 
 module Cejo
   # Distro Front End
   module Distro
     # Base
     class Base
-      attr_reader :services, :arguments, :action
+      attr_reader :folder, :utils, :arguments, :action, :cfg_folder
 
-      private
-
-      def initialize(services, arguments, action)
-        @services = services
+      def initialize(folders, utils, arguments, action)
+        @folder = folders.cejo_config
+        @utils = utils
         @arguments = arguments
         @action = action.to_sym
       end
 
       def commands
-        raw_cmds = ConfigFolder.new(services).raw_commands
-        Commands.new(raw_cmds).all
+        cfg_folder = ConfigFolder.new(folder).folder
+        cmds = utils.parse_folder cfg_folder
+        Commands.new(cmds).all
       end
 
       def packager
-        cpackager = CurrentPackager.new(services.utils, commands.all)
-        cpackager.packager
+        cur_pack = CurrentPackager.new(utils)
+        cur_pack.packager(commands.keys)
       end
 
-      def real_action
-        Action.new(services, action).real_action(packager)
+      def trans_action
+        result = TranslateAction.new
+        result.real_action(commands, packager, action)
       end
 
       def need
-        Need.new
+        Need.new(action)
       end
 
       def final_command
-        cmd = packager, real_action
+        cmd = packager, trans_action
         cmd.append arguments unless arguments.nil?
-        cmd.prepend 'sudo' if super_needed?
-        cmd.join(' ')
+        cmd.prepend "sudo" if need.admin?
+        cmd.join(" ")
       end
 
       public
 
       def run
-        puts final_command
+        system final_command
       end
     end
   end
