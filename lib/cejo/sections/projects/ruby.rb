@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
-require_relative 'core'
-
 require "pathname"
 
-module Cejo::Projects
-  # Ruby Programming language
-  class Ruby
-    attr_reader :services
+module Cejo
+  module Projects
+    # Ruby Programming language
+    class Ruby
+      attr_reader :builder
 
-    def initialize(services)
-      @services = services
-    end
+      def initialize(builder)
+        builder.project = "ruby"
+        @builder = builder
+      end
 
-    public
+      public
 
-    def run
-      Projects::Core.new(services, 'ruby').run
+      def run
+        builder.run
+      end
     end
   end
 end

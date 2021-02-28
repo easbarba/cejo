@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
-require_relative 'core'
-
 require "pathname"
 
-module Cejo::Projects
-  # GNU Emacs Editor
-  class Emacs
-    attr_reader :services
+module Cejo
+  module Projects
+    # GNU Emacs Editor
+    class Emacs
+      attr_reader :builder
 
-    def initialize(services)
-      @services = services
-    end
+      def initialize(builder)
+        builder.project = "emacs"
+        @builder = builder
+      end
 
-    public
+      public
 
-    def run
-      Projects::Core.new(services, 'emacs').run
+      def run
+        builder.run
+      end
     end
   end
 end
