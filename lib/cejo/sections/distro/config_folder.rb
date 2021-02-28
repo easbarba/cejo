@@ -4,14 +4,14 @@ module Cejo
   module Distro
     # Parse Configuration Folder
     class ConfigFolder
-      attr_reader :services
+      attr_reader :cfg_folder
 
-      def initialize(services)
-        @services = services
+      def initialize(cfg_folder)
+        @cfg_folder = cfg_folder
       end
 
       def folder
-        services.folders.cejo_config.join "distro"
+        cfg_folder.join "distro"
       end
 
       def any_config?
