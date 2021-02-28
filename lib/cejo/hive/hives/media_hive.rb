@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/media/play'
-require_relative '../../sections/media/getmedia'
-
 module Cejo
-  module Client
+  module Hive
     # Media features
-    class MediaClient
+    class MediaHive
       attr_reader :services, :sub_option
 
       private

@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'folders'
-require_relative 'utils'
-
 module Cejo
   # Utilities and System Software front-end.
   module Services

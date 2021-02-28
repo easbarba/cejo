@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../clients/distro_client'
-require_relative '../clients/ops_client'
-require_relative '../clients/projects_client'
-require_relative '../clients/media_client'
-
 module Cejo
-  module Client
-    # Provide Clients
-    class Clients
+  module Hive
+    # Provide Hives
+    class Queen
       attr_reader :services, :sub_option
 
       private
@@ -19,19 +14,23 @@ module Cejo
       end
 
       def ops
-        OpsClient.new(services, sub_option)
+        OpsHive.new(services, sub_option)
+      end
+
+      def floss
+        FlossHive.new(services, sub_option)
       end
 
       def media
-        MediaClient.new(services, sub_option)
+        MediaHive.new(services, sub_option)
       end
 
       def projects
-        ProjectsClient.new(services)
+        ProjectsHive.new(services)
       end
 
       def di
-        DistroClient.new(services, sub_option)
+        DistroHive.new(services, sub_option)
       end
 
       public
@@ -42,7 +41,8 @@ module Cejo
           media: media,
           ops: ops,
           projects: projects,
-          di: di
+          di: di,
+          floss: floss
         }
       end
     end

@@ -1,17 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/ops/floss/core'
-require_relative '../../sections/ops/homer'
-require_relative '../../sections/ops/screenshot'
-require_relative '../../sections/ops/volume'
-require_relative '../../sections/ops/brightness'
-require_relative '../../sections/ops/dots'
-require_relative '../../sections/ops/sysinfo'
-
 module Cejo
-  module Client
+  module Hive
     # Return Ops features
-    class OpsClient
+    class OpsHive
       attr_reader :services, :sub_option
 
       private
@@ -19,10 +11,6 @@ module Cejo
       def initialize(services, sub_option)
         @services = services
         @sub_option = sub_option
-      end
-
-      def floss
-        Ops::Floss::Core.new(services, sub_option)
       end
 
       def dots
@@ -54,7 +42,6 @@ module Cejo
       def features
         {
           dots: dots,
-          floss: floss,
           homer: homer,
           screenshot: screenshot,
           brightness: brightness,

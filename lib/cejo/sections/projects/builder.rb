@@ -39,7 +39,7 @@ module Cejo
       end
 
       def grab
-        Ops::Floss::Grab.new(utils, root, url, self.to_s).grab_this
+        Floss::Grab.new(utils, root, url, self.to_s).grab_this
       end
 
       def tag

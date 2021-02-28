@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/projects/builder'
-require_relative '../../sections/projects/emacs'
-require_relative '../../sections/projects/dwm'
-require_relative '../../sections/projects/ruby'
-
 module Cejo
-  module Client
+  module Hive
     # List Projects To build
-    class ProjectsClient
+    class ProjectsHive
       attr_reader :services
 
       def initialize(services)

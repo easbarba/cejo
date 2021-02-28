@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'cli/arguments'
-require_relative 'services/container'
-require_relative 'client/factories/clients'
-
 # Miscellaneous Unix automation and services utilities.
 module Cejo
   # Bootstrap program
@@ -18,9 +14,9 @@ module Cejo
       CLI::Arguments.new(ARGV).get_args
     end
 
-    def clients
+    def hives
       sub_option = args.sub_option
-      Client::Clients.new(services, sub_option)
+      Hive::Queen.new(services, sub_option)
     end
 
     public
@@ -28,7 +24,7 @@ module Cejo
     def run
       section = args.command
       feature = args.option
-      clients.sections[section].features[feature].run
+      hives.sections[section].features[feature].run
     end
   end
 end

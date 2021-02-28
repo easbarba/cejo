@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "translate_action"
-require_relative "config_folder"
-require_relative "commands"
-require_relative "current_packager"
-require_relative "need"
-
 module Cejo
   # Distro Front End
   module Distro

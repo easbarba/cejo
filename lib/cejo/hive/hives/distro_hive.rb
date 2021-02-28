@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../../sections/distro/base'
-
 module Cejo
-  module Client
-    # Distro Clients
-    class DistroClient
+  module Hive
+    # Distro Hives
+    class DistroHive
       attr_reader :folders, :utils, :arguments
 
       private
