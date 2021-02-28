@@ -47,13 +47,13 @@ module Cejo
 
         def archive
           process_projects do |info|
-            Archive.new(utils).archive_this(info)
+            Archive.new(utils).archive_this(info.name, info.folder, info.to_s)
           end
         end
 
         def grab
           process_projects do |info|
-            Grab.new(utils, info)
+            Grab.new(utils, info.folder, info.url, info.to_s)
                 .grab_this
           end
         end

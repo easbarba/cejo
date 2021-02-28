@@ -9,10 +9,10 @@ module Cejo
       class Grab
         attr_reader :utils, :folder, :url, :info
 
-        def initialize(utils, info)
+        def initialize(utils, folder, url, info)
           @utils = utils
-          @folder = info.folder
-          @url = info.url
+          @folder = folder
+          @url = url
           @info = info
         end
 

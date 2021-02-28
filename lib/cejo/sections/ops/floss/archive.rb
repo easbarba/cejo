@@ -23,16 +23,19 @@ module Cejo
         end
 
         # Archiving FLOSS project
-        def archive_this(project)
-          name = project.name
+        def archive_this(name, folder, info)
+          name = name
           @filename = "#{STORE_FOLDER.join(name)}.#{FMT}"
-          @project_folder = project.folder
+          @project_folder = folder
 
           return unless ARCHIVE_THESE.include?(name) # only archive listed ones
-          puts project.to_s
+
+          puts info
 
           mk_folder
           do_archive
+
+          puts
         end
 
         def mk_folder
