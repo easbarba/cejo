@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-module Cejo::Distro
+module Cejo
+  module Distro
     # Provide Commands Information
     class Help
     end

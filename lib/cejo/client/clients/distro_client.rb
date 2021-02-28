@@ -6,37 +6,54 @@ module Cejo
   module Client
     # Distro Clients
     class DistroClient
-      attr_reader :services, :arguments
+      attr_reader :folders, :utils, :arguments
 
       private
 
       def initialize(services, arguments)
-        @services = services
+        @utils = services.utils
+        @folders = services.folders
         @arguments = arguments
       end
 
       def install
-        Distro::Base.new(services, arguments, 'install')
+        Distro::Base.new(folders, utils, arguments, 'install')
       end
 
       def remove
-        Distro::Base.new(services, arguments, 'remove')
+        Distro::Base.new(folders, utils, arguments, 'remove')
+      end
+
+      def search
+        Distro::Base.new(folders, utils, arguments, 'search')
       end
 
       def upgrade
-        Distro::Base.new(services, arguments, 'upgrade')
+        Distro::Base.new(folders, utils, arguments, 'upgrade')
       end
 
       def update
-        Distro::Base.new(services, arguments, 'update')
+        Distro::Base.new(folders, utils, arguments, 'update')
       end
 
       def clean
-        Distro::Base.new(services, arguments, 'clean')
+        Distro::Base.new(folders, utils, arguments, 'clean')
       end
 
       def autoremove
-        Distro::Base.new(services, arguments, 'autoremove')
+        Distro::Base.new(folders, utils, arguments, 'autoremove')
+      end
+
+      def download
+        Distro::Base.new(folders, utils, arguments, 'download')
+      end
+
+      def installed
+        Distro::Base.new(folders, utils, arguments, 'installed')
+      end
+
+      def fix
+        Distro::Base.new(folders, utils, arguments, 'fix')
       end
 
       public
@@ -48,7 +65,10 @@ module Cejo
           ug: upgrade,
           ud: update,
           c:  clean,
-          au: autoremove
+          s:  search,
+          dw: download,
+          id: installed,
+          f:  fix
         }
       end
     end

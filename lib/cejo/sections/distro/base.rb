@@ -1,48 +1,56 @@
 # frozen_string_literal: true
 
-require_relative 'super_user'
-require_relative 'current_packager'
-require_relative 'parsed_action'
+require_relative "translate_action"
+require_relative "config_folder"
+require_relative "commands"
+require_relative "current_packager"
+require_relative "need"
 
 module Cejo
   # Distro Front End
   module Distro
     # Base
     class Base
-      attr_reader :services, :arguments, :action
+      attr_reader :folder, :utils, :arguments, :action, :cfg_folder
 
-      private
-
-      def initialize(services, arguments, action)
-        @services = services
+      def initialize(folders, utils, arguments, action)
+        @folder = folders.cejo_config
+        @utils = utils
         @arguments = arguments
         @action = action.to_sym
       end
 
+      def commands
+        cfg_folder = ConfigFolder.new(folder).folder
+        cmds = utils.parse_folder cfg_folder
+        Commands.new(cmds).all
+      end
+
       def packager
-        CurrentPackager.new.packager(services.utils)
+        cur_pack = CurrentPackager.new(utils)
+        cur_pack.packager(commands.keys)
       end
 
-      def real_action
-        parsed_action = ParsedAction.new(services, action)
-        parsed_action.real_action(packager)
+      def trans_action
+        result = TranslateAction.new
+        result.real_action(commands, packager, action)
       end
 
-      def super_needed?
-        SuperUser.new.needed? real_action
+      def need
+        Need.new(action)
       end
 
-      def command
-        cmd = packager, real_action
+      def final_command
+        cmd = packager, trans_action
         cmd.append arguments unless arguments.nil?
-        cmd.prepend 'sudo' if super_needed?
-        cmd.join(' ')
+        cmd.prepend "sudo" if need.admin?
+        cmd.join(" ")
       end
 
       public
 
       def run
-        system command
+        system final_command
       end
     end
   end

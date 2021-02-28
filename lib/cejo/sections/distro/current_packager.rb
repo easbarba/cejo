@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
-require_relative 'packagers_supported'
+module Cejo
+  module Distro
+    # Base
+    class CurrentPackager
+      attr_reader :utils
 
-module Cejo::Distro
-  # Base
-  class CurrentPackager
-    def packager(utils)
-      PackagersSupported::ALL.find do
-        |x| utils.has_program?(x)
-      end.to_sym
+      def initialize(utils)
+        @utils = utils
+      end
+
+      def packager(keys)
+        keys.find { |p| utils::has_program? p }.to_sym
+      end
     end
   end
 end

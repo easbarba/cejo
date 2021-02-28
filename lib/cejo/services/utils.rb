@@ -26,8 +26,9 @@ module Cejo
         exit
       end
 
-      def spin(msg)
-        spinner = TTY::Spinner.new("status: #{msg.downcase} :spinner ", format: :dots_6)
+    def spin(msg)
+      require 'tty-spinner'
+      spinner = TTY::Spinner.new("status: #{msg.downcase} :spinner ", format: :dots_6)
 
         puts
         spinner.auto_spin
@@ -38,14 +39,28 @@ module Cejo
         puts
       end
 
-      # Parse Folder with serialization files
-      def parse_folder(folder)
-        projects = {}
+    # Load file with famous serialization formats
+    def load_this(file, ext)
+      case ext # TODO: load lazily per time. enumerator?
+      when 'yaml'
+        require 'yaml'
+        YAML.load_file(file, symbolize_names: true)
+      when 'json'
+        require 'json'
+        JSON.parse(file, symbolize_names: true)
+      else
+        return
+      end
+    end
 
-        folder.each_child do |file|
-          name = file.basename.sub_ext("").to_s.to_sym
-          projects[name] = YAML.load_file(file, symbolize_names: true)
-        end  # instead load per time to avoid errors; enumerator?
+    # Parse Folder with serialization files
+    def parse_folder(folder, ext='yaml')
+      projects = {}
+
+      folder.each_child do |file|
+        name = file.basename.sub_ext("").to_s.to_sym
+        projects[name] = load_this(file, ext)
+      end
 
         projects
       end

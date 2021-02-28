@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'colorize'
 
   # development
+  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'coderay'
   spec.add_development_dependency 'gli'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake'
