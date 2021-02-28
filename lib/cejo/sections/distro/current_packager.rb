@@ -4,15 +4,14 @@ module Cejo
   module Distro
     # Base
     class CurrentPackager
-      attr_reader :utils, :all_commands
+      attr_reader :utils
 
-      def initialize(utils, all_commands)
+      def initialize(utils)
         @utils = utils
-        @all_commands = all_commands
       end
 
-      def packager
-        all_commands.find { |p| utils.has_program? p }.to_sym
+      def packager(keys)
+        keys.find { |p| utils::has_program? p }.to_sym
       end
     end
   end
