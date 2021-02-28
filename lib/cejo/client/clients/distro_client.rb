@@ -23,6 +23,10 @@ module Cejo
         Distro::Base.new(services, arguments, 'remove')
       end
 
+      def search
+        Distro::Base.new(services, arguments, 'search')
+      end
+
       def upgrade
         Distro::Base.new(services, arguments, 'upgrade')
       end
@@ -39,6 +43,18 @@ module Cejo
         Distro::Base.new(services, arguments, 'autoremove')
       end
 
+      def download
+        Distro::Base.new(services, arguments, 'download')
+      end
+
+      def installed
+        Distro::Base.new(services, arguments, 'installed')
+      end
+
+      def fix
+        Distro::Base.new(services, arguments, 'fix')
+      end
+
       public
 
       def features
@@ -48,7 +64,10 @@ module Cejo
           ug: upgrade,
           ud: update,
           c:  clean,
-          au: autoremove
+          s:  search,
+          dw: download,
+          id: installed,
+          f:  fix
         }
       end
     end
