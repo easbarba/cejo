@@ -13,7 +13,7 @@ RSpec.describe "Base one...two" do
 
   let(:utils) {
     Class.new do
-      def has_program?(x)
+      def which?(x)
         true
       end
 
