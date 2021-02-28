@@ -73,7 +73,7 @@ module Cejo
 
       public
 
-      def show_project_info
+      def to_s
         <<~EOF
         Building Project:
         Name: #{project.capitalize}
@@ -84,7 +84,7 @@ module Cejo
       end
 
       def run
-        print show_project_info
+        print self.to_s
 
         grab
 
