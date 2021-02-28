@@ -4,10 +4,9 @@ module Cejo::Services
   # General Utilities.
   class Utils
     def command?(name)
-      [name, *ENV['PATH']
-                .split(File::PATH_SEPARATOR)
-                .map { |p| File.join(p, name) }]
-        .find { |f| File.executable?(f) }
+      [name,
+       *ENV['PATH'].split(File::PATH_SEPARATOR).map { |p| File.join(p, name) }
+      ].find { |f| File.executable?(f) }
     end
 
     def info_and_exit(foo, *options)
