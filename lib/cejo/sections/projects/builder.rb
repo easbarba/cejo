@@ -39,7 +39,7 @@ module Cejo
       end
 
       def grab
-        Ops::Floss::Grab.new(utils, root, url).grab_this
+        Ops::Floss::Grab.new(utils, root, url, self.to_s).grab_this
       end
 
       def tag
@@ -75,7 +75,8 @@ module Cejo
 
       def to_s
         <<~EOF
-        Building Project:
+        ❯ Building Project
+
         Name: #{project.capitalize}
         Url: #{url}
         Tag: #{tag.nil? ? tag : '""'}
@@ -84,8 +85,6 @@ module Cejo
       end
 
       def run
-        print self.to_s
-
         grab
 
         checkout_tag
