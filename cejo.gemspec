@@ -30,6 +30,8 @@ Gem::Specification.new do |spec|
 
   # development
   spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'solargraph'
+  spec.add_development_dependency 'sorbet'
   spec.add_development_dependency 'coderay'
   spec.add_development_dependency 'gli'
   spec.add_development_dependency 'bundler'
