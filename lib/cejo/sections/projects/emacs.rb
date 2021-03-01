@@ -6,11 +6,11 @@ module Cejo
   module Projects
     # GNU Emacs Editor
     class Emacs
-      attr_reader :builder
+      attr_reader :builder, :services
 
-      def initialize(builder)
-        builder.project = "emacs"
-        @builder = builder
+      def initialize(services)
+        @services = services
+        @builder = Projects::Builder.new(services.folders, services.utils, "emacs")
       end
 
       public

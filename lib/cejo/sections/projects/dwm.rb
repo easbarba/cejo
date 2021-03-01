@@ -6,12 +6,11 @@ module Cejo
   module Projects
     # Suckless Dwm
     class Dwm
-      attr_reader :builder
+      attr_reader :builder, :services
 
-      def initialize(builder)
-        builder.project = "dwm"
-        @builder = builder
-      end
+      def initialize(services)
+        @services = services
+        @builder = Projects::Builder.new(services.folders, services.utils, "dwm")      end
 
       public
 

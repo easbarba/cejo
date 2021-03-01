@@ -6,11 +6,11 @@ module Cejo
   module Projects
     # Ruby Programming language
     class Ruby
-      attr_reader :builder
+      attr_reader :builder, :services
 
-      def initialize(builder)
-        builder.project = "ruby"
-        @builder = builder
+      def initialize(services)
+        @services = services
+        @builder = Projects::Builder.new(services.folders, services.utils, "ruby")
       end
 
       public
