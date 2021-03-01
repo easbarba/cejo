@@ -11,18 +11,15 @@ module Cejo
       end
 
       def emacs
-        builder = Projects::Builder.new(services.folders, services.utils)
-        Projects::Emacs.new(builder)
+        Projects::Emacs.new(services)
       end
 
       def dwm
-        builder = Projects::Builder.new(services.folders, services.utils)
-        Projects::Dwm.new(builder)
+        Projects::Dwm.new(services)
       end
 
       def ruby
-        builder = Projects::Builder.new(services.folders, services.utils)
-        Projects::Ruby.new(builder)
+        Projects::Ruby.new(services)
       end
 
       public
