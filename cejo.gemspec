@@ -27,6 +27,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'git'
   spec.add_runtime_dependency 'tty-spinner'
   spec.add_runtime_dependency 'colorize'
+  spec.add_runtime_dependency 'dry-container'
+  spec.add_runtime_dependency 'dry-auto_inject'
 
   # development
   spec.add_development_dependency 'rubocop'
