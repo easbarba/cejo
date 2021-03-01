@@ -7,19 +7,15 @@ module Cejo
   module Projects
     # Build Projects
     class Builder
-      attr_reader :folders, :utils
-      attr_accessor :project
+      attr_reader :folders, :utils, :project
 
-      def initialize(folders, utils)
+      def initialize(folders, utils, project)
         @folders = folders
         @utils = utils
+        @project = project
       end
 
       private
-
-      def build_folder
-        Pathname.new(File.join(Dir.home, "Builds"))
-      end
 
       def project_folder
         folders.cejo_config.join("projects")
@@ -56,6 +52,10 @@ module Cejo
 
       def commands
         project_info[:commands]
+      end
+
+      def build_folder
+        Pathname.new(File.join(Dir.home, 'Builds'))
       end
 
       def root
