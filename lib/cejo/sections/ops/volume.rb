@@ -9,13 +9,13 @@ module Cejo::Ops
 
     def initialize(utils, state)
       @utils = utils
-      @state = state
+      @state = state.to_sym
     end
 
     private
 
     def sound_manager
-      manager = %w[pactl amixer mixer].first { |m| utils.which?(m) }
+      manager = %w[amixer pactl mixer].first { |m| utils.which?(m) }
       manager.to_sym
     end
 
