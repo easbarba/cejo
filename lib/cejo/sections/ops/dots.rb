@@ -8,7 +8,7 @@ require 'find'
 module Cejo::Ops
   # Mirror Lar files in $HOME.
   class Dots
-    attr_reader :root, :ignore_these, :utils, :home
+    attr_reader :root, :ignore_these, :utils, :home, :target_link
 
     private
 
@@ -16,6 +16,7 @@ module Cejo::Ops
       @utils = utils
       @root = Pathname.new root
       @home = Pathname.new(Dir.home)
+      @target_link = {}
     end
 
     def root_files_folders
@@ -45,7 +46,7 @@ module Cejo::Ops
     end
 
     # Create only the folders, if those do not exist
-    def create_folders
+    def mk_folders
       root_files_folders[:folders].each do |f|
         folder = to_home f
         next if folder.exist?
@@ -55,32 +56,43 @@ module Cejo::Ops
       end
     end
 
+    def feed_target_link
+      root_files_folders[:files].each do |target|
+        next if ignored_ones.include? target.basename.to_s
+        symlink_name = to_home target
+        target_link.store(target, symlink_name)
+      end
+    end
+
     # Move file from home to a /home/backup/{file}
     # or delete it if the file it is pointing does not exist
     def backup_this(this)
       puts
-      print "WARNING".red, ": Deleting or moving #{this}"
+      print "WARNING".red, ": #{this} found! Deleting/Moving it."
       puts
 
       this.delete if this.exist?  # TODO: if file exist back/delete up it
     end
 
-    def symlink_files
-      root_files_folders[:files].each do |target|
-        next if ignored_ones.include? target.basename.to_s
-        symlink_name = to_home target
-
-        backup_this symlink_name
-
-        # TODO: Extract this to use in a block
-        # TODO: Symlink only if not exist or symlkin point to nowhere
-        print "#{target}".yellow, " ❯ ", "#{symlink_name}".green
+    def backup_files
+      target_link.each do |target, link_name|
+        print "#{target}".yellow, " ❯ ", "#{link_name}".green
         puts
 
-        symlink_name.make_symlink target # As enumerator yielding folder to symlink
+        backup_this link_name
       end
     end
-    #
+
+    def symlink_files
+      target_link.each do |target, link_name|
+        print "#{target}".yellow, " ❯ ", "#{link_name}".green
+        puts
+
+        link_name.make_symlink target # As enumerator yielding folder to symlink
+      end
+    end
+
+    # ignore these ones
     def ignored_ones
       ['LICENSE', root.join('.git').to_path.to_s].freeze
     end
@@ -90,7 +102,10 @@ module Cejo::Ops
     def run
       utils.info_and_exit(root, '/path/to/folder')
 
-      create_folders
+      feed_target_link
+
+      mk_folders
+      backup_files
       symlink_files
     end
   end
