@@ -3,13 +3,22 @@
 module Cejo
   # Utilities and System Software front-end.
   module Services
-    # Provide Services
-    class Container  # TODO: Build a minimal IoC
-      attr_reader :folders, :utils
+    # Simple isolation provider of services
+    class Container
+      attr_reader :stored
 
       def initialize
-        @folders = Folders.new
-        @utils = Utils.new
+        @stored = {}
+      end
+
+      public
+
+      def register(name, obj)
+        stored.store(name, obj)
+      end
+
+      def resolve(name)
+        stored[name]
       end
     end
   end
