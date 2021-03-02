@@ -14,11 +14,11 @@ module Cejo
       end
 
       def grab
-        Floss::Core.new(services.folders, services.utils, :grab, sub_option)
+        Floss::Core.new(services.resolve(:folders), services.resolve(:utils), :grab, sub_option)
       end
 
       def archive
-        Floss::Core.new(services.folders, services.utils, :archive, sub_option)
+        Floss::Core.new(services.resolve(:folders), services.resolve(:utils), :archive, sub_option)
       end
 
       public

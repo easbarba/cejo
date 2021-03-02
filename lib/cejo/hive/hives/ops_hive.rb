@@ -14,7 +14,7 @@ module Cejo
       end
 
       def dots
-        Ops::Dots.new(services, sub_option)
+        Ops::Dots.new(services.resolve(:utils), sub_option)
       end
 
       def homer
@@ -22,19 +22,19 @@ module Cejo
       end
 
       def screenshot
-        Ops::Screenshot.new(services)
+        Ops::Screenshot.new(services.resolve(:utils))
       end
 
       def volume
-        Ops::Volume.new(services, sub_option)
+        Ops::Volume.new(services.resolve(:utils), sub_option)
       end
 
       def brightness
-        Ops::Brightness.new(services, sub_option)
+        Ops::Brightness.new(services.resolve(:utils), sub_option)
       end
 
       def sysinfo
-        Ops::Sysinfo.new(services, sub_option)
+        Ops::Sysinfo.new(services.resolve(:utils), sub_option)
       end
 
       public

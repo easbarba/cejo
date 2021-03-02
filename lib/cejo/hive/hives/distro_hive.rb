@@ -9,8 +9,8 @@ module Cejo
       private
 
       def initialize(services, arguments)
-        @utils = services.utils
-        @folders = services.folders
+        @utils = services.resolve :utils
+        @folders = services.resolve :folders
         @arguments = arguments
       end
 

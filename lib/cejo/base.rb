@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'dry-container'
+
 # Miscellaneous Unix automation and services utilities.
 module Cejo
   # Bootstrap program
@@ -7,7 +9,9 @@ module Cejo
     private
 
     def services
-      Services::Container.new
+      container = Dry::Container.new
+      container.register(:folders, Services::Folders.new)
+      container.register(:utils, Services::Utils.new)
     end
 
     def args

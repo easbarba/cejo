@@ -3,12 +3,12 @@
 module Cejo::Ops
   # Manage System brightness.
   class Brightness
-    attr_reader :services, :state, :step
+    attr_reader :utils, :state, :step
 
     STEP = 5
 
-    def initialize(services, state)
-      @services = services
+    def initialize(utils, state)
+      @utils = utils
       @state = state
     end
 
@@ -32,7 +32,7 @@ module Cejo::Ops
     end
 
     def run
-      @services.utils.info_and_exit(state, '+', '-')
+      utils.info_and_exit(state, '+', '-')
       @state = state.to_sym if %w[up down].include? state
 
       system(run_args)

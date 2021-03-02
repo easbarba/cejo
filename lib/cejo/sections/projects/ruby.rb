@@ -10,7 +10,7 @@ module Cejo
 
       def initialize(services)
         @services = services
-        @builder = Projects::Builder.new(services.folders, services.utils, "ruby")
+        @builder = Projects::Builder.new(services.resolve(:folders), services.resolve(:utils), "ruby")
       end
 
       public

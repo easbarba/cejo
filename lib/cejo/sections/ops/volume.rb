@@ -3,19 +3,19 @@
 module Cejo::Ops
   # Manage System Volume.
   class Volume
-    attr_reader :state
+    attr_reader :state, :utils
 
     STEP = 5
 
-    def initialize(services, state)
-      @services = services
+    def initialize(utils, state)
+      @utils = utils
       @state = state
     end
 
     private
 
     def sound_manager
-      manager = %w[pactl amixer mixer].first { |m| services.os_utils.which?(m) }
+      manager = %w[pactl amixer mixer].first { |m| utils.which?(m) }
       manager.to_sym
     end
 
@@ -106,8 +106,8 @@ module Cejo::Ops
     end
 
     def run
-      @services.utils.info_and_exit(state, '+', '-', 'toggle')
-      @state = state.to_sym if %w[up down toggle].include? state
+      utils.info_and_exit(state, '+', '-', 'toggle')
+      state = state.to_sym if %w[up down toggle].include? state
 
       system(run_args)
     end

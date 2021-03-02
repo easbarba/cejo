@@ -5,12 +5,12 @@ require 'date'
 module Cejo::Ops
   # Symlink Dotfiles to $HOME
   class Screenshot
-    attr_reader :services
+    attr_reader :utils
 
     private
 
-    def initialize(services)
-      @services = services
+    def initialize(utils)
+      @utils = utils
     end
 
     def shotters
@@ -18,7 +18,7 @@ module Cejo::Ops
     end
 
     def shotter_avaiable
-      shotters.keys.first { |shotter| services.os_utils.which?(shotter) }
+      shotters.keys.first { |shotter| utils.which?(shotter) }
     end
 
     def current_time
