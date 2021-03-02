@@ -62,6 +62,7 @@ module Cejo
           r:  remove,
           ug: upgrade,
           ud: update,
+          ar: autoremove,
           c:  clean,
           s:  search,
           dw: download,
