@@ -22,7 +22,7 @@ require_relative 'cejo/services/utils'
 # * Sections
 
 # ** Ops
-require_relative 'cejo/sections/ops/homer'
+require_relative 'cejo/sections/ops/homey'
 require_relative 'cejo/sections/ops/screenshot'
 require_relative 'cejo/sections/ops/volume'
 require_relative 'cejo/sections/ops/brightness'

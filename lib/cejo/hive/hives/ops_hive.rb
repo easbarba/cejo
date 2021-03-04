@@ -17,8 +17,8 @@ module Cejo
         Ops::Dots.new(services.resolve(:utils), sub_option)
       end
 
-      def homer
-        Ops::Homer.new
+      def homey
+        Ops::Homey.new(sub_option)
       end
 
       def screenshot
@@ -42,7 +42,7 @@ module Cejo
       def features
         {
           dots: dots,
-          homer: homer,
+          homey: homey,
           screenshot: screenshot,
           brightness: brightness,
           volume: volume,
