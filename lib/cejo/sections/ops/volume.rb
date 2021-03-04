@@ -41,8 +41,8 @@ module Cejo
       def pactl
         {
           name: 'pactl',
-          toggle: %W[set-sink-mute #{pactl_sink} toggle].join(" "),
-          updown: %W[set-sink-volume #{pactl_sink} #{states[state]}#{STEP.to_s}%].join(" ")
+          toggle: "set-sink-mute #{pactl_sink} toggle",
+          updown: "set-sink-volume #{pactl_sink} #{states[state]}#{STEP}%"
         }
       end
 
@@ -60,7 +60,7 @@ module Cejo
         {
           name: 'amixer',
           toggle: '-q sset Master toggle',
-          updown: %W[set Master #{STEP}%#{states[state]}].join("")
+          updown: "set Master #{STEP}%#{states[state]}"
         }
       end
 
@@ -78,7 +78,7 @@ module Cejo
         {
           name: 'mixer',
           toggle: '',
-          updown: %W[mixer vol #{states[state]}#{STEP}].join(" ")
+          updown: "mixer vol #{states[state]}#{STEP}"
         }
       end
 
