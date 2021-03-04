@@ -28,13 +28,10 @@ module Cejo
 
       # Find the running Pactl sink
       def pactl_sink
-        sink = ''
-
-        sinks = `pactl list sinks`
-        sinks = sinks.split "Sink #"
-        sinks.each { |a| sink = a[0] if a.include? "State: RUNNING" }
-
-        sink
+        `pactl list sinks`.split("Sink #").each do |sink|
+          sink_id = sink[0]
+          return sink_id if sink.include? "State: RUNNING"
+        end
       end
 
       def amixer
