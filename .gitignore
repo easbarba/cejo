@@ -5,6 +5,7 @@
 /doc/
 /pkg/
 /spec/reports/
+examples.log
 /tmp/
 sorbet
 # rspec failure tracking
