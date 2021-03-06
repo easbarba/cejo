@@ -11,22 +11,20 @@ module Cejo
       attr_reader :root, :target_link
 
       def initialize(root)
-        @root = prepare_root root
-        @target_link = find_folders
+        @root = root
       end
 
       private
 
       # Confirms if root is a folder or return w/ exeception
-      def prepare_root(root)
-        Pathname.new root
+      def root_exist?
+        r = Pathname.new root
+        r.exist?
       end
 
-      def find_folders
+      def folders_found
         folders_found = {}
         home = Pathname.new(Dir.home)
-
-        exit! unless root.exist?
 
         root.each_child do |folder|
           next if IGNORE_THESE.include? folder.basename.to_s
@@ -67,6 +65,14 @@ module Cejo
       public
 
       def run
+        unless root_exist?
+          print "No such a directory '#{root}' exist! Exiting."
+          exit!
+        end
+
+        @root = Pathname root
+        @target_link = folders_found
+
         # show_info
         cleanup_home
         symlink_folders
