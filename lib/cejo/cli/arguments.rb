@@ -7,31 +7,27 @@ module Cejo
     class Arguments
       attr_reader :arguments
 
-      # Structure cli arguments
-      ARGS_DATA = Struct.new(:command, :option, :sub_option)
-
       def initialize(arguments)
         @arguments = arguments
       end
 
       def get_args
-        args = parse_args
+        args = parse_args[:arguments]
+        size = parse_args[:size]
 
-        command = args.deq.to_sym unless args.empty?
-        option = args.deq.to_sym unless args.empty?
-        sub_option = args.deq unless args.empty?
+        result = {}
+        result.store(:command, args[0].to_sym) if size >= 1
+        result.store(:option, args[1].to_sym) if size >= 2
+        result.store(:arguments, args.drop(2)) if size >= 3
 
-        ARGS_DATA.new(command, option, sub_option)
+        result
       end
 
       def parse_args
-        result = Queue.new
-
-        arguments.each do |arg|
-          result.enq arg
-        end
-
-        result
+        {
+          arguments: arguments,
+          size: arguments.size
+        }
       end
     end
   end

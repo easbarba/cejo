@@ -14,20 +14,21 @@ module Cejo
       container.register(:utils, Services::Utils.new)
     end
 
-    def args
+    def cli_arguments
       CLI::Arguments.new(ARGV).get_args
     end
 
     def hives
-      sub_option = args.sub_option
+      sub_option = cli_arguments[:arguments]
       Hive::Queen.new(services, sub_option)
     end
 
     public
 
     def run
-      section = args.command
-      feature = args.option
+      section = cli_arguments[:command]
+      feature = cli_arguments[:option]
+
       hives.sections[section].features[feature].run
     end
   end
