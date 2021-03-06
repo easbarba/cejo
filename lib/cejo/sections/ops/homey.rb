@@ -12,6 +12,7 @@ module Cejo
 
       def initialize(root)
         @root = prepare_root root
+        @target_link = find_folders
       end
 
       private
@@ -29,8 +30,8 @@ module Cejo
 
         root.each_child do |folder|
           next if IGNORE_THESE.include? folder.basename.to_s
-
-          folders_found[folder.to_sym] = home.join(folder.basename)
+          folder = folder
+          folders_found[folder] = home.join(folder.basename)
         end
 
         folders_found
@@ -38,7 +39,7 @@ module Cejo
 
       # Remove $HOME folders found in DATA
       def cleanup_home
-        target_link.each do |_, link_name|
+        target_link.keys.each do |link_name|
           link_name.unlink if link_name.exist?
         end
       end
@@ -67,7 +68,6 @@ module Cejo
 
       def run
         # show_info
-        target_link = find_folders
         cleanup_home
         symlink_folders
       end
