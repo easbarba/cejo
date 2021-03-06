@@ -7,7 +7,7 @@ require 'pathname'
 
 module Cejo::Media
   # Get media provided in clipboard or arguments.
-  class Getmedia
+  class Get
     GRABBER = 'youtube-dl'.freeze
     AUDIO_FORMATS = %w[vorbis flac mp3].freeze
     AUDIO_DIR = Pathname.new(Dir.home).join('Music')

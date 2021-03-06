@@ -17,10 +17,10 @@ module Cejo
         Media::Play.new(sub_option)
       end
 
-      def getmedia
+      def get
         media = sub_option[0],
         codec = sub_option[1]
-        Media::Getmedia.new(media[0], codec)
+        Media::Get.new(media[0], codec)
       end
 
       public
@@ -28,7 +28,7 @@ module Cejo
       def features
         {
           play: play,
-          getmedia: getmedia
+          get: get
         }
       end
     end
