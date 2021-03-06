@@ -11,9 +11,9 @@ module Cejo
         @arguments = arguments
       end
 
-      def get_args
-        args = parse_args[:arguments]
-        size = parse_args[:size]
+      def stored
+        args = parse[:arguments]
+        size = parse[:size]
 
         result = {}
         result.store(:command, args[0].to_sym) if size >= 1
@@ -23,7 +23,7 @@ module Cejo
         result
       end
 
-      def parse_args
+      def parse
         {
           arguments: arguments,
           size: arguments.size
