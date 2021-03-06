@@ -2,45 +2,47 @@
 
 require 'date'
 
-module Cejo::Ops
-  # Symlink Dotfiles to $HOME
-  class Screenshot
-    attr_reader :utils
+module Cejo
+  module Ops
+    # Take a shot of the marvelous screen
+    class Screenshot
+      attr_reader :utils
 
-    private
+      private
 
-    def initialize(utils)
-      @utils = utils
-    end
+      def initialize(utils)
+        @utils = utils
+      end
 
-    def shotters
-      { scrot: '', maim: '' }
-    end
+      def shotters
+        { scrot: '', maim: '' }
+      end
 
-    def shotter_avaiable
-      shotters.keys.first { |shotter| utils.which?(shotter) }
-    end
+      def shotter_avaiable
+        shotters.keys.first { |shotter| utils.which?(shotter) }
+      end
 
-    def current_time
-      Time.new.strftime('%d-%m-%Y-%k:%M')
-    end
+      def current_time
+        Time.new.strftime('%d-%m-%Y-%k:%M')
+      end
 
-    def screen_folder
-      Pathname.new(Dir.home).join('Pictures')
-    end
+      def screen_folder
+        Pathname.new(Dir.home).join('Pictures')
+      end
 
-    def screen_name
-      "screenshot-#{current_time}.png"
-    end
+      def screen_name
+        "screenshot-#{current_time}.png"
+      end
 
-    public
+      public
 
-    def run_args
-      "#{shotter_avaiable} #{screen_name}"
-    end
+      def run_args
+        "#{shotter_avaiable} #{screen_name}"
+      end
 
-    def run
-      Dir.chdir(screen_folder) { system(run_args) }
+      def run
+        Dir.chdir(screen_folder) { system(run_args) }
+      end
     end
   end
 end
