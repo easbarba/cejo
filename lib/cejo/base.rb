@@ -8,27 +8,38 @@ module Cejo
   class Base
     private
 
+    attr_reader :section, :feature, :arguments
+
     def services
       container = Dry::Container.new
       container.register(:folders, Services::Folders.new)
       container.register(:utils, Services::Utils.new)
     end
 
-    def cli_arguments
-      CLI::Arguments.new(ARGV).values
+    def deploy_arguments
+      args = CLI::Arguments.new(ARGV).values
+
+      @section = args[:command]
+      @feature = args[:option]
+      @arguments = args[:arguments]
+    end
+
+    # Inform user about sections and commands available
+    def help
+     main = Cejo::CLI::Help::Main.new(section, feature, arguments)
+     main.validate
+     main.run
     end
 
     def hives
-      sub_option = cli_arguments[:arguments]
-      Hive::Queen.new(services, sub_option)
+      Hive::Queen.new(services, arguments)
     end
 
     public
 
     def run
-      section = cli_arguments[:command]
-      feature = cli_arguments[:option]
-
+      deploy_arguments
+      help
       hives.sections[section].features[feature].run
     end
   end

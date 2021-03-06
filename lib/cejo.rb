@@ -5,6 +5,11 @@ require_relative 'cejo/base'
 
 # * Cli
 require_relative 'cejo/cli/arguments'
+require_relative 'cejo/cli/help/main'
+require_relative 'cejo/cli/help/media_help'
+require_relative 'cejo/cli/help/floss_help'
+require_relative 'cejo/cli/help/distro_help'
+require_relative 'cejo/cli/help/ops_help'
 
 # * Hives
 require_relative 'cejo/hive/queen'
@@ -51,4 +56,4 @@ require_relative 'cejo/sections/projects/ruby'
 
 # ** Media
 require_relative 'cejo/sections/media/play'
-require_relative 'cejo/sections/media/getmedia'
+require_relative 'cejo/sections/media/get'
