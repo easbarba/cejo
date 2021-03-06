@@ -27,7 +27,7 @@ module Cejo
         end
 
         def show_sections
-          return unless section.nil?
+          return unless section.nil? or section =~ /(help+)/i
 
           puts 'Sections available:'
           rows = []
@@ -42,7 +42,7 @@ module Cejo
         end
 
         def show_features
-          return unless feature.nil?
+          return unless feature.nil? or feature =~ /(help+)/i
 
           print section.capitalize.to_s.bold.red
           puts
