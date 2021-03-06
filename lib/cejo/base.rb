@@ -15,7 +15,7 @@ module Cejo
     end
 
     def cli_arguments
-      CLI::Arguments.new(ARGV).stored
+      CLI::Arguments.new(ARGV).values
     end
 
     def hives

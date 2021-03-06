@@ -11,7 +11,7 @@ module Cejo
         @arguments = arguments
       end
 
-      def stored
+      def values
         args = parse[:arguments]
         size = parse[:size]
 
