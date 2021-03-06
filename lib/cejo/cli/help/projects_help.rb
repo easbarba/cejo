@@ -4,7 +4,14 @@ module Cejo
   module CLI
     module Help
       class ProjectsHelp
-        def commands
+        def initialize
+        end
+
+        def description
+          'List Projects To build'.freeze
+        end
+
+        def features
           self.methods(false).to_a
         end
 

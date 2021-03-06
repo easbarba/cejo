@@ -4,7 +4,14 @@ module Cejo
   module CLI
     module Help
       class DistroHelp
-        def commands
+        def initialize
+        end
+
+        def description
+          'Distro Commands'.freeze
+        end
+
+        def features
           self.methods(false).to_a
         end
 

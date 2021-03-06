@@ -4,7 +4,14 @@ module Cejo
   module CLI
     module Help
       class MediaHelp
-        def commands
+        def initialize
+        end
+
+         def description
+           'Manage System media features'.freeze
+         end
+
+        def features
           self.methods(false).to_a
         end
 

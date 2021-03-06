@@ -4,7 +4,14 @@ module Cejo
   module CLI
     module Help
       class OpsHelp
-        def commands
+        def initialize
+        end
+
+        def description
+          'System operations front-end'.freeze
+        end
+
+        def features
           self.methods(false).to_a
         end
 

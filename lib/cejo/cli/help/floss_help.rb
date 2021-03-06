@@ -4,7 +4,16 @@ module Cejo
   module CLI
     module Help
       class FlossHelp
-        def commands
+        attr_reader :feature
+
+        def initialize
+        end
+
+        def description
+          'Brought to you by Flossy Vanities'.freeze
+        end
+
+        def features
           self.methods(false).to_a
         end
 
