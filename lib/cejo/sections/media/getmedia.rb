@@ -1,45 +1,62 @@
 # frozen_string_literal: true
 
 require 'clipboard'
+require 'colorize'
 
 require 'pathname'
 
 module Cejo::Media
   # Get media provided in clipboard or arguments.
   class Getmedia
-    private
+    GRABBER = 'youtube-dl'.freeze
+    AUDIO_FORMATS = %w[vorbis flac mp3].freeze
+    AUDIO_DIR = Pathname.new(Dir.home).join('Music')
+    VIDEO_DIR = Pathname.new(Dir.home).join('Videos')
 
     attr_reader :media, :codec
 
-    GRABBER = 'youtube-dl'
-    SUPPORTED_FORMATS = %w[vorbis flac mp3].freeze
-
-    def initialize(codec, media)
-      @media = media
+    def initialize(media, codec)
+      @media = "\'#{media}\'"
       @codec = codec
-      @media = media.nil? ? Clipboard.paste : media
     end
 
-    def grab_audio
-      dir = Pathname.new(Dir.home).join('Music')
-      "--extract-audio --audio-format #{codec} #{media} #{dir}"
+    def cur_media
+      media.nil? ? system_text : media
     end
 
-    def grab_video
-      dir = Pathname.new(Dir.home).join('Videos')
-      "#{media} #{dir}"
+    def cur_dir
+      AUDIO_FORMATS.include?(codec) ? AUDIO_DIR : VIDEO_DIR
     end
 
-    def run_args
-      media = SUPPORTED_FORMATS.include?(@codec) ? grab_audio : grab_video
-      "#{GRABBER} #{media}"
+    def audio_command
+      "--extract-audio --audio-format #{codec} #{media}"
     end
 
-    public
+    def video_command
+      media
+    end
+
+    def system_text
+      Clipboard.paste
+    end
+
+    def final_command
+      action = AUDIO_FORMATS.include?(codec) ? audio_command : video_command
+      "#{GRABBER} #{action}"
+    end
+
+    def show_info
+      print "media:".red, " #{media}"
+      puts
+      print "codec:".red, " #{codec}"
+    end
 
     def run
-      puts run_args
-      # Process.fork { system run_args }
+      show_info
+
+      Dir.chdir(cur_dir) do
+        Process.fork { system final_command }
+      end
     end
   end
 end

@@ -14,11 +14,13 @@ module Cejo
       end
 
       def play
-        Media::Play.new(sub_option).run
+        Media::Play.new(sub_option)
       end
 
       def getmedia
-        Media::Getmedia.new(sub_option, sub_option).run
+        media = sub_option[0],
+        codec = sub_option[1]
+        Media::Getmedia.new(media[0], codec)
       end
 
       public
