@@ -4,20 +4,17 @@ module Cejo
   module CLI
     module Help
       class DistroHelp
+        attr_reader :description
+
         def initialize
+          @description = 'Distro Commands'.freeze
         end
 
-        def description
-          'Distro Commands'.freeze
-        end
-
-        def features
-          self.methods(false).to_a
-        end
+        private
 
         def install
           {
-            command: 'Install',
+            name: 'Install',
             desc: 'Install a Package from Repositories',
             arguments: '<arguments>',
           }
@@ -25,7 +22,7 @@ module Cejo
 
         def remove
           {
-            command: 'Remove',
+            name: 'Remove',
             desc: 'Remove One or More Installed Packages',
             arguments: '<arguments>',
           }
@@ -33,7 +30,7 @@ module Cejo
 
         def search
           {
-            command: 'Search',
+            name: 'Search',
             desc: 'Find a Package',
             arguments: '<arguments>',
           }
@@ -41,7 +38,7 @@ module Cejo
 
         def upgrade
           {
-            command: 'Upgrade',
+            name: 'Upgrade',
             desc: 'Upgrade Installed Packages',
             arguments: '<arguments>',
           }
@@ -49,7 +46,7 @@ module Cejo
 
         def update
           {
-            command: 'Update',
+            name: 'Update',
             desc: 'Update Package Lists',
             arguments: '<arguments>',
           }
@@ -57,31 +54,31 @@ module Cejo
 
         def clean
           {
-            command: 'Clean',
-            desc: '',
+            name: 'Clean',
+            desc: 'Clean system residual packages dependencies',
             arguments: '<arguments>',
           }
         end
 
         def download
           {
-            command: 'Download',
-            desc: '',
+            name: 'Download',
+            desc: 'Download package binary',
             arguments: '<arguments>',
           }
         end
 
         def installed
           {
-            command: 'Installed',
-            desc: '',
+            name: 'Installed',
+            desc: 'List installed packages',
             arguments: '<arguments>',
           }
         end
 
         def info
           {
-            command: 'Info',
+            name: 'Info',
             desc: 'View Info About a Specific Package',
             arguments: '<arguments>',
           }
@@ -89,9 +86,26 @@ module Cejo
 
         def fix
           {
-            command: 'Fix',
-            desc: '',
+            name: 'Fix',
+            desc: 'Fix system issues',
             arguments: '<arguments>',
+          }
+        end
+
+        public
+
+        def features
+          {
+            fix: fix,
+            info: info,
+            installed: installed,
+            install: install,
+            search: search,
+            remove: remove,
+            update: update,
+            upgrade: upgrade,
+            download: download,
+            clean: clean
           }
         end
       end

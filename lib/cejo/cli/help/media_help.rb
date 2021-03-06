@@ -4,20 +4,15 @@ module Cejo
   module CLI
     module Help
       class MediaHelp
+        attr_reader :description
+
         def initialize
-        end
-
-         def description
-           'Manage System media features'.freeze
-         end
-
-        def features
-          self.methods(false).to_a
+          @description = 'Manage System media features'.freeze
         end
 
         def play
           {
-            command: 'Play',
+            name: 'Play',
             desc: 'Play file, random media in folder or with url provided by clipboard text.',
             arguments: '<url> or <path/to/file>'
           }
@@ -25,9 +20,16 @@ module Cejo
 
         def get
           {
-            command: 'Get',
+            name: 'Get',
             desc: 'Get media provided in clipboard or arguments.',
             arguments: '<media> [codec]'
+          }
+        end
+
+        def features
+          {
+            play: play,
+            get: get
           }
         end
       end

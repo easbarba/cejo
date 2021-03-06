@@ -4,22 +4,15 @@ module Cejo
   module CLI
     module Help
       class FlossHelp
-        attr_reader :feature
+        attr_reader :description
 
         def initialize
-        end
-
-        def description
-          'Brought to you by Flossy Vanities'.freeze
-        end
-
-        def features
-          self.methods(false).to_a
+          @description = 'Brought to you by Flossy Vanities'.freeze
         end
 
         def grab
           {
-            command: 'grab',
+            name: 'Grab',
             desc: 'Grab FLOSS Projects',
             arguments: nil
           }
@@ -27,9 +20,16 @@ module Cejo
 
         def archive
           {
-            command: 'Archive',
+            name: 'Archive',
             desc: 'Archive FLOSS Projects',
             arguments: nil
+          }
+        end
+
+        def features
+          {
+            archive: archive,
+            grab: grab
           }
         end
       end

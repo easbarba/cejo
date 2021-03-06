@@ -4,38 +4,50 @@ module Cejo
   module CLI
     module Help
       class ProjectsHelp
+        attr_reader :description
+
         def initialize
-        end
-
-        def description
-          'List Projects To build'.freeze
-        end
-
-        def features
-          self.methods(false).to_a
+          @description = 'List Projects To build'.freeze
         end
 
         def emacs
           {
-            command: 'Emacs',
+            name: 'Emacs',
             desc: 'GNU Emacs Editor',
+            arguments: nil
+          }
+        end
+
+        def awesome
+          {
+            name: 'AwesomeWM',
+            desc: 'Awesome window manager ',
             arguments: nil
           }
         end
 
         def dwm
           {
-            command: 'dwm',
-            desc: 'The suckless window manager',
+            name: 'dwm',
+            desc: 'Suckless window manager',
             arguments: nil
           }
         end
 
         def ruby
           {
-            command: 'Ruby',
+            name: 'Ruby',
             desc: 'Ruby Programming language',
             arguments: nil
+          }
+        end
+
+        def features
+          {
+            emacs: emacs,
+            dwm: dwm,
+            awesome: awesome,
+            ruby: ruby
           }
         end
       end

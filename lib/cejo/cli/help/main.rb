@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 module Cejo
   # Process CLI arguments.
   module CLI
@@ -34,8 +36,30 @@ module Cejo
           exit!
         end
 
+        def show_features
+          return unless feature.nil?
+
+          puts 'Features available:'
+          sections.each do |name, section|
+            puts
+            print "Section: ", name.capitalize.to_s.bold.red
+            puts
+            puts
+            print "    ", "Name".bold, "            ", "Description".bold, "                        ", "Arguments"
+            puts
+
+            section.features.each do |name, feature|
+              print "    ", "#{feature[:name]}".blue, "  ", "#{feature[:desc]}", "                 ", "#{feature[:arguments]}".green
+              puts
+            end
+          end
+
+          exit!
+        end
+
         def validate
           show_sections
+          show_features
         end
       end
     end
