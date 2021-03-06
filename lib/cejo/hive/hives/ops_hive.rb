@@ -10,7 +10,7 @@ module Cejo
 
       def initialize(services, arguments)
         @services = services
-        @arguments = arguments
+        @arguments = arguments[0]
       end
 
       def brightness
@@ -22,7 +22,7 @@ module Cejo
       end
 
       def homey
-        # Ops::Homey.new(arguments)
+        Ops::Homey.new(arguments)
       end
 
       def screenshot
