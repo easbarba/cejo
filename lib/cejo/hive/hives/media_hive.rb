@@ -2,24 +2,24 @@
 
 module Cejo
   module Hive
-    # Media features
+    # Manage System media features
     class MediaHive
-      attr_reader :services, :sub_option
+      attr_reader :services, :arguments
 
       private
 
-      def initialize(services, sub_option)
+      def initialize(services, arguments)
         @services = services
-        @sub_option = sub_option
+        @arguments = arguments
       end
 
       def play
-        Media::Play.new(sub_option)
+        Media::Play.new(arguments)
       end
 
       def get
-        media = sub_option[0],
-        codec = sub_option[1]
+        media = arguments[0],
+        codec = arguments[1]
         Media::Get.new(media[0], codec)
       end
 

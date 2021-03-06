@@ -2,23 +2,27 @@
 
 module Cejo
   module Hive
-    # Return Ops features
+    # System operations front-end
     class OpsHive
-      attr_reader :services, :sub_option
+      attr_reader :services, :arguments
 
       private
 
-      def initialize(services, sub_option)
+      def initialize(services, arguments)
         @services = services
-        @sub_option = sub_option
+        @arguments = arguments
+      end
+
+      def brightness
+        Ops::Brightness.new(services.resolve(:utils), arguments)
       end
 
       def dots
-        Ops::Dots.new(services.resolve(:utils), sub_option)
+        Ops::Dots.new(services.resolve(:utils), arguments)
       end
 
       def homey
-        Ops::Homey.new(sub_option)
+        # Ops::Homey.new(arguments)
       end
 
       def screenshot
@@ -26,27 +30,23 @@ module Cejo
       end
 
       def volume
-        Ops::Volume.new(services.resolve(:utils), sub_option)
-      end
-
-      def brightness
-        Ops::Brightness.new(services.resolve(:utils), sub_option)
+        Ops::Volume.new(services.resolve(:utils), arguments)
       end
 
       def sysinfo
-        Ops::Sysinfo.new(services.resolve(:utils), sub_option)
+        Ops::Sysinfo.new(services.resolve(:utils), arguments)
       end
 
       public
 
       def features
         {
-          dots: dots,
-          homey: homey,
-          screenshot: screenshot,
           brightness: brightness,
+          dots: dots,
           volume: volume,
-          sysinfo: sysinfo
+          screenshot: screenshot,
+          sysinfo: sysinfo,
+          homey: homey
         }
       end
     end

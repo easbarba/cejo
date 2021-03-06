@@ -4,25 +4,25 @@ module Cejo
   module Hive
     # Provide Hives
     class Queen
-      attr_reader :services, :sub_option
+      attr_reader :services, :arguments
 
       private
 
-      def initialize(services, sub_option)
+      def initialize(services, arguments)
         @services = services
-        @sub_option = sub_option
+        @arguments = arguments
       end
 
       def ops
-        OpsHive.new(services, sub_option)
+        OpsHive.new(services, arguments)
       end
 
       def floss
-        FlossHive.new(services, sub_option)
+        FlossHive.new(services, arguments)
       end
 
       def media
-        MediaHive.new(services, sub_option)
+        MediaHive.new(services, arguments)
       end
 
       def projects
@@ -30,7 +30,7 @@ module Cejo
       end
 
       def di
-        DistroHive.new(services, sub_option)
+        DistroHive.new(services, arguments)
       end
 
       public

@@ -2,7 +2,7 @@
 
 module Cejo
   module Hive
-    # Distro Hives
+    # Distro Commands
     class DistroHive
       attr_reader :folders, :utils, :arguments
 
