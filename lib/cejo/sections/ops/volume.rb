@@ -20,6 +20,14 @@ module Cejo
         managers.first { |manager| utils.which?(manager) }.to_sym
       end
 
+      def states
+        {
+          up: '+',
+          down: '-',
+          toggle: ''
+        }
+      end
+
       # * PACTL
 
       # Find the running Pactl sink
@@ -82,15 +90,7 @@ module Cejo
         }
       end
 
-      # * STATES
-
-      def states
-        {
-          up: '+',
-          down: '-',
-          toggle: ''
-        }
-      end
+      # * MODES
 
       def toggle
         {
