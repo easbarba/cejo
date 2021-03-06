@@ -38,20 +38,15 @@ module Cejo
 
         def show_features
           return unless feature.nil?
+          print section.capitalize.to_s.bold.red
+          puts
 
-          puts 'Features available:'
-          sections.each do |name, section|
-            puts
-            print "Section: ", name.capitalize.to_s.bold.red
-            puts
-            puts
-            print "    ", "Name".bold, "            ", "Description".bold, "                        ", "Arguments"
-            puts
+          print "    ", "Name".bold, "                ", "Description".bold, "                          ", "Arguments"
+          puts
 
-            section.features.each do |name, feature|
-              print "    ", "#{feature[:name]}".blue, "  ", "#{feature[:desc]}", "                 ", "#{feature[:arguments]}".green
-              puts
-            end
+          sections[section].features.each do |name, feature|
+            print "    ", name.to_s.bold.blue, ":           ", "#{feature[:desc]}", "        ", "#{feature[:arguments]}".green
+            puts
           end
 
           exit!
