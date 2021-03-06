@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'colorize'
+require 'terminal-table'
 
 module Cejo
   # Process CLI arguments.
@@ -29,25 +30,30 @@ module Cejo
           return unless section.nil?
 
           puts 'Sections available:'
+          rows = []
           sections.each do |key, section|
-            puts "   #{key}: #{section.description}"
+            rows << [key, section.description]
           end
+
+          table = Terminal::Table.new :headings => ['Feature', 'Description'], :rows => rows
+          puts table
 
           exit!
         end
 
         def show_features
           return unless feature.nil?
+
           print section.capitalize.to_s.bold.red
           puts
 
-          print "    ", "Name".bold, "                ", "Description".bold, "                          ", "Arguments"
-          puts
-
+          rows = []
           sections[section].features.each do |name, feature|
-            print "    ", name.to_s.bold.blue, ":           ", "#{feature[:desc]}", "        ", "#{feature[:arguments]}".green
-            puts
+            rows << [name, feature[:desc], feature[:arguments]]
           end
+
+          table = Terminal::Table.new :headings => ['Feature', 'Description', 'Arguments'], :rows => rows
+          puts table
 
           exit!
         end
