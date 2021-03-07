@@ -1,12 +1,11 @@
 # frozen_string_literal: true
 
-require 'clipboard'
 require 'colorize'
 
 require 'pathname'
 
 module Cejo::Media
-  # Get media provided in clipboard or arguments.
+  # Get media pointed in url.
   class Get
     GRABBER = 'youtube-dl'.freeze
     AUDIO_FORMATS = %w[vorbis flac mp3].freeze
@@ -15,13 +14,13 @@ module Cejo::Media
 
     attr_reader :media, :codec
 
-    def initialize(media, codec)
-      @media = "\'#{media}\'"
-      @codec = codec
+    def initialize(arguments)
+      @media = arguments[0] unless arguments.nil?
+      @codec = arguments[1] unless arguments.nil?
     end
 
     def cur_media
-      media.nil? ? system_text : media
+      "\'#{media}\'" unless media.nil?
     end
 
     def cur_dir
@@ -34,10 +33,6 @@ module Cejo::Media
 
     def video_command
       media
-    end
-
-    def system_text
-      Clipboard.paste
     end
 
     def final_command

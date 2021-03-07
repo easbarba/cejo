@@ -1,49 +1,45 @@
 # frozen_string_literal: true
 
-require 'shellwords'
-
-require 'clipboard'
-
 module Cejo
-  ## Provide system media interaction.
+  # Provide system media interaction.
   module Media
-    # Play file, random media in folder or with url provided by clipboard text.
+    # Play file, random media in folder or with url.
     class Play
-      attr_reader :file_path
+      PLAYER = 'mpv'.freeze
+      PLAYER_CONFIG = '--no-config --no-audio-display'.freeze
+      PLAYER_FORMAT = '--ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'.freeze
 
-      PLAYER = 'mpv'
-      PLAYER_CONFIG = '--no-config --no-audio-display --ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
+      attr_reader :media
 
-      private
-
-      def initialize(file_path)
-        @file_path = file_path
+      def initialize(media)
+        @media = media
       end
 
-      ## play random media in folder
-      def pick_random_media_in_folder(media)
-        media.join(Dir.entries(media).sample).to_s.shellescape
+      def pick_random_media_in_folder(folder)
+        file = folder.children.sample
+        folder.join(file).to_path
       end
 
-      ## play media from clipboard url or file
-      def choose_media_to_play
-        return Clipboard.paste if file_path.nil?
+      def pick_media
+        filepath = Pathname.new(media)
 
-        media = Pathname.new(file_path)
-
-        return media.to_s if media.file?
-
-        return pick_random_media_in_folder(media) if media.directory?
+        return filepath.to_path if filepath.file?
+        return pick_random_media_in_folder(filepath) if filepath.directory?
+        return media
       end
 
       public
 
-      def run_args
-        "#{PLAYER} #{PLAYER_CONFIG} #{choose_media_to_play}"
+      def player_settings
+        "#{PLAYER} #{PLAYER_CONFIG} #{PLAYER_FORMAT}"
+      end
+
+      def final_command
+        "#{player_settings} #{pick_media}"
       end
 
       def run
-        Process.fork { system run_args }
+        Process.fork { system final_command }
       end
     end
   end
