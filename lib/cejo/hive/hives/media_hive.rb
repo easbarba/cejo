@@ -10,17 +10,15 @@ module Cejo
 
       def initialize(services, arguments)
         @services = services
-        @arguments = arguments
+        @arguments = arguments unless arguments.nil?
       end
 
       def play
-        Media::Play.new(arguments)
+        Media::Play.new(arguments[0])
       end
 
       def get
-        media = arguments[0],
-        codec = arguments[1]
-        Media::Get.new(media[0], codec)
+        Media::Get.new(arguments)
       end
 
       public

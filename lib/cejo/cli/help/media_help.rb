@@ -13,16 +13,16 @@ module Cejo
         def play
           {
             name: 'Play',
-            desc: 'Play file, random media in folder or with url provided by clipboard text.',
-            arguments: '<url> or <path/to/file>'
+            desc: 'Play file, random media in folder or with url.',
+            arguments: '<url> or </path/to/file>'
           }
         end
 
         def get
           {
             name: 'Get',
-            desc: 'Get media provided in clipboard or arguments.',
-            arguments: '<media> [codec]'
+            desc: 'Get media pointed in url.',
+            arguments: '<url> [codec]'
           }
         end
 
