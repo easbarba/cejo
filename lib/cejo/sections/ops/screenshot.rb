@@ -15,33 +15,35 @@ module Cejo
       end
 
       def shotters
-        { scrot: '', maim: '' }
+        { scrot: 'scrot', maim: 'maim' }
       end
 
       def shotter_avaiable
-        shotters.keys.first { |shotter| utils.which?(shotter) }
+        shotters.keys.first { |shotter| return shotter if utils.which?(shotter) }.to_sym
       end
 
       def current_time
         Time.new.strftime('%d-%m-%Y-%k:%M')
       end
 
-      def screen_folder
+      def pictures_folder
         Pathname.new(Dir.home).join('Pictures')
       end
 
-      def screen_name
+      def screenshot_name
         "screenshot-#{current_time}.png"
+      end
+
+      def final_command
+        "#{shotters[shotter_avaiable]} #{screenshot_name}"
       end
 
       public
 
-      def run_args
-        "#{shotter_avaiable} #{screen_name}"
-      end
-
       def run
-        Dir.chdir(screen_folder) { system(run_args) }
+        Dir.chdir(pictures_folder) {
+          system(final_command)
+        }
       end
     end
   end
