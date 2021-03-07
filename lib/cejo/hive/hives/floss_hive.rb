@@ -4,21 +4,22 @@ module Cejo
   module Hive
     # Brought to you by Flossy Vanities
     class FlossHive
-      attr_reader :services, :arguments
+      attr_reader :utils, :folders, :arguments
 
       private
 
       def initialize(services, arguments)
-        @services = services
+        @utils = services.resolve(:utils)
+        @folders = services.resolve(:folders)
         @arguments = arguments
       end
 
       def grab
-        Floss::Core.new(services.resolve(:folders), services.resolve(:utils), :grab, arguments)
+        Floss::Core.new(folders, utils, :grab, arguments)
       end
 
       def archive
-        Floss::Core.new(services.resolve(:folders), services.resolve(:utils), :archive, arguments)
+        Floss::Core.new(folders, utils, :archive, arguments)
       end
 
       public

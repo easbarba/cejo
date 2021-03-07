@@ -4,37 +4,37 @@ module Cejo
   module Hive
     # System operations front-end
     class OpsHive
-      attr_reader :services, :arguments
+      attr_reader :argument, :utils
 
       private
 
-      def initialize(services, arguments)
-        @services = services
-        @arguments = arguments[0]
+      def initialize(services, argument)
+        @utils = services.resolve(:utils)
+        @argument = argument.nil? ? '' : argument[0]
       end
 
       def brightness
-        Ops::Brightness.new(services.resolve(:utils), arguments)
+        Ops::Brightness.new(utils, argument)
       end
 
       def dots
-        Ops::Dots.new(services.resolve(:utils), arguments)
+        Ops::Dots.new(utils, argument)
       end
 
       def homey
-        Ops::Homey.new(arguments)
+        Ops::Homey.new(argument)
       end
 
       def screenshot
-        Ops::Screenshot.new(services.resolve(:utils))
+        Ops::Screenshot.new(utils)
       end
 
       def volume
-        Ops::Volume.new(services.resolve(:utils), arguments)
+        Ops::Volume.new(utils, argument)
       end
 
       def sysinfo
-        Ops::Sysinfo.new(services.resolve(:utils), arguments)
+        Ops::Sysinfo.new(utils, argument)
       end
 
       public
