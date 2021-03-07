@@ -35,7 +35,9 @@ module Cejo
       show_help
 
       hives = Hive::Queen.new(services, arguments)
-      hives.sections[section].features[feature].run
+      hives.sections[section]
+           .features[feature]
+           .run
     end
   end
 end
