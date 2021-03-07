@@ -24,7 +24,7 @@ module Cejo
     end
 
     # Inform user about sections and commands available
-    def help
+    def show_help
       main = Cejo::CLI::Help::Main.new(section, feature)
       main.validate
     end
@@ -32,7 +32,7 @@ module Cejo
     public
 
     def run
-      help
+      show_help
 
       hives = Hive::Queen.new(services, arguments)
       hives.sections[section].features[feature].run
