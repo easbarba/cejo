@@ -18,6 +18,10 @@ module Cejo
         Projects::Dwm.new(services)
       end
 
+      def st
+        Projects::St.new(services)
+      end
+
       def ruby
         Projects::Ruby.new(services)
       end
@@ -28,7 +32,8 @@ module Cejo
         {
           dwm: dwm,
           emacs: emacs,
-          ruby: ruby
+          ruby: ruby,
+          st: st
         }
       end
     end

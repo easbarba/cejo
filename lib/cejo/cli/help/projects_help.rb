@@ -18,10 +18,10 @@ module Cejo
           }
         end
 
-        def awesome
+        def st
           {
-            name: 'AwesomeWM',
-            desc: 'Awesome window manager ',
+            name: 'st',
+            desc: 'Suckless Terminal',
             arguments: nil
           }
         end
@@ -46,7 +46,7 @@ module Cejo
           {
             emacs: emacs,
             dwm: dwm,
-            awesome: awesome,
+            st: st,
             ruby: ruby
           }
         end

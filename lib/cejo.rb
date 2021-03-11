@@ -53,6 +53,7 @@ require_relative 'cejo/sections/distro/need'
 require_relative 'cejo/sections/projects/builder'
 require_relative 'cejo/sections/projects/emacs'
 require_relative 'cejo/sections/projects/dwm'
+require_relative 'cejo/sections/projects/st'
 require_relative 'cejo/sections/projects/ruby'
 
 # ** Media
