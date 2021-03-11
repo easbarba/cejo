@@ -42,6 +42,10 @@ module Cejo
         project_info[:tag]
       end
 
+      def patch
+        project_info[:patch]
+      end
+
       def checkout_tag
         return if tag.empty?
 
@@ -71,6 +75,29 @@ module Cejo
         end
       end
 
+      def project_patches
+        folders.cejo_config.join("patches")
+                           .join(project_info[:name])
+      end
+
+      def apply_patches
+        apply = 'git apply'
+        patches = project_patches.children
+        Dir.chdir(root) do
+          patches.each { |patch| system "#{apply} #{patch.to_path}" }
+        end
+      end
+
+      def purge
+        project_info[:purge]
+      end
+
+      def cleaning
+        Dir.chdir(root) do
+          purge.each { |command| system command }
+        end
+      end
+
       public
 
       def to_s
@@ -79,7 +106,8 @@ module Cejo
 
         Name: #{project.capitalize}
         Url: #{url}
-        Tag: #{tag.nil? ? tag : '""'}
+        Tag: #{tag}
+        Patch: #{patch}
         Folder: #{root}
         EOF
       end
@@ -89,7 +117,11 @@ module Cejo
 
         checkout_tag
 
+        apply_patches unless patch == 'yes'
+
         install
+
+        cleaning
       end
     end
   end
