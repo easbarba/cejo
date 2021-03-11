@@ -50,7 +50,7 @@ module Cejo::Media
       show_info
 
       Dir.chdir(cur_dir) do
-        Process.fork { system final_command }
+        system final_command
       end
     end
   end

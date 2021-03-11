@@ -39,7 +39,7 @@ module Cejo
       end
 
       def run
-        Process.fork { system final_command }
+        system final_command
       end
     end
   end
