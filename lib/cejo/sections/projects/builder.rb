@@ -46,11 +46,13 @@ module Cejo
         project_info[:patch]
       end
 
-      def checkout_tag
-        return if tag.empty?
-
+      def repo
         require "git"
         repo = Git.open(root)
+      end
+
+      def checkout_tag
+        return if tag.empty?
         repo.checkout(tag)
       end
 
@@ -80,11 +82,20 @@ module Cejo
                            .join(project_info[:name])
       end
 
+      # none, or exclusively these ones.
       def apply_patches
-        apply = 'git apply'
+        tasks = project_info[:patch]
         patches = project_patches.children
+
+        return if tasks == 'none'
+
         Dir.chdir(root) do
-          patches.each { |patch| system "#{apply} #{patch.to_path}" }
+          patches.each do |patch|
+            next unless tasks.include? patch.basename.to_s
+
+            puts "Patched: #{patch.to_path}" # all
+            repo.apply patch.to_path
+          end
         end
       end
 
@@ -92,7 +103,14 @@ module Cejo
         project_info[:purge]
       end
 
+      def default
+        project_info[:default]
+      end
+
       def cleaning
+        repo.reset_hard
+        repo.checkout default
+
         Dir.chdir(root) do
           purge.each { |command| system command }
         end
@@ -106,6 +124,7 @@ module Cejo
 
         Name: #{project.capitalize}
         Url: #{url}
+        Default: #{default}
         Tag: #{tag}
         Patch: #{patch}
         Folder: #{root}
@@ -114,13 +133,9 @@ module Cejo
 
       def run
         grab
-
         checkout_tag
-
-        apply_patches unless patch == 'yes'
-
+        apply_patches
         install
-
         cleaning
       end
     end
