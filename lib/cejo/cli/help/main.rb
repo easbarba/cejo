@@ -20,31 +20,45 @@ module Cejo
           {
             floss:    Cejo::CLI::Help::FlossHelp.new,
             projects: Cejo::CLI::Help::ProjectsHelp.new,
-            distro:   Cejo::CLI::Help::DistroHelp.new,
+            di:       Cejo::CLI::Help::DistroHelp.new,
             media:    Cejo::CLI::Help::MediaHelp.new,
             ops:      Cejo::CLI::Help::OpsHelp.new
           }
         end
 
-        def show_sections
-          return unless section.nil? or section =~ /(help+)/i
+        def section_available?
+          sections.key? section
+        end
 
+        def feature_available?
+          sections[section].features.key? feature
+        end
+
+        def validate
+          show_sections if section.nil? #or section =~ /(help+)/i
+          show_sections unless section_available?
+
+          show_features if feature.nil? #or feature =~ /(help+)/i
+          show_features unless feature_available?
+        end
+
+        def show_sections
           puts 'Sections available:'
+          puts
+
           rows = []
           sections.each do |key, section|
             rows << [key, section.description]
           end
 
-          table = Terminal::Table.new :headings => ['Feature', 'Description'], :rows => rows
+          table = Terminal::Table.new :headings => ['Section', 'Description'], :rows => rows
           puts table
 
           exit!
         end
 
         def show_features
-          return unless feature.nil? or feature =~ /(help+)/i
-
-          print section.capitalize.to_s.bold.red
+          puts 'Features available:'
           puts
 
           rows = []
@@ -56,11 +70,6 @@ module Cejo
           puts table
 
           exit!
-        end
-
-        def validate
-          show_sections
-          show_features
         end
       end
     end

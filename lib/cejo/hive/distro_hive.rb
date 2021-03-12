@@ -18,16 +18,16 @@ module Cejo
 
       def features
         {
-          i:  Distro::Base.new(folders, utils, arguments, 'install'),
-          r:  Distro::Base.new(folders, utils, arguments, 'remove'),
-          ug: Distro::Base.new(folders, utils, arguments, 'upgrade'),
-          ud: Distro::Base.new(folders, utils, arguments, 'update'),
-          ar: Distro::Base.new(folders, utils, arguments, 'autoremove'),
-          c:  Distro::Base.new(folders, utils, arguments, 'clean'),
-          s:  Distro::Base.new(folders, utils, arguments, 'search'),
-          dw: Distro::Base.new(folders, utils, arguments, 'download'),
-          id: Distro::Base.new(folders, utils, arguments, 'installed'),
-          f:  Distro::Base.new(folders, utils, arguments, 'fix')
+          install:  Distro::Base.new(folders, utils, arguments, 'install'),
+          remove:  Distro::Base.new(folders, utils, arguments, 'remove'),
+          upgrade: Distro::Base.new(folders, utils, arguments, 'upgrade'),
+          update: Distro::Base.new(folders, utils, arguments, 'update'),
+          autoremove: Distro::Base.new(folders, utils, arguments, 'autoremove'),
+          clean:  Distro::Base.new(folders, utils, arguments, 'clean'),
+          search:  Distro::Base.new(folders, utils, arguments, 'search'),
+          download: Distro::Base.new(folders, utils, arguments, 'download'),
+          installed: Distro::Base.new(folders, utils, arguments, 'installed'),
+          fix:  Distro::Base.new(folders, utils, arguments, 'fix')
         }
       end
     end

@@ -11,23 +11,27 @@ module Cejo
         @arguments = arguments
       end
 
-      def values
-        args = parse[:arguments]
-        size = parse[:size]
-
-        result = {}
-        result.store(:command, args[0].to_sym) if size >= 1
-        result.store(:option, args[1].to_sym) if size >= 2
-        result.store(:arguments, args.drop(2)) if size >= 3
-
-        result
+      def show_help
+        p values
+        main = Cejo::CLI::Help::Main.new(values[:command], values[:option])
+        main.validate
       end
 
-      def parse
-        {
-          arguments: arguments,
-          size: arguments.size
-        }
+      def values
+        result = {}
+        names = [:command, :option, :rest]
+
+        arguments.each_with_index do |arg, i|
+          if i >= 2
+            result.store(names[i], arguments.drop(2))
+            break
+          end
+
+          arg = arg.to_sym
+          result.store(names[i], arg)
+        end
+
+        result
       end
     end
   end

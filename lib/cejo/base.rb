@@ -6,15 +6,18 @@ require 'dry-container'
 module Cejo
   # Bootstrap program
   class Base
-    attr_reader :section, :feature, :arguments
+    attr_reader :section, :feature, :rest
 
     private
 
     def initialize
-      args = CLI::Arguments.new(ARGV).values
+      cli = CLI::Arguments.new(ARGV)
+      cli.show_help
+
+      args = cli.values
       @section = args[:command]
       @feature = args[:option]
-      @arguments = args[:arguments]
+      @rest = args[:rest]
     end
 
     def services
@@ -23,18 +26,10 @@ module Cejo
       container.register(:utils, Services::Utils.new)
     end
 
-    # Inform user about sections and commands available
-    def show_help
-      main = Cejo::CLI::Help::Main.new(section, feature)
-      main.validate
-    end
-
     public
 
     def run
-      show_help
-
-      hives = Hive::Queen.new(services, arguments)
+      hives = Hive::Queen.new(services, rest)
       hives.sections[section]
            .features[feature]
            .run
