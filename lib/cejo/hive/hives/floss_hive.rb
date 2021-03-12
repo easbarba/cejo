@@ -14,20 +14,12 @@ module Cejo
         @arguments = arguments
       end
 
-      def grab
-        Floss::Core.new(folders, utils, :grab, arguments)
-      end
-
-      def archive
-        Floss::Core.new(folders, utils, :archive, arguments)
-      end
-
       public
 
       def features
         {
-          archive: archive,
-          grab: grab
+          archive: Floss::Core.new(folders, utils, :archive, arguments),
+          grab: Floss::Core.new(folders, utils, :grab, arguments)
         }
       end
     end

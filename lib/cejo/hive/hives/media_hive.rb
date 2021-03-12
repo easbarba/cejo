@@ -13,20 +13,12 @@ module Cejo
         @arguments = arguments unless arguments.nil?
       end
 
-      def play
-        Media::Play.new(arguments[0])
-      end
-
-      def get
-        Media::Get.new(arguments)
-      end
-
       public
 
       def features
         {
-          play: play,
-          get: get
+          play: Media::Play.new(arguments[0]),
+          get: Media::Get.new(arguments)
         }
       end
     end

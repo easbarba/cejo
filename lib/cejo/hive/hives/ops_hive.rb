@@ -13,40 +13,16 @@ module Cejo
         @argument = argument.nil? ? '' : argument[0]
       end
 
-      def brightness
-        Ops::Brightness.new(utils, argument)
-      end
-
-      def dots
-        Ops::Dots.new(utils, argument)
-      end
-
-      def homey
-        Ops::Homey.new(argument)
-      end
-
-      def screenshot
-        Ops::Screenshot.new(utils)
-      end
-
-      def volume
-        Ops::Volume.new(utils, argument)
-      end
-
-      def sysinfo
-        Ops::Sysinfo.new(utils, argument)
-      end
-
       public
 
       def features
         {
-          brightness: brightness,
-          dots: dots,
-          volume: volume,
-          screenshot: screenshot,
-          sysinfo: sysinfo,
-          homey: homey
+          brightness: Ops::Brightness.new(utils, argument),
+          dots: Ops::Dots.new(utils, argument),
+          volume: Ops::Volume.new(utils, argument),
+          screenshot: Ops::Screenshot.new(utils),
+          sysinfo: Ops::Sysinfo.new(utils, argument),
+          homey: Ops::Homey.new(argument)
         }
       end
     end

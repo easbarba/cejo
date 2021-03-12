@@ -10,30 +10,14 @@ module Cejo
         @services = services
       end
 
-      def emacs
-        Projects::Emacs.new(services)
-      end
-
-      def dwm
-        Projects::Dwm.new(services)
-      end
-
-      def st
-        Projects::St.new(services)
-      end
-
-      def ruby
-        Projects::Ruby.new(services)
-      end
-
       public
 
       def features
         {
-          dwm: dwm,
-          emacs: emacs,
-          ruby: ruby,
-          st: st
+          dwm: Projects::Dwm.new(services),
+          emacs: Projects::Emacs.new(services),
+          ruby: Projects::Ruby.new(services),
+          st: Projects::St.new(services)
         }
       end
     end
