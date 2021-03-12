@@ -12,7 +12,6 @@ module Cejo
       end
 
       def show_help
-        p values
         main = Cejo::CLI::Help::Main.new(values[:command], values[:option])
         main.validate
       end
