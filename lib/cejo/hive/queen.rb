@@ -13,36 +13,16 @@ module Cejo
         @arguments = arguments
       end
 
-      def ops
-        OpsHive.new(services, arguments)
-      end
-
-      def floss
-        FlossHive.new(services, arguments)
-      end
-
-      def media
-        MediaHive.new(services, arguments)
-      end
-
-      def projects
-        ProjectsHive.new(services)
-      end
-
-      def di
-        DistroHive.new(services, arguments)
-      end
-
       public
 
-      ## Return available sections.
+      # Return available sections.
       def sections
         {
-          media: media,
-          ops: ops,
-          projects: projects,
-          di: di,
-          floss: floss
+          media: MediaHive.new(services, arguments),
+          ops: OpsHive.new(services, arguments),
+          projects: ProjectsHive.new(services),
+          di: DistroHive.new(services, arguments),
+          floss: FlossHive.new(services, arguments)
         }
       end
     end

@@ -14,11 +14,11 @@ require_relative 'cejo/cli/help/ops_help'
 
 # * Hives
 require_relative 'cejo/hive/queen'
-require_relative 'cejo/hive/hives/distro_hive'
-require_relative 'cejo/hive/hives/floss_hive'
-require_relative 'cejo/hive/hives/ops_hive'
-require_relative 'cejo/hive/hives/projects_hive'
-require_relative 'cejo/hive/hives/media_hive'
+require_relative 'cejo/hive/distro_hive'
+require_relative 'cejo/hive/floss_hive'
+require_relative 'cejo/hive/ops_hive'
+require_relative 'cejo/hive/projects_hive'
+require_relative 'cejo/hive/media_hive'
 
 # * Services
 require_relative 'cejo/services/container'
