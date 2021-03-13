@@ -85,9 +85,9 @@ module Cejo
       # none, or exclusively these ones.
       def apply_patches
         tasks = project_info[:patch]
-        patches = project_patches.children
-
         return if tasks == 'none'
+
+        patches = project_patches.children
 
         Dir.chdir(root) do
           patches.each do |patch|
