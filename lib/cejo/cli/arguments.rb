@@ -12,7 +12,7 @@ module Cejo
       end
 
       def show_help
-        main = Cejo::CLI::Help::Main.new(values[:command], values[:option])
+        main = Help::Main.new(values[:command], values[:option])
         main.validate
       end
 

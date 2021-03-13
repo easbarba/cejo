@@ -18,11 +18,11 @@ module Cejo
 
         def sections
           {
-            floss:    Cejo::CLI::Help::FlossHelp.new,
-            projects: Cejo::CLI::Help::ProjectsHelp.new,
-            di:       Cejo::CLI::Help::DistroHelp.new,
-            media:    Cejo::CLI::Help::MediaHelp.new,
-            ops:      Cejo::CLI::Help::OpsHelp.new
+            floss:    FlossHelp.new,
+            projects: ProjectsHelp.new,
+            di:       DistroHelp.new,
+            media:    MediaHelp.new,
+            ops:      OpsHelp.new
           }
         end
 
