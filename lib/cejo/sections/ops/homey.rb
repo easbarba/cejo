@@ -37,7 +37,7 @@ module Cejo
 
       # Remove $HOME folders found in DATA
       def cleanup_home
-        target_link.keys.each do |link_name|
+        target_link.each_key do |link_name|
           link_name.unlink if link_name.exist?
         end
       end
