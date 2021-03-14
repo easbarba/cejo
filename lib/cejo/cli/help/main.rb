@@ -36,10 +36,10 @@ module Cejo
 
         def validate
           # section
-          show_sections if section.nil? #or section =~ /(help+)/i
+          show_sections if section.nil? #&& section['help']
           show_sections unless section_available?
           # features
-          show_features if feature.nil? #or feature =~ /(help+)/i
+          show_features if feature.nil? #&& feature['help']
           show_features unless feature_available?
         end
 
