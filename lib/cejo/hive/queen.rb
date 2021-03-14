@@ -22,7 +22,7 @@ module Cejo
           ops: OpsHive.new(services, arguments),
           projects: ProjectsHive.new(services),
           di: DistroHive.new(services, arguments),
-          floss: FlossHive.new(services, arguments)
+          floss: FlossHive.new(services, arguments),
         }
       end
     end

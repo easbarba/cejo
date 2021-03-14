@@ -22,7 +22,6 @@ module Cejo
 
       def pick_media
         filepath = Pathname.new(media)
-
         return filepath.to_path if filepath.file?
         return pick_random_media_in_folder(filepath) if filepath.directory?
         return media

@@ -37,15 +37,15 @@ module Cejo
       def final_command
         cmd = packager, trans_action
         cmd.append arguments unless arguments.nil?
-        cmd.prepend "sudo" if need.admin?
-        cmd.join(" ")
+        cmd.prepend 'sudo' if need.admin?
+        cmd.join(' ')
       end
-
-      public
 
       def run
         system final_command
       end
+
+      public :run
     end
   end
 end

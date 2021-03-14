@@ -22,7 +22,7 @@ module Cejo
           volume: Ops::Volume.new(utils, argument),
           screenshot: Ops::Screenshot.new(utils),
           sysinfo: Ops::Sysinfo.new(utils, argument),
-          homey: Ops::Homey.new(argument)
+          homey: Ops::Homey.new(argument),
         }
       end
     end

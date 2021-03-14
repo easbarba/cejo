@@ -17,7 +17,7 @@ module Cejo
           dwm: Projects::Dwm.new(services),
           emacs: Projects::Emacs.new(services),
           ruby: Projects::Ruby.new(services),
-          st: Projects::St.new(services)
+          st: Projects::St.new(services),
         }
       end
     end

@@ -22,7 +22,7 @@ module Cejo
       def states
         {
           up: "set #{STEP}%+",
-          down: "set #{STEP}%-"
+          down: "set #{STEP}%-",
         }
       end
 
@@ -35,7 +35,6 @@ module Cejo
       def run
         utils.info_and_exit(state, '+', '-')
         @state = state.to_sym if %w[up down].include? state
-
         system(run_args)
       end
     end

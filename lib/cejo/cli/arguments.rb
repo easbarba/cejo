@@ -19,17 +19,14 @@ module Cejo
       def values
         result = {}
         names = [:command, :option, :rest]
-
         arguments.each_with_index do |arg, i|
           if i >= 2
             result.store(names[i], arguments.drop(2))
             break
           end
-
           arg = arg.to_sym
           result.store(names[i], arg)
         end
-
         result
       end
     end

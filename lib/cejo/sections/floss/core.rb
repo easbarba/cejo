@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "pathname"
+require 'pathname'
 
 module Cejo
   # Manage FLOSS Projects
@@ -20,7 +20,7 @@ module Cejo
       end
 
       def parsed_projects
-        folder = folders.cejo_config.join("floss")
+        folder = folders.cejo_config.join('floss')
         utils.parse_folder(folder)
       end
 
@@ -28,10 +28,9 @@ module Cejo
         parsed_projects.each do |language, projects|
           print <<~EOF
 
-            ❯ #{language.capitalize}
+                  ❯ #{language.capitalize}
 
-            EOF
-
+                EOF
           projects.each do |url|
             info = ProjectInfo.new(url, language.to_s)
             yield(info)
@@ -49,18 +48,15 @@ module Cejo
 
       def grab
         process_projects do |info|
-          Grab.new(utils, info.folder, info.url, info.to_s)
-              .grab_this
+          Grab.new(utils, info.folder, info.url, info.to_s).grab_this
         end
       end
 
       def run
-        utils.info_and_exit(command, "grab", "archive") if command.nil?
-
+        utils.info_and_exit(command, 'grab', 'archive') if command.nil?
         if command == :archive
           archive
         end
-
         if command == :grab
           grab
         end

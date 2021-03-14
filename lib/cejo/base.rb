@@ -13,7 +13,6 @@ module Cejo
     def initialize
       cli = CLI::Arguments.new(ARGV)
       cli.show_help
-
       args = cli.values
       @section = args[:command]
       @feature = args[:option]

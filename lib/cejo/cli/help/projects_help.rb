@@ -14,7 +14,7 @@ module Cejo
           {
             name: 'Emacs',
             desc: 'GNU Emacs Editor',
-            arguments: nil
+            arguments: nil,
           }
         end
 
@@ -22,7 +22,7 @@ module Cejo
           {
             name: 'st',
             desc: 'Suckless Terminal',
-            arguments: nil
+            arguments: nil,
           }
         end
 
@@ -30,7 +30,7 @@ module Cejo
           {
             name: 'dwm',
             desc: 'Suckless window manager',
-            arguments: nil
+            arguments: nil,
           }
         end
 
@@ -38,7 +38,7 @@ module Cejo
           {
             name: 'Ruby',
             desc: 'Ruby Programming language',
-            arguments: nil
+            arguments: nil,
           }
         end
 
@@ -47,7 +47,7 @@ module Cejo
             emacs: emacs,
             dwm: dwm,
             st: st,
-            ruby: ruby
+            ruby: ruby,
           }
         end
       end

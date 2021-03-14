@@ -12,7 +12,7 @@ module Cejo
 
       def initialize(services, command)
         @services = services
-        @command =  command
+        @command = command
       end
 
       public

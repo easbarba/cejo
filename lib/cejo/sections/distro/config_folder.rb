@@ -11,7 +11,7 @@ module Cejo
       end
 
       def folder
-        cfg_folder.join "distro"
+        cfg_folder.join 'distro'
       end
 
       def any_config?

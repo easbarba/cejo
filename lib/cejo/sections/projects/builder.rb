@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "pathname"
+require 'pathname'
 
 module Cejo
   # Build Floss Projects
@@ -18,12 +18,12 @@ module Cejo
       private
 
       def project_folder
-        folders.cejo_config.join("projects")
+        folders.cejo_config.join('projects')
       end
 
       def project_info
         utils.parse_folder(project_folder)[project.to_sym]
-             .transform_keys(&:to_sym)
+                                                  .transform_keys(&:to_sym)
       end
 
       def url
@@ -47,7 +47,7 @@ module Cejo
       end
 
       def repo
-        require "git"
+        require 'git'
         repo = Git.open(root)
       end
 
@@ -71,15 +71,15 @@ module Cejo
       def install
         Dir.chdir(root) do
           commands.each do |command|
-            command.gsub!("{0}", folders.local.to_s)
+            command.gsub!('{0}', folders.local.to_s)
             system command
           end
         end
       end
 
       def project_patches
-        folders.cejo_config.join("patches")
-                           .join(project_info[:name])
+        folders.cejo_config.join('patches')
+               .join(project_info[:name])
       end
 
       # none, or exclusively these ones.
@@ -92,7 +92,6 @@ module Cejo
         Dir.chdir(root) do
           patches.each do |patch|
             next unless tasks.include? patch.basename.to_s
-
             puts "Patched: #{patch.to_path}" # all
             repo.apply patch.to_path
           end
@@ -120,14 +119,14 @@ module Cejo
 
       def to_s
         <<~EOF
-        ❯ Building Project
+          ❯ Building Project
 
-        Name: #{project.capitalize}
-        Url: #{url}
-        Default: #{default}
-        Tag: #{tag}
-        Patch: #{patch}
-        Folder: #{root}
+          Name: #{project.capitalize}
+          Url: #{url}
+          Default: #{default}
+          Tag: #{tag}
+          Patch: #{patch}
+          Folder: #{root}
         EOF
       end
 

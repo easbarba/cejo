@@ -12,10 +12,10 @@ module Cejo
       ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
 
       # Format to be compressed
-      FMT = "tar"
+      FMT = 'tar'
 
       # Folder which compressed files will be stored
-      STORE_FOLDER = Pathname.new(File.join(Dir.home, "Downloads", "archived"))
+      STORE_FOLDER = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
 
       def initialize(utils)
         @utils = utils
@@ -24,10 +24,10 @@ module Cejo
       # Archiving FLOSS project
       def archive_this(name, folder, info)
         name = name
+        return unless ARCHIVE_THESE.include?(name) # only archive listed ones
+
         @filename = "#{STORE_FOLDER.join(name)}.#{FMT}"
         @project_folder = folder
-
-        return unless ARCHIVE_THESE.include?(name) # only archive listed ones
 
         puts info
 

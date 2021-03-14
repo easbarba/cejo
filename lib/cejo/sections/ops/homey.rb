@@ -69,10 +69,8 @@ module Cejo
           print "No such a directory '#{root}' exist! Exiting."
           exit!
         end
-
         @root = Pathname root
         @target_link = folders_found
-
         # show_info
         cleanup_home
         symlink_folders

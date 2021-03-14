@@ -19,7 +19,7 @@ module Cejo
       def features
         {
           archive: Floss::Core.new(folders, utils, :archive, arguments),
-          grab: Floss::Core.new(folders, utils, :grab, arguments)
+          grab: Floss::Core.new(folders, utils, :grab, arguments),
         }
       end
     end

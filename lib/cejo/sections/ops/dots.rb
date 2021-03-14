@@ -69,7 +69,7 @@ module Cejo
       # or delete it if the file it is pointing does not exist
       def backup_this(this)
         puts
-        print "WARNING".red, ": #{this} found! Deleting/Moving it."
+        print 'WARNING'.red, ": #{this} found! Deleting/Moving it."
         puts
 
         this.delete if this.exist?  # TODO: if file exist back/delete up it
@@ -77,7 +77,7 @@ module Cejo
 
       def backup_files
         target_link.each do |target, link_name|
-          print "#{target}".yellow, " ❯ ", "#{link_name}".green
+          print "#{target}".yellow, ' ❯ ', "#{link_name}".green
           puts
 
           backup_this link_name
@@ -86,7 +86,7 @@ module Cejo
 
       def symlink_files
         target_link.each do |target, link_name|
-          print "#{target}".yellow, " ❯ ", "#{link_name}".green
+          print "#{target}".yellow, ' ❯ ', "#{link_name}".green
           puts
 
           link_name.make_symlink target # As enumerator yielding folder to symlink
@@ -102,9 +102,7 @@ module Cejo
 
       def run
         utils.info_and_exit(root, '/path/to/folder')
-
         feed_target_link
-
         mk_folders
         backup_files
         symlink_files

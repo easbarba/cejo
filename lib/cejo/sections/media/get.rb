@@ -42,14 +42,13 @@ module Cejo
       end
 
       def show_info
-        print "media:".red, " #{media}"
+        print 'media:'.red, " #{media}"
         puts
-        print "codec:".red, " #{codec}"
+        print 'codec:'.red, " #{codec}"
       end
 
       def run
         show_info
-
         Dir.chdir(cur_dir) do
           system final_command
         end

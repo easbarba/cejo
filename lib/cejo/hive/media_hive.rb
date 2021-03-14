@@ -18,7 +18,7 @@ module Cejo
       def features
         {
           play: Media::Play.new(arguments[0]),
-          get: Media::Get.new(arguments)
+          get: Media::Get.new(arguments),
         }
       end
     end

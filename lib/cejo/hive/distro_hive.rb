@@ -18,16 +18,16 @@ module Cejo
 
       def features
         {
-          install:  Distro::Base.new(folders, utils, arguments, 'install'),
-          remove:  Distro::Base.new(folders, utils, arguments, 'remove'),
+          install: Distro::Base.new(folders, utils, arguments, 'install'),
+          remove: Distro::Base.new(folders, utils, arguments, 'remove'),
           upgrade: Distro::Base.new(folders, utils, arguments, 'upgrade'),
           update: Distro::Base.new(folders, utils, arguments, 'update'),
           autoremove: Distro::Base.new(folders, utils, arguments, 'autoremove'),
-          clean:  Distro::Base.new(folders, utils, arguments, 'clean'),
-          search:  Distro::Base.new(folders, utils, arguments, 'search'),
+          clean: Distro::Base.new(folders, utils, arguments, 'clean'),
+          search: Distro::Base.new(folders, utils, arguments, 'search'),
           download: Distro::Base.new(folders, utils, arguments, 'download'),
           installed: Distro::Base.new(folders, utils, arguments, 'installed'),
-          fix:  Distro::Base.new(folders, utils, arguments, 'fix')
+          fix: Distro::Base.new(folders, utils, arguments, 'fix'),
         }
       end
     end

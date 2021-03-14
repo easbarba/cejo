@@ -18,57 +18,50 @@ module Cejo
 
         def sections
           {
-            floss:    FlossHelp.new,
+            floss: FlossHelp.new,
             projects: ProjectsHelp.new,
-            di:       DistroHelp.new,
-            media:    MediaHelp.new,
-            ops:      OpsHelp.new
+            di: DistroHelp.new,
+            media: MediaHelp.new,
+            ops: OpsHelp.new,
           }
         end
 
         def section_available?
-          sections.key? section
+          sections.key?(section)
         end
 
         def feature_available?
-          sections[section].features.key? feature
+          sections[section].features.key?(feature)
         end
 
         def validate
+          # section
           show_sections if section.nil? #or section =~ /(help+)/i
           show_sections unless section_available?
-
+          # features
           show_features if feature.nil? #or feature =~ /(help+)/i
           show_features unless feature_available?
         end
 
         def show_sections
-          puts 'Sections available:'
-          puts
-
+          puts 'Sections available:\n'
           rows = []
           sections.each do |key, section|
             rows << [key, section.description]
           end
-
-          table = Terminal::Table.new :headings => ['Section', 'Description'], :rows => rows
+          table = Terminal::Table.new(:headings => ['Section', 'Description'], :rows => rows)
           puts table
-
           exit!
         end
 
         def show_features
-          puts 'Features available:'
-          puts
-
+          puts 'Features available:\n'
           rows = []
           sections[section].features.each do |name, feature|
             rows << [name, feature[:desc], feature[:arguments]]
           end
-
-          table = Terminal::Table.new :headings => ['Feature', 'Description', 'Arguments'], :rows => rows
+          table = Terminal::Table.new(:headings => ['Feature', 'Description', 'Arguments'], :rows => rows)
           puts table
-
           exit!
         end
       end

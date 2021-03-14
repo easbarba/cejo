@@ -20,8 +20,8 @@ module Cejo
       end
 
       def spin(msg)
-        require "colorize"
-        warning = "status:".yellow.bold
+        require 'colorize'
+        warning = 'status:'.yellow.bold
 
         require 'tty-spinner'
         spinner = TTY::Spinner.new("#{warning} #{msg.downcase} :spinner ", format: :dots_6)
@@ -46,11 +46,11 @@ module Cejo
       end
 
       # Parse Folder with serialization files
-      def parse_folder(folder, ext='yaml')
+      def parse_folder(folder, ext = 'yaml')
         projects = {}
 
         folder.each_child do |file|
-          name = file.basename.sub_ext("").to_s.to_sym
+          name = file.basename.sub_ext('').to_s.to_sym
           projects[name] = load_this(file, ext)
         end
 

@@ -105,7 +105,7 @@ module Cejo
             update: update,
             upgrade: upgrade,
             download: download,
-            clean: clean
+            clean: clean,
           }
         end
       end
