@@ -16,7 +16,7 @@ RSpec.describe "The marvelous distro" do
       raw_cmds = raw_cmd.merge({ apt: { autoremove: "autoremove" } })
       cmd = Cejo::Distro::Commands.new(raw_cmds)
 
-      expect(cmd.packagers).to eq([:dnf, :apt])
+      expect(cmd.packagers).to eq(%i[dnf apt])
     end
   end
 end

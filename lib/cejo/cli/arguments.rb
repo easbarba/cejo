@@ -18,7 +18,7 @@ module Cejo
 
       def values
         result = {}
-        names = [:command, :option, :rest]
+        names = %i[command option rest]
         arguments.each_with_index do |arg, i|
           if i >= 2
             result.store(names[i], arguments.drop(2))
