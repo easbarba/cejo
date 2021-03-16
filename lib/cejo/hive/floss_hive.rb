@@ -11,7 +11,7 @@ module Cejo
       def initialize(services, arguments)
         @utils = services.resolve(:utils)
         @folders = services.resolve(:folders)
-        @arguments = arguments
+        @arguments = arguments if arguments
       end
 
       public

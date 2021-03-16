@@ -10,7 +10,7 @@ module Cejo
 
       def initialize(services, arguments)
         @services = services
-        @arguments = arguments unless arguments.nil?
+        @arguments = arguments.first if arguments
       end
 
       public
