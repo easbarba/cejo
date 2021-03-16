@@ -6,24 +6,28 @@ require 'dry-container'
 module Cejo
   # Bootstrap program
   class Base
-    attr_reader :section, :feature, :rest
-
-    private
+    attr_reader :section, :feature, :rest, :args
 
     def initialize
-      cli = CLI::Arguments.new(ARGV)
-      cli.show_help
-      args = cli.values
+      prepare_args
       @section = args[:command]
       @feature = args[:option]
       @rest = args[:rest]
     end
+
+    def prepare_args
+      cli = CLI::Arguments.new(ARGV)
+      cli.show_help
+      @args = cli.values
+    end
+    private :prepare_args
 
     def services
       container = Dry::Container.new
       container.register(:folders, Services::Folders.new)
       container.register(:utils, Services::Utils.new)
     end
+    private :services
 
     public
 
