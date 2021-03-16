@@ -134,7 +134,7 @@ module Cejo
         grab
         checkout_tag
         apply_patches
-        install
+        install # TODO: raise Git::GitExecuteError
         cleaning
       end
     end
