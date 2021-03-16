@@ -10,8 +10,6 @@ module Cejo
       attr_reader :services, :folders, :utils
       attr_reader :command, :sub_command
 
-      private
-
       def initialize(folders, utils, command, sub_command)
         @folders = folders
         @utils = utils

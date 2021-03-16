@@ -4,8 +4,6 @@ module Cejo
   module Ops
     # Display System Hardware Information.
     class Sysinfo
-      private
-
       attr_reader :services, :command
 
       DEPS = %w[pulseaudio amixer ping sensors ryzen vega].freeze

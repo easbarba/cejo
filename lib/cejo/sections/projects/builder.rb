@@ -15,8 +15,6 @@ module Cejo
         @project = project
       end
 
-      private
-
       def project_folder
         folders.cejo_config.join('projects')
       end
@@ -35,7 +33,7 @@ module Cejo
       end
 
       def grab
-        Floss::Grab.new(utils, root, url, self.to_s).grab_this
+        Floss::Grab.new(utils, root, url, self.show_info).grab_this
       end
 
       def tag
@@ -117,7 +115,7 @@ module Cejo
 
       public
 
-      def to_s
+      def show_info
         <<~EOF
           ❯ Building Project
 
@@ -129,6 +127,7 @@ module Cejo
           Folder: #{root}
         EOF
       end
+      alias :to_s :show_info
 
       def run
         grab

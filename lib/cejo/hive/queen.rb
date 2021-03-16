@@ -6,8 +6,6 @@ module Cejo
     class Queen
       attr_reader :services, :arguments
 
-      private
-
       def initialize(services, arguments)
         @services = services
         @arguments = arguments

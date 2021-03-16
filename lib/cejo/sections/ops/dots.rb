@@ -11,8 +11,6 @@ module Cejo
     class Dots
       attr_reader :root, :ignore_these, :utils, :home, :target_link
 
-      private
-
       def initialize(utils, root)
         @utils = utils
         @root = Pathname.new root

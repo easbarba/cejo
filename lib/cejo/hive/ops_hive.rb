@@ -6,8 +6,6 @@ module Cejo
     class OpsHive
       attr_reader :argument, :utils
 
-      private
-
       def initialize(services, argument)
         @utils = services.resolve(:utils)
         @argument = argument.first if argument

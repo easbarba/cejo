@@ -8,8 +8,6 @@ module Cejo
     class Screenshot
       attr_reader :utils
 
-      private
-
       def initialize(utils)
         @utils = utils
       end

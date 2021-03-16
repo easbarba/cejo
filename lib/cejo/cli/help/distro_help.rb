@@ -10,8 +10,6 @@ module Cejo
           @description = 'Distro Commands'.freeze
         end
 
-        private
-
         def install
           {
             name: 'Install',

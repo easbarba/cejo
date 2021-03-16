@@ -6,8 +6,6 @@ module Cejo
     class FlossHive
       attr_reader :utils, :folders, :arguments
 
-      private
-
       def initialize(services, arguments)
         @utils = services.resolve(:utils)
         @folders = services.resolve(:folders)

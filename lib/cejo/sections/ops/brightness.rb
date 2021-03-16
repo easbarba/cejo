@@ -13,8 +13,6 @@ module Cejo
         @state = state
       end
 
-      private
-
       def brighter
         'brightnessctl'
       end

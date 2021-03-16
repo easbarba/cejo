@@ -14,8 +14,6 @@ module Cejo
         @root = root
       end
 
-      private
-
       # Confirms if root is a folder or return w/ exeception
       def root_exist?
         r = Pathname.new root

@@ -6,8 +6,6 @@ module Cejo
     class DistroHive
       attr_reader :folders, :utils, :arguments
 
-      private
-
       def initialize(services, arguments)
         @utils = services.resolve :utils
         @folders = services.resolve :folders
