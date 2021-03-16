@@ -3,6 +3,10 @@
 * Help
 * Container
 ** DONE named after but aint a real ioc
+* Hives
+** TODO Each hive has its own description to avoid duplication
+* Features
+** TODO Each feature has its own description to avoid duplication
 * Sensible default but Configurable
 ** Ops/Oss
    - choose which project to manage
