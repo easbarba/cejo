@@ -8,11 +8,11 @@ module Cejo
       attr_reader :arguments
 
       def initialize(arguments)
-        @arguments = arguments
+        @arguments = arguments if arguments
       end
 
       def show_help
-        main = Help::Main.new(values[:command], values[:option])
+        main = Help::QueenHelp.new(values[:command], values[:option])
         main.validate
       end
 

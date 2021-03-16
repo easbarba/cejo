@@ -6,9 +6,9 @@ require 'terminal-table'
 module Cejo
   # Process CLI arguments.
   module CLI
-    # Inform user about sections and commands available
+    # Inform user about Hives and commands available
     module Help
-      class Main
+      class QueenHelp
         attr_reader :section, :feature
 
         def initialize(section, feature)
@@ -20,7 +20,7 @@ module Cejo
           {
             floss: FlossHelp.new,
             projects: ProjectsHelp.new,
-            di: DistroHelp.new,
+            distro: DistroHelp.new,
             media: MediaHelp.new,
             ops: OpsHelp.new,
           }
