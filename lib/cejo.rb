@@ -5,7 +5,7 @@ require_relative 'cejo/base'
 
 # * Cli
 require_relative 'cejo/cli/arguments'
-require_relative 'cejo/cli/help/main'
+require_relative 'cejo/cli/help/queen_help'
 require_relative 'cejo/cli/help/media_help'
 require_relative 'cejo/cli/help/projects_help'
 require_relative 'cejo/cli/help/floss_help'
