@@ -13,7 +13,7 @@ module Cejo
 
       def initialize(utils, root)
         @utils = utils
-        @root = Pathname.new root
+        @root = Pathname.new root if root
         @home = Pathname.new(Dir.home)
         @target_link = {}
       end

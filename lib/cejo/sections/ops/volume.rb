@@ -9,7 +9,7 @@ module Cejo
 
       def initialize(utils, state)
         @utils = utils
-        @state = state.to_sym
+        @state = state.to_sym if state
       end
 
       def managers

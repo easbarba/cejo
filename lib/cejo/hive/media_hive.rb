@@ -8,14 +8,14 @@ module Cejo
 
       def initialize(services, arguments)
         @services = services
-        @arguments = arguments.first if arguments
+        @arguments = arguments if arguments
       end
 
       public
 
       def features
         {
-          play: Media::Play.new(arguments[0]),
+          play: Media::Play.new(arguments.first),
           get: Media::Get.new(arguments),
         }
       end
