@@ -7,8 +7,8 @@ module Cejo
       attr_reader :folders, :utils, :arguments
 
       def initialize(services, arguments)
-        @utils = services.resolve :utils
-        @folders = services.resolve :folders
+        @utils = services.resolve(:utils)
+        @folders = services.resolve(:folders).cejo_config
         @arguments = arguments if arguments
       end
 
