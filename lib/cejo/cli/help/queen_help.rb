@@ -44,7 +44,7 @@ module Cejo
         end
 
         def show_sections
-          puts 'Sections available:\n'
+          puts 'Sections available:'
           rows = []
           sections.each do |key, section|
             rows << [key, section.description]
@@ -55,7 +55,7 @@ module Cejo
         end
 
         def show_features
-          puts 'Features available:\n'
+          puts 'Features available:'
           rows = []
           sections[section].features.each do |name, feature|
             rows << [name, feature[:desc], feature[:arguments]]
