@@ -7,21 +7,22 @@ module Cejo
   module Projects
     # Build Projects
     class Builder
-      attr_reader :folders, :utils, :project
+      attr_reader :cejo_config, :local_folder, :utils, :project
 
       def initialize(folders, utils, project)
-        @folders = folders
+        @cejo_config = folders.cejo_config
+        @local_folder = folders.local
         @utils = utils
         @project = project
       end
 
       def project_folder
-        folders.cejo_config.join('projects')
+        cejo_config.join('projects')
       end
 
       def project_info
         utils.parse_folder(project_folder)[project.to_sym]
-                                                  .transform_keys(&:to_sym)
+           .transform_keys(&:to_sym)
       end
 
       def url
@@ -69,15 +70,15 @@ module Cejo
       def install
         Dir.chdir(root) do
           commands.each do |command|
-            command.gsub!('{0}', folders.local.to_s)
+            command.gsub!('{0}', local_folder.to_s)
             system command
           end
         end
       end
 
       def project_patches
-        folders.cejo_config.join('patches')
-               .join(project_info[:name])
+        cejo_config.join('patches')
+                .join(project_info[:name])
       end
 
       # none, or exclusively these ones.
