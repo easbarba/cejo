@@ -8,7 +8,7 @@ module Cejo
 
       def initialize(services, arguments)
         @utils = services.resolve(:utils)
-        @folders = services.resolve(:folders).cejo_config
+        @folders = services.resolve(:folders)
         @arguments = arguments if arguments
       end
 
