@@ -19,11 +19,12 @@ module Cejo
         [flameshot, scrot, maim]
       end
 
+      def shotters_available
+        shotters.select { |shotter| utils.which?(shotter[:exec]) }
+      end
+
       def shotter
-        shotters.first do |shotter|
-          name = shotter[:exec]
-          return name if utils.which?(name)
-        end
+        shotters_available.first
       end
 
       def scrot
