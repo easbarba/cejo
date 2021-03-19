@@ -18,7 +18,7 @@ module Cejo
           brightness: Ops::Brightness.new(utils, argument),
           dots: Ops::Dots.new(utils, argument),
           volume: Ops::Volume.new(utils, argument),
-          screenshot: Ops::Screenshot.new(utils),
+          screenshot: Ops::Screenshot.new(utils, argument),
           sysinfo: Ops::Sysinfo.new(utils, argument),
           homey: Ops::Homey.new(argument),
         }

@@ -1,47 +1,76 @@
 # frozen_string_literal: true
 
-require 'date'
-
 module Cejo
   module Ops
     # Take a shot of the marvelous screen
     class Screenshot
-      attr_reader :utils
+      attr_reader :utils, :mode
 
-      def initialize(utils)
+      def initialize(utils, mode)
         @utils = utils
+        @mode = mode.to_sym
+      end
+
+      def folder
+        Pathname.new(Dir.home).join('Pictures') # TODO: Check if folder exist
       end
 
       def shotters
-        { scrot: 'scrot', maim: 'maim' }
+        [flameshot, scrot, maim]
       end
 
-      def shotter_avaiable
-        shotters.keys.first { |shotter| return shotter if utils.which?(shotter) }.to_sym
+      def shotter
+        shotters.first do |shotter|
+          name = shotter[:exec]
+          return name if utils.which?(name)
+        end
+      end
+
+      def scrot
+        {
+          exec: 'scrot',
+          full: '--focused --silent',
+          partial: '--select --silent',
+          folder: folder.join(screenshot_name)
+        }
+      end
+
+      def flameshot
+        {
+          exec: 'flameshot',
+          full: 'full -p',
+          partial: 'gui -p',
+          folder: folder.to_path
+        }
+      end
+
+      def maim
+        {
+          exec: 'maim',
+          full: '',
+          partial: '--select',
+          folder: folder.join(screenshot_name)
+        }
       end
 
       def current_time
-        Time.new.strftime('%d-%m-%Y-%k:%M')
+        Time.new.strftime('%d-%m-%y-%k-%M')
       end
 
-      def pictures_folder
-        Pathname.new(Dir.home).join('Pictures')
+      def screenshot_format
+        'png'
       end
 
       def screenshot_name
-        "screenshot-#{current_time}.png"
+        "screenshot-#{current_time}.#{screenshot_format}"
       end
 
       def final_command
-        "#{shotters[shotter_avaiable]} #{screenshot_name}"
+        "#{shotter[:exec]} #{shotter[mode]} #{shotter[:folder]}"
       end
 
-      public
-
       def run
-        Dir.chdir(pictures_folder) {
-          system(final_command)
-        }
+        system(final_command)
       end
     end
   end
