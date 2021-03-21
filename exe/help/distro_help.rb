@@ -12,7 +12,6 @@ module Cejo
 
         def install
           {
-            name: 'Install',
             desc: 'Install a Package from Repositories',
             arguments: '<arguments>',
           }
@@ -20,7 +19,6 @@ module Cejo
 
         def autoremove
           {
-            name: 'Autoremove',
             desc: 'Remove One or More Installed Packages',
             arguments: '<arguments>',
           }
@@ -28,7 +26,6 @@ module Cejo
 
         def remove
           {
-            name: 'Remove',
             desc: 'Remove One or More Installed Packages',
             arguments: '<arguments>',
           }
@@ -36,7 +33,6 @@ module Cejo
 
         def search
           {
-            name: 'Search',
             desc: 'Find a Package',
             arguments: '<arguments>',
           }
@@ -44,7 +40,6 @@ module Cejo
 
         def upgrade
           {
-            name: 'Upgrade',
             desc: 'Upgrade Installed Packages',
             arguments: '<arguments>',
           }
@@ -52,7 +47,6 @@ module Cejo
 
         def update
           {
-            name: 'Update',
             desc: 'Update Package Lists',
             arguments: '<arguments>',
           }
@@ -60,7 +54,6 @@ module Cejo
 
         def clean
           {
-            name: 'Clean',
             desc: 'Clean system residual packages dependencies',
             arguments: '<arguments>',
           }
@@ -68,7 +61,6 @@ module Cejo
 
         def download
           {
-            name: 'Download',
             desc: 'Download package binary',
             arguments: '<arguments>',
           }
@@ -76,7 +68,6 @@ module Cejo
 
         def installed
           {
-            name: 'Installed',
             desc: 'List installed packages',
             arguments: '<arguments>',
           }
@@ -84,7 +75,6 @@ module Cejo
 
         def info
           {
-            name: 'Info',
             desc: 'View Info About a Specific Package',
             arguments: '<arguments>',
           }
@@ -92,7 +82,6 @@ module Cejo
 
         def fix
           {
-            name: 'Fix',
             desc: 'Fix system issues',
             arguments: '<arguments>',
           }

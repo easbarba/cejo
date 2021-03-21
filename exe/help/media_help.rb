@@ -12,7 +12,6 @@ module Cejo
 
         def play
           {
-            name: 'Play',
             desc: 'Play file, random media in folder or with url.',
             arguments: '<url> or </path/to/file>',
           }
@@ -20,7 +19,6 @@ module Cejo
 
         def get
           {
-            name: 'Get',
             desc: 'Get media pointed in url.',
             arguments: '<url> [codec]',
           }

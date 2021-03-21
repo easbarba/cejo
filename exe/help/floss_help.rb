@@ -12,7 +12,6 @@ module Cejo
 
         def grab
           {
-            name: 'Grab',
             desc: 'Grab FLOSS Projects',
             arguments: nil,
           }
@@ -20,7 +19,6 @@ module Cejo
 
         def archive
           {
-            name: 'Archive',
             desc: 'Archive FLOSS Projects',
             arguments: nil,
           }

@@ -12,7 +12,6 @@ module Cejo
 
         def emacs
           {
-            name: 'Emacs',
             desc: 'GNU Emacs Editor',
             arguments: nil,
           }
@@ -20,7 +19,6 @@ module Cejo
 
         def st
           {
-            name: 'st',
             desc: 'Suckless Terminal',
             arguments: nil,
           }
@@ -28,7 +26,6 @@ module Cejo
 
         def dwm
           {
-            name: 'dwm',
             desc: 'Suckless window manager',
             arguments: nil,
           }
@@ -36,7 +33,6 @@ module Cejo
 
         def ruby
           {
-            name: 'Ruby',
             desc: 'Ruby Programming language',
             arguments: nil,
           }

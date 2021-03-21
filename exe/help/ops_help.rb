@@ -12,7 +12,6 @@ module Cejo
 
         def volume
           {
-            name: 'Volume',
             desc: 'Manage System Volume',
             arguments: '[up, down, toggle]',
           }
@@ -20,7 +19,6 @@ module Cejo
 
         def homey
           {
-            name: 'homey',
             desc: 'Mirror user DATA partition folders to $HOME',
             arguments: '</folder/path/',
           }
@@ -28,7 +26,6 @@ module Cejo
 
         def dots
           {
-            name: 'Brightness',
             desc: 'Mirror Lar files in $HOME.',
             arguments: '</folder/path/',
           }
@@ -36,7 +33,6 @@ module Cejo
 
         def sysinfo
           {
-            name: 'sysinfo',
             desc: 'Display System Hardware Information.',
             arguments: nil,
           }
@@ -44,7 +40,6 @@ module Cejo
 
         def screenshot
           {
-            name: 'screenshot',
             desc: 'Take a shot of the marvelous screen',
             arguments: '</folder/path/',
           }
@@ -52,7 +47,6 @@ module Cejo
 
         def brightness
           {
-            name: 'Brightness',
             desc: 'Manage System brightness.',
             arguments: '[up down]',
           }
