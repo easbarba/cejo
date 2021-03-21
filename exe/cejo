@@ -18,7 +18,7 @@ class App
 
   program_desc 'Debian automation and services utilities.'
 
-  # version Cejo::VERSION
+  version Cejo::VERSION
 
   subcommand_option_handling :normal
   arguments :strict
@@ -46,59 +46,49 @@ class App
 
     c.desc 'Manage System Volume'
     c.arg '[up, down, toggle]'
-    c.command :volume do |all|
-      all.action do
-        Cejo::Ops::Volume.new(utils, arguments.first).run
+    c.command :volume do |volume|
+      volume.action do |global_options,options,args|
+        Cejo::Ops::Volume.new(utils, args.first).run
       end
     end
 
     c.desc 'Mirror user DATA partition folders to $HOME'
     c.arg '/folder/path/'
-    c.command :homey do |all|
-      all.action do
-        Cejo::Ops::Homey.new(arguments.first).run
+    c.command :homey do |homey|
+      homey.action do |global_options,options,args|
+        Cejo::Ops::Homey.new(args.first).run
       end
     end
 
     c.desc 'Mirror Lar files in $HOME.'
     c.arg '/folder/path/'
-    c.command :dots do |all|
-      all.action do
-        Cejo::Ops::Dots.new(utils, arguments.first).run
+    c.command :dots do |dots|
+      dots.action do |global_options,options,args|
+        Cejo::Ops::Dots.new(utils, args.first).run
       end
     end
 
     c.desc 'Display System Hardware Information.'
-    c.command :sysinfo do |all|
-      all.action do
-        Cejo::Ops::Sysinfo.new(utils, arguments.first).run
+    c.command :sysinfo do |sysinfo|
+      sysinfo.action do |global_options,options,args|
+        Cejo::Ops::Sysinfo.new(utils).run
       end
     end
 
     c.desc 'Take a shot of the marvelous screen'
     c.arg '[full, partial]'
-    c.command :screenshot do |all|
-      all.action do
-        Cejo::Ops::Screenshot.new(utils, arguments.first).run
+    c.command :screenshot do |screenshot|
+      screenshot.action do |global_options,options,args|
+        Cejo::Ops::Screenshot.new(utils, args.first).run
       end
     end
 
     c.desc 'Manage System brightness.'
     c.arg '[up down]'
-    c.command :brightness do |all|
-      all.action do
-        Cejo::Ops::Brightness.new(utils, arguments.first).run
+    c.command :brightness do |brightness|
+      brightness.action do |global_options,options,args|
+        Cejo::Ops::Brightness.new(utils, args.first).run
       end
-    end
-
-    c.action do |global_options,options,args|
-
-      # Your command logic here
-
-      # If you have any errors, just raise them
-      # raise "that command made no sense"
-
-      puts "ops command ran"
     end
   end
 
@@ -107,22 +97,18 @@ class App
   command :media do |c|
     c.desc 'Get media pointed in url.'
     c.arg 'url'
-    c.command :get do |all|
-      all.action do
-        Cejo::Media::Get.new(arguments).run
+    c.command :get do |get|
+      get.action do |global_options,options,args|
+        Cejo::Media::Get.new(args).run
       end
     end
 
     c.desc 'Play file, random media in folder or with url.'
     c.arg '[url, /path/to/file]'
-    c.command :play do |all|
-      all.action do
-        Cejo::Media::Play.new(arguments.first).run
+    c.command :play do |play|
+      play.action do |global_options,options,args|
+        Cejo::Media::Play.new(args.first).run
       end
-    end
-
-    c.action do |global_options,options,args|
-      puts "media command ran"
     end
   end
 
@@ -156,105 +142,97 @@ class App
         Cejo::Projects::Ruby.new(services).run
       end
     end
-
-    c.action do |global_options,options,args|
-      puts "projects command ran"
-    end
   end
 
   desc 'A distro packager managers front-end just run it'
   arg_name 'Describe arguments to distro here'
   command :distro do |c|
+    utils = services.resolve(:utils)
+    folders = services.resolve(:folders)
+
     c.desc 'Install a Package from Repositories'
     c.arg 'arguments'
-    c.command :install do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :install).run
+    c.command :install do |install|
+      install.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :install).run
+      end
+    end
+
+    c.desc 'Remove One or More Installed Packages'
+    c.command :autoremove do |autoremove|
+      autoremove.action do
+        Cejo::Distro::Base.new(folders, utils, args, :autoremove).run
       end
     end
 
     c.desc 'Remove One or More Installed Packages'
     c.arg 'arguments'
-    c.command :autoremove do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :autoremove).run
-      end
-    end
-
-    c.desc 'Remove One or More Installed Packages'
-    c.arg 'arguments'
-    c.command :remove do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :remove).run
+    c.command :remove do |remove|
+      remove.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :remove).run
       end
     end
 
     c.desc 'Find a Package'
     c.arg 'arguments'
-    c.command :search do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :search).run
+    c.command :search do |search|
+      search.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :search).run
       end
     end
 
     c.desc 'Update Package Lists'
-    c.arg 'arguments'
-    c.command :update do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :update).run
+    c.command :update do |update|
+      update.action do
+        Cejo::Distro::Base.new(folders, utils, '', :update).run
       end
     end
 
     c.desc 'Upgrade Installed Packages'
-    c.arg 'arguments'
-    c.command :upgrade do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :upgrade).run
+    c.command :upgrade do |upgrade|
+      upgrade.action do
+        Cejo::Distro::Base.new(folders, utils, '', :upgrade).run
       end
     end
 
     c.desc 'Clean system residual packages dependencies'
     c.arg 'arguments'
-    c.command :clean do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :clean).run
+    c.command :clean do |clean|
+      clean.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :clean).run
       end
     end
 
     c.desc 'Download package binary'
     c.arg 'arguments'
-    c.command :download do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :download).run
+    c.command :download do |download|
+      download.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :download).run
       end
     end
 
     c.desc 'List installed packages'
     c.arg 'arguments'
-    c.command :installed do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :installed).run
+    c.command :installed do |installed|
+      installed.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :installed).run
       end
     end
 
     c.desc 'View Info About a Specific Package'
     c.arg 'arguments'
-    c.command :info do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :info).run
+    c.command :info do |info|
+      info.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :info).run
       end
     end
 
     c.desc 'Fix system issues'
     c.arg 'arguments'
-    c.command :fix do |wip|
-      wip.action do
-        Cejo::Distro::Base.new(folders, utils, arguments, :fix).run
+    c.command :fix do |fix|
+      fix.action do |global_options,options,args|
+        Cejo::Distro::Base.new(folders, utils, args, :fix).run
       end
-    end
-
-    c.action do |global_options,options,args|
-      puts "distro command ran"
     end
   end
 
@@ -265,21 +243,17 @@ class App
     folders = services.resolve(:folders)
 
     c.desc 'Archive FLOSS Projects'
-    c.command :archive do |wip|
-      wip.action do
+    c.command :archive do |archive|
+      archive.action do
         Cejo::Floss::Core.new(folders, utils, :archive).run
       end
     end
 
     c.desc 'Grab FLOSS Projects'
-    c.command :grab do |wip|
-      wip.action do
+    c.command :grab do |grab|
+      grab.action do
         Cejo::Floss::Core.new(folders, utils, :grab).run
       end
-    end
-
-    c.action do |global_options,options,args|
-      puts "floss command ran"
     end
   end
 
