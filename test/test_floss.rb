@@ -7,7 +7,7 @@ require 'cejo'
 # Test Oss
 class FlossTest < Test::Unit::TestCase
   def test_get
-    floss = Floss.new(@services, 'get')
+    floss = Core.new(@services, 'get')
     floss.ARCHIVE_THESE
   end
 end
