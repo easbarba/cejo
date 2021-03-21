@@ -1,4 +1,4 @@
-require_relative "../../lib/cejo/sections/distro/need"
+require_relative "../../lib/cejo/distro/need"
 
 require "spec_helper"
 

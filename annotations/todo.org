@@ -1,12 +1,12 @@
 #+TILE: Timeline
 
 * Help
-* Container
-** DONE named after but aint a real ioc
+* Services
+** DONE Add simpler ioc
 * Hives
 ** TODO Each hive has its own description to avoid duplication
 * Features
-** TODO Each feature has its own description to avoid duplication
+** DONE Each feature has its own description to avoid duplication
 * Sensible default but Configurable
 ** Ops/Oss
    - choose which project to manage
@@ -28,6 +28,7 @@
 ** Power User
 ** More user interaction
 * Cli
+** TODO Thor
 ** TODO Better Parser
 ** DONE GNU structure
    <command> [opitions] <command-option> <argument>
@@ -35,22 +36,19 @@
 ** Prettier Cli
 *** DONE Utils
 *** DONE Ops/Floss
-* Testings
+* Tests
 ** TDD
 ** BDD
-** Sections
-*** TODO Startup
-*** TODO Client
-*** TODO Cli
-*** TODO Sections
 * Fails gracefully
 ** Exceptions
 ** TODO Oss
 ** TODO Dots
-* Sections
-** Distro
-*** Standalone App
-*** TODO Distro section require different cli arg organization and parser, as way more args
+* Distro
+** Standalone App
+** TODO Distro section require different cli arg organization and parser, as way more args
+* Projects
+* Ops
+* Media
 * Refactoring
 ** TODO Simpler/Smaller methods
 ** DONE Floss Class needs to be cohesive. Separating it three class may help with it: clone, pull and core.

@@ -25,37 +25,35 @@ require_relative 'cejo/services/container'
 require_relative 'cejo/services/folders'
 require_relative 'cejo/services/utils'
 
-# * Sections
-
 # ** Ops
-require_relative 'cejo/sections/ops/homey'
-require_relative 'cejo/sections/ops/screenshot'
-require_relative 'cejo/sections/ops/volume'
-require_relative 'cejo/sections/ops/brightness'
-require_relative 'cejo/sections/ops/dots'
-require_relative 'cejo/sections/ops/sysinfo'
+require_relative 'cejo/ops/homey'
+require_relative 'cejo/ops/screenshot'
+require_relative 'cejo/ops/volume'
+require_relative 'cejo/ops/brightness'
+require_relative 'cejo/ops/dots'
+require_relative 'cejo/ops/sysinfo'
 
 # *** Floss
-require_relative 'cejo/sections/floss/core'
-require_relative 'cejo/sections/floss/project_info'
-require_relative 'cejo/sections/floss/archive'
-require_relative 'cejo/sections/floss/grab'
+require_relative 'cejo/floss/core'
+require_relative 'cejo/floss/project_info'
+require_relative 'cejo/floss/archive'
+require_relative 'cejo/floss/grab'
 
 # ** Distro
-require_relative 'cejo/sections/distro/base'
-require_relative 'cejo/sections/distro/translate_action'
-require_relative 'cejo/sections/distro/config_folder'
-require_relative 'cejo/sections/distro/commands'
-require_relative 'cejo/sections/distro/current_packager'
-require_relative 'cejo/sections/distro/need'
+require_relative 'cejo/distro/base'
+require_relative 'cejo/distro/translate_action'
+require_relative 'cejo/distro/config_folder'
+require_relative 'cejo/distro/commands'
+require_relative 'cejo/distro/current_packager'
+require_relative 'cejo/distro/need'
 
 # ** Projects
-require_relative 'cejo/sections/projects/builder'
-require_relative 'cejo/sections/projects/emacs'
-require_relative 'cejo/sections/projects/dwm'
-require_relative 'cejo/sections/projects/st'
-require_relative 'cejo/sections/projects/ruby'
+require_relative 'cejo/projects/builder'
+require_relative 'cejo/projects/emacs'
+require_relative 'cejo/projects/dwm'
+require_relative 'cejo/projects/st'
+require_relative 'cejo/projects/ruby'
 
 # ** Media
-require_relative 'cejo/sections/media/play'
-require_relative 'cejo/sections/media/get'
+require_relative 'cejo/media/play'
+require_relative 'cejo/media/get'

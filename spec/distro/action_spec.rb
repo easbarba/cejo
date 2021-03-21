@@ -1,4 +1,4 @@
-require_relative "../../lib/cejo/sections/distro/translate_action"
+require_relative "../../lib/cejo/distro/translate_action"
 
 require "spec_helper"
 
