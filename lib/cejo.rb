@@ -1,27 +1,6 @@
 # frozen_string_literal: true
 
-# * Root
-require_relative 'cejo/base'
-
-# * Cli
-require_relative 'cejo/cli/arguments'
-require_relative 'cejo/cli/help/queen_help'
-require_relative 'cejo/cli/help/media_help'
-require_relative 'cejo/cli/help/projects_help'
-require_relative 'cejo/cli/help/floss_help'
-require_relative 'cejo/cli/help/distro_help'
-require_relative 'cejo/cli/help/ops_help'
-
-# * Hives
-require_relative 'cejo/hive/queen'
-require_relative 'cejo/hive/distro_hive'
-require_relative 'cejo/hive/floss_hive'
-require_relative 'cejo/hive/ops_hive'
-require_relative 'cejo/hive/projects_hive'
-require_relative 'cejo/hive/media_hive'
-
 # * Services
-require_relative 'cejo/services/container'
 require_relative 'cejo/services/folders'
 require_relative 'cejo/services/utils'
 
