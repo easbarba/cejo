@@ -53,14 +53,7 @@ module Cejo
         end
 
         def features
-          {
-            brightness: brightness,
-            screenshot: screenshot,
-            sysinfo: sysinfo,
-            dots: dots,
-            volume: volume,
-            homey: homey,
-          }
+          self.methods - self.class.superclass.instance_methods
         end
       end
     end

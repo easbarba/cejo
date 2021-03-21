@@ -25,10 +25,7 @@ module Cejo
         end
 
         def features
-          {
-            archive: archive,
-            grab: grab,
-          }
+          self.methods - self.class.superclass.instance_methods
         end
       end
     end

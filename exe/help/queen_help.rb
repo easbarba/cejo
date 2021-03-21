@@ -31,7 +31,7 @@ module Cejo
         end
 
         def feature_available?
-          sections[section].features.key?(feature)
+          sections[section].features.index(feature)
         end
 
         def validate
@@ -55,8 +55,12 @@ module Cejo
 
         def show_features
           rows = []
-          sections[section].features.each do |name, feature|
-            rows << [name, feature[:desc], feature[:arguments]]
+          sections[section].features.each do |name|
+            next if [:description, :features].include?(name)
+            desc = sections[section].public_send(name)[:desc]
+            args = sections[section].public_send(name)[:arguments]
+            args = 'none' if args.nil?
+            rows << [name.to_s, desc, args]
           end
           table = Terminal::Table.new(:headings => ['Feature', 'Description', 'Arguments'], :rows => rows)
           puts table

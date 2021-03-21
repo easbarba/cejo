@@ -25,10 +25,7 @@ module Cejo
         end
 
         def features
-          {
-            play: play,
-            get: get,
-          }
+          self.methods - self.class.superclass.instance_methods
         end
       end
     end

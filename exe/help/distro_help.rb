@@ -90,19 +90,7 @@ module Cejo
         public
 
         def features
-          {
-            fix: fix,
-            info: info,
-            installed: installed,
-            install: install,
-            search: search,
-            remove: remove,
-            autoremove: autoremove,
-            update: update,
-            upgrade: upgrade,
-            download: download,
-            clean: clean,
-          }
+          self.methods - self.class.superclass.instance_methods
         end
       end
     end

@@ -10,6 +10,8 @@ module Cejo
           @description = 'List Projects To build'.freeze
         end
 
+        public
+
         def emacs
           {
             desc: 'GNU Emacs Editor',
@@ -39,12 +41,7 @@ module Cejo
         end
 
         def features
-          {
-            emacs: emacs,
-            dwm: dwm,
-            st: st,
-            ruby: ruby,
-          }
+          self.methods - self.class.superclass.instance_methods
         end
       end
     end
