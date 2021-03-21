@@ -2,14 +2,14 @@
 
 require 'dry-container'
 
-# * Cli
-require_relative 'cli/arguments'
-require_relative 'cli/queen_help'
-require_relative 'cli/media_help'
-require_relative 'cli/projects_help'
-require_relative 'cli/floss_help'
-require_relative 'cli/distro_help'
-require_relative 'cli/ops_help'
+# * Help
+require_relative 'arguments'
+require_relative 'help/queen_help'
+require_relative 'help/media_help'
+require_relative 'help/projects_help'
+require_relative 'help/floss_help'
+require_relative 'help/distro_help'
+require_relative 'help/ops_help'
 
 # * Hives
 require_relative 'hive/queen'
