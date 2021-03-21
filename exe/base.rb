@@ -6,12 +6,7 @@ require_relative 'hives'
 
 # * Help
 require_relative 'arguments'
-require_relative 'help/queen_help'
-require_relative 'help/media_help'
-require_relative 'help/projects_help'
-require_relative 'help/floss_help'
-require_relative 'help/distro_help'
-require_relative 'help/ops_help'
+require_relative 'help'
 
 # Miscellaneous Unix automation and services utilities.
 module Cejo
@@ -27,7 +22,7 @@ module Cejo
     end
 
     def prepare_args
-      cli = CLI::Arguments.new(ARGV)
+      cli = Arguments.new(ARGV)
       cli.show_help
       @args = cli.values
     end
