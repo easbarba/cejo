@@ -18,6 +18,14 @@ module Cejo
           }
         end
 
+        def autoremove
+          {
+            name: 'Autoremove',
+            desc: 'Remove One or More Installed Packages',
+            arguments: '<arguments>',
+          }
+        end
+
         def remove
           {
             name: 'Remove',
@@ -100,6 +108,7 @@ module Cejo
             install: install,
             search: search,
             remove: remove,
+            autoremove: autoremove,
             update: update,
             upgrade: upgrade,
             download: download,
