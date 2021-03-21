@@ -7,14 +7,12 @@ module Cejo
   module Floss
     # Core Management FLOSS Projects
     class Core
-      attr_reader :services, :folders, :utils
-      attr_reader :command, :sub_command
+      attr_reader :services, :folders, :utils, :command
 
-      def initialize(folders, utils, command, sub_command)
+      def initialize(folders, utils, command)
         @folders = folders
         @utils = utils
         @command = command
-        @sub_command = sub_command
       end
 
       def parsed_projects
