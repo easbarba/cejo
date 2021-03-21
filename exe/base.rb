@@ -43,9 +43,6 @@ module Cejo
 
     public
 
-    def run
-      hives = Hives.new(services, rest)
-      hives.sections[section][feature].run
-    end
+    def run = Hives.new(services, rest).sections(section, feature)
   end
 end
