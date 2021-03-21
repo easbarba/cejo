@@ -16,7 +16,7 @@
 ** rubygems
    gem install cejo
 ** local
-   bundle install
+   rake
 * Why Cejo?
   Named after my grandparents: Celina & Joseph
 * License
