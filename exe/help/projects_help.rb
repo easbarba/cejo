@@ -14,28 +14,28 @@ module Cejo
 
         def emacs
           {
-            desc: 'GNU Emacs Editor',
+            description: 'GNU Emacs Editor',
             arguments: nil,
           }
         end
 
         def st
           {
-            desc: 'Suckless Terminal',
+            description: 'Suckless Terminal',
             arguments: nil,
           }
         end
 
         def dwm
           {
-            desc: 'Suckless window manager',
+            description: 'Suckless window manager',
             arguments: nil,
           }
         end
 
         def ruby
           {
-            desc: 'Ruby Programming language',
+            description: 'Ruby Programming language',
             arguments: nil,
           }
         end

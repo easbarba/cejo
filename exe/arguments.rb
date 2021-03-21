@@ -19,6 +19,7 @@ module Cejo
       def values
         result = {}
         names = %i[command option rest]
+
         arguments.each_with_index do |arg, i|
           if i >= 2
             result.store(names[i], arguments.drop(2))
@@ -27,6 +28,7 @@ module Cejo
           arg = arg.to_sym
           result.store(names[i], arg)
         end
+
         result
       end
     end

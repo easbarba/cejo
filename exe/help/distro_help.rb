@@ -12,77 +12,77 @@ module Cejo
 
         def install
           {
-            desc: 'Install a Package from Repositories',
+            description: 'Install a Package from Repositories',
             arguments: '<arguments>',
           }
         end
 
         def autoremove
           {
-            desc: 'Remove One or More Installed Packages',
+            description: 'Remove One or More Installed Packages',
             arguments: '<arguments>',
           }
         end
 
         def remove
           {
-            desc: 'Remove One or More Installed Packages',
+            description: 'Remove One or More Installed Packages',
             arguments: '<arguments>',
           }
         end
 
         def search
           {
-            desc: 'Find a Package',
+            description: 'Find a Package',
             arguments: '<arguments>',
           }
         end
 
         def upgrade
           {
-            desc: 'Upgrade Installed Packages',
+            description: 'Upgrade Installed Packages',
             arguments: '<arguments>',
           }
         end
 
         def update
           {
-            desc: 'Update Package Lists',
+            description: 'Update Package Lists',
             arguments: '<arguments>',
           }
         end
 
         def clean
           {
-            desc: 'Clean system residual packages dependencies',
+            description: 'Clean system residual packages dependencies',
             arguments: '<arguments>',
           }
         end
 
         def download
           {
-            desc: 'Download package binary',
+            description: 'Download package binary',
             arguments: '<arguments>',
           }
         end
 
         def installed
           {
-            desc: 'List installed packages',
+            description: 'List installed packages',
             arguments: '<arguments>',
           }
         end
 
         def info
           {
-            desc: 'View Info About a Specific Package',
+            description: 'View Info About a Specific Package',
             arguments: '<arguments>',
           }
         end
 
         def fix
           {
-            desc: 'Fix system issues',
+            description: 'Fix system issues',
             arguments: '<arguments>',
           }
         end

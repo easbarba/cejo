@@ -48,8 +48,10 @@ module Cejo
           sections.each do |key, section|
             rows << [key, section.description]
           end
+
           table = Terminal::Table.new(:headings => ['Section', 'Description'], :rows => rows)
           puts table
+
           exit!
         end
 
@@ -57,13 +59,17 @@ module Cejo
           rows = []
           sections[section].features.each do |name|
             next if [:description, :features].include?(name)
-            desc = sections[section].public_send(name)[:desc]
+
+            desc = sections[section].public_send(name)[:description]
             args = sections[section].public_send(name)[:arguments]
             args = 'none' if args.nil?
+
             rows << [name.to_s, desc, args]
           end
+
           table = Terminal::Table.new(:headings => ['Feature', 'Description', 'Arguments'], :rows => rows)
           puts table
+
           exit!
         end
       end

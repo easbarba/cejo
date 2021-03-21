@@ -13,7 +13,6 @@ require_relative 'help/floss_help'
 require_relative 'help/distro_help'
 require_relative 'help/ops_help'
 
-
 # Miscellaneous Unix automation and services utilities.
 module Cejo
   # Bootstrap program

@@ -12,42 +12,42 @@ module Cejo
 
         def volume
           {
-            desc: 'Manage System Volume',
+            description: 'Manage System Volume',
             arguments: '[up, down, toggle]',
           }
         end
 
         def homey
           {
-            desc: 'Mirror user DATA partition folders to $HOME',
+            description: 'Mirror user DATA partition folders to $HOME',
             arguments: '</folder/path/',
           }
         end
 
         def dots
           {
-            desc: 'Mirror Lar files in $HOME.',
+            description: 'Mirror Lar files in $HOME.',
             arguments: '</folder/path/',
           }
         end
 
         def sysinfo
           {
-            desc: 'Display System Hardware Information.',
+            description: 'Display System Hardware Information.',
             arguments: nil,
           }
         end
 
         def screenshot
           {
-            desc: 'Take a shot of the marvelous screen',
+            description: 'Take a shot of the marvelous screen',
             arguments: '</folder/path/',
           }
         end
 
         def brightness
           {
-            desc: 'Manage System brightness.',
+            description: 'Manage System brightness.',
             arguments: '[up down]',
           }
         end

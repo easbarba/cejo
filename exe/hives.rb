@@ -64,8 +64,6 @@ module Cejo
     public
 
     # Return available sections.
-    def sections(section, feature)
-      public_send(section)[feature].run
-    end
+    def sections(section, feature) = public_send(section)[feature].run
   end
 end

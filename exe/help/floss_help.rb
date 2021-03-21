@@ -12,14 +12,14 @@ module Cejo
 
         def grab
           {
-            desc: 'Grab FLOSS Projects',
+            description: 'Grab FLOSS Projects',
             arguments: nil,
           }
         end
 
         def archive
           {
-            desc: 'Archive FLOSS Projects',
+            description: 'Archive FLOSS Projects',
             arguments: nil,
           }
         end

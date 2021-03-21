@@ -12,14 +12,14 @@ module Cejo
 
         def play
           {
-            desc: 'Play file, random media in folder or with url.',
+            description: 'Play file, random media in folder or with url.',
             arguments: '<url> or </path/to/file>',
           }
         end
 
         def get
           {
-            desc: 'Get media pointed in url.',
+            description: 'Get media pointed in url.',
             arguments: '<url> [codec]',
           }
         end
