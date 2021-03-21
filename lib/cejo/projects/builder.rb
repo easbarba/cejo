@@ -47,7 +47,7 @@ module Cejo
 
       def repo
         require 'git'
-        repo = Git.open(root)
+        Git.open(root)
       end
 
       def checkout_tag
@@ -61,10 +61,6 @@ module Cejo
 
       def build_folder
         Pathname.new(File.join(Dir.home, 'Builds'))
-      end
-
-      def root
-        build_folder.join(project_info[:name])
       end
 
       def install
