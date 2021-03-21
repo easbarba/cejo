@@ -5,8 +5,8 @@ Gem::Specification.new do |spec|
   spec.summary       = 'Debian automation and services utilities.'.freeze
   spec.description   = File.read(File.join(File.dirname(__FILE__), 'README.org'))
   spec.version       = '0.0.3'
-  spec.authors       = ['EAS Barbosa'.freeze]
-  spec.email         = ['easbarbosa@tutanota.com'.freeze]
+  spec.author        = 'EAS Barbosa'.freeze
+  spec.email         = 'easbarbosa@tutanota.com'.freeze
 
   spec.platform      = Gem::Platform::RUBY
   spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
