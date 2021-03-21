@@ -4,13 +4,13 @@ Gem::Specification.new do |spec|
   spec.name          = 'cejo'.freeze
   spec.summary       = 'Debian automation and services utilities.'.freeze
   spec.description   = File.read(File.join(File.dirname(__FILE__), 'README.org'))
-  spec.version       = '0.0.1'
+  spec.version       = '0.0.3'
   spec.authors       = ['EAS Barbosa'.freeze]
-  spec.email         = ['easbarbosa@pm.me'.freeze]
+  spec.email         = ['easbarbosa@tutanota.com'.freeze]
 
   spec.platform      = Gem::Platform::RUBY
   spec.required_ruby_version = '>=2.7'.freeze
-  spec.homepage      = 'https://gitlab.com/easbarbosa/cejo'.freeze
+  spec.homepage      = 'https://git.sr.ht/~easbarbosa/cejo'.freeze
   spec.metadata['homepage_uri'] = spec.homepage
   spec.license = 'GPL-3.0'.freeze
 
