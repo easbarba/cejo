@@ -22,6 +22,8 @@ Gem::Specification.new do |spec|
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
 
+  spec.test_files  = Dir.glob("{spec,test}/**/*.rb")
+
   # production
   spec.add_runtime_dependency 'git'
   spec.add_runtime_dependency 'tty-spinner'
