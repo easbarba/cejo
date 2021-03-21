@@ -8,7 +8,7 @@ module Cejo
 
       def initialize(utils, mode)
         @utils = utils
-        @mode = mode
+        @mode = mode.to_sym if mode
       end
 
       def folder
@@ -67,7 +67,7 @@ module Cejo
       end
 
       def final_command
-        "#{shotter[:exec]} #{shotter[mode.to_sym]} #{shotter[:folder]}"
+        "#{shotter[:exec]} #{shotter[mode]} #{shotter[:folder]}"
       end
 
       def run

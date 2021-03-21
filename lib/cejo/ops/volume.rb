@@ -125,6 +125,7 @@ module Cejo
           utils.info_and_exit(state, 'up', 'down', 'toggle')
           return
         end
+
         system(final_command)
       end
     end
