@@ -47,5 +47,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'shoulda'
 
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0'.freeze)
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
 end
