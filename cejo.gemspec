@@ -28,7 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('colorize')
   spec.add_runtime_dependency('dry-container')
   spec.add_runtime_dependency('dry-auto_inject')
-  spec.add_runtime_dependency('terminal-table')
 
   # development
   spec.add_development_dependency('rubocop')
