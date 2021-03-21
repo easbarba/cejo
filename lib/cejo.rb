@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# * Root
+require_relative 'cejo/version'
+
 # * Services
 require_relative 'cejo/services/folders'
 require_relative 'cejo/services/utils'
