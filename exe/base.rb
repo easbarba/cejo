@@ -2,6 +2,8 @@
 
 require 'dry-container'
 
+require_relative 'hives'
+
 # * Help
 require_relative 'arguments'
 require_relative 'help/queen_help'
@@ -11,13 +13,6 @@ require_relative 'help/floss_help'
 require_relative 'help/distro_help'
 require_relative 'help/ops_help'
 
-# * Hives
-require_relative 'hive/queen'
-require_relative 'hive/distro_hive'
-require_relative 'hive/floss_hive'
-require_relative 'hive/ops_hive'
-require_relative 'hive/projects_hive'
-require_relative 'hive/media_hive'
 
 # Miscellaneous Unix automation and services utilities.
 module Cejo
@@ -49,10 +44,8 @@ module Cejo
     public
 
     def run
-      hives = Hive::Queen.new(services, rest)
-      hives.sections[section]
-           .features[feature]
-           .run
+      hives = Hives.new(services, rest)
+      hives.sections[section][feature].run
     end
   end
 end
