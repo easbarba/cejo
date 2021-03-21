@@ -8,17 +8,17 @@ Gem::Specification.new do |spec|
   spec.author        = 'EAS Barbosa'.freeze
   spec.email         = 'easbarbosa@tutanota.com'.freeze
   spec.platform      = Gem::Platform::RUBY
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
   spec.homepage      = 'https://git.sr.ht/~easbarbosa/cejo'.freeze
-  spec.metadata['homepage_uri'] = spec.homepage
-  spec.license = 'GPL-3.0'.freeze
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
-  end
+  spec.license       = 'GPL-3.0'.freeze
   spec.require_paths = ['lib']
   spec.bindir        = 'exe'
   spec.executables   = %w[cejo]
-  spec.test_files  = Dir.glob("{spec,test}/**/*.rb")
+  spec.test_files    = Dir.glob("{spec,test}/**/*.rb")
+  spec.metadata['homepage_uri'] = spec.homepage
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
+  end
 
   # production
   spec.add_runtime_dependency 'git'
