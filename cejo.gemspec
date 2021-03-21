@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['easbarbosa@tutanota.com'.freeze]
 
   spec.platform      = Gem::Platform::RUBY
-  spec.required_ruby_version = '>=2.7'.freeze
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
   spec.homepage      = 'https://git.sr.ht/~easbarbosa/cejo'.freeze
   spec.metadata['homepage_uri'] = spec.homepage
   spec.license = 'GPL-3.0'.freeze
@@ -46,6 +46,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rufo'
   spec.add_development_dependency 'reek'
   spec.add_development_dependency 'shoulda'
-
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0'.freeze)
 end
