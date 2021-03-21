@@ -11,7 +11,7 @@ module Cejo
         @folder = folders.cejo_config
         @utils = utils
         @arguments = arguments
-        @action = action.to_sym
+        @action = action
       end
 
       def commands
