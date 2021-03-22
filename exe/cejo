@@ -6,7 +6,6 @@ require 'cejo'
 require 'gli'
 require 'dry-container'
 
-
 class App
   extend GLI::App
 
@@ -21,15 +20,15 @@ class App
   version Cejo::VERSION
 
   subcommand_option_handling :normal
-  arguments :strict
+  arguments :normal
 
   desc 'Describe some switch here'
-  switch [:s,:switch]
+  switch %i[s switch]
 
   desc 'Describe some flag here'
   default_value 'the default'
   arg_name 'The name of the argument'
-  flag [:f,:flagname]
+  flag %i[f flagname]
 
   desc 'Miscellaneous system operations front-end'
   arg_name 'Describe arguments to ops here'
@@ -47,7 +46,7 @@ class App
     c.desc 'Manage System Volume'
     c.arg '[up, down, toggle]'
     c.command :volume do |volume|
-      volume.action do |global_options,options,args|
+      volume.action do |_, _, args|
         Cejo::Ops::Volume.new(utils, args.first).run
       end
     end
@@ -55,7 +54,7 @@ class App
     c.desc 'Mirror user DATA partition folders to $HOME'
     c.arg '/folder/path/'
     c.command :homey do |homey|
-      homey.action do |global_options,options,args|
+      homey.action do |_, _, args|
         Cejo::Ops::Homey.new(args.first).run
       end
     end
@@ -63,14 +62,14 @@ class App
     c.desc 'Mirror Lar files in $HOME.'
     c.arg '/folder/path/'
     c.command :dots do |dots|
-      dots.action do |global_options,options,args|
+      dots.action do |_, _, args|
         Cejo::Ops::Dots.new(utils, args.first).run
       end
     end
 
     c.desc 'Display System Hardware Information.'
     c.command :sysinfo do |sysinfo|
-      sysinfo.action do |global_options,options,args|
+      sysinfo.action do
         Cejo::Ops::Sysinfo.new(utils).run
       end
     end
@@ -78,7 +77,7 @@ class App
     c.desc 'Take a shot of the marvelous screen'
     c.arg '[full, partial]'
     c.command :screenshot do |screenshot|
-      screenshot.action do |global_options,options,args|
+      screenshot.action do |_, _, args|
         Cejo::Ops::Screenshot.new(utils, args.first).run
       end
     end
@@ -86,7 +85,7 @@ class App
     c.desc 'Manage System brightness.'
     c.arg '[up down]'
     c.command :brightness do |brightness|
-      brightness.action do |global_options,options,args|
+      brightness.action do |_, _, args|
         Cejo::Ops::Brightness.new(utils, args.first).run
       end
     end
@@ -96,9 +95,9 @@ class App
   arg_name 'Describe arguments to media here'
   command :media do |c|
     c.desc 'Get media pointed in url.'
-    c.arg 'url'
+    c.arg 'url [vorbis flac mp3]'
     c.command :get do |get|
-      get.action do |global_options,options,args|
+      get.action do |_, _, args|
         Cejo::Media::Get.new(args).run
       end
     end
@@ -106,7 +105,7 @@ class App
     c.desc 'Play file, random media in folder or with url.'
     c.arg '[url, /path/to/file]'
     c.command :play do |play|
-      play.action do |global_options,options,args|
+      play.action do |_, _, args|
         Cejo::Media::Play.new(args.first).run
       end
     end
@@ -118,7 +117,7 @@ class App
     c.desc 'GNU Emacs Editor'
     c.command :emacs do |all|
       all.action do
-        Cejo::Projects::Emacs.new(services)
+        Cejo::Projects::Emacs.new(services).run
       end
     end
 
@@ -153,7 +152,7 @@ class App
     c.desc 'Install a Package from Repositories'
     c.arg 'arguments'
     c.command :install do |install|
-      install.action do |global_options,options,args|
+      install.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :install).run
       end
     end
@@ -168,7 +167,7 @@ class App
     c.desc 'Remove One or More Installed Packages'
     c.arg 'arguments'
     c.command :remove do |remove|
-      remove.action do |global_options,options,args|
+      remove.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :remove).run
       end
     end
@@ -176,7 +175,7 @@ class App
     c.desc 'Find a Package'
     c.arg 'arguments'
     c.command :search do |search|
-      search.action do |global_options,options,args|
+      search.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :search).run
       end
     end
@@ -198,7 +197,7 @@ class App
     c.desc 'Clean system residual packages dependencies'
     c.arg 'arguments'
     c.command :clean do |clean|
-      clean.action do |global_options,options,args|
+      clean.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :clean).run
       end
     end
@@ -206,7 +205,7 @@ class App
     c.desc 'Download package binary'
     c.arg 'arguments'
     c.command :download do |download|
-      download.action do |global_options,options,args|
+      download.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :download).run
       end
     end
@@ -214,7 +213,7 @@ class App
     c.desc 'List installed packages'
     c.arg 'arguments'
     c.command :installed do |installed|
-      installed.action do |global_options,options,args|
+      installed.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :installed).run
       end
     end
@@ -222,7 +221,7 @@ class App
     c.desc 'View Info About a Specific Package'
     c.arg 'arguments'
     c.command :info do |info|
-      info.action do |global_options,options,args|
+      info.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :info).run
       end
     end
@@ -230,7 +229,7 @@ class App
     c.desc 'Fix system issues'
     c.arg 'arguments'
     c.command :fix do |fix|
-      fix.action do |global_options,options,args|
+      fix.action do |_, _, args|
         Cejo::Distro::Base.new(folders, utils, args, :fix).run
       end
     end
@@ -257,7 +256,7 @@ class App
     end
   end
 
-  pre do |global,command,options,args|
+  pre do |global, command, options, args|
     # Pre logic here
     # Return true to proceed; false to abort and not call the
     # chosen command
@@ -266,7 +265,7 @@ class App
     true
   end
 
-  post do |global,command,options,args|
+  post do |global, command, options, args|
     # Post logic here
     # Use skips_post before a command to skip this
     # block on that command only
