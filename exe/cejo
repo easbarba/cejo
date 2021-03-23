@@ -10,12 +10,6 @@ require 'dry-container'
 class App
   extend GLI::App
 
-  def self.services
-    container = Dry::Container.new
-    container.register(:folders, Cejo::Services::Folders.new)
-    container.register(:utils, Cejo::Services::Utils.new)
-  end
-
   program_desc 'Debian automation and services utilities.'
 
   version Cejo::VERSION
@@ -30,6 +24,12 @@ class App
   default_value 'the default'
   arg_name 'The name of the argument'
   flag %i[f flagname]
+
+  def self.services
+    container = Dry::Container.new
+    container.register(:folders, Cejo::Services::Folders.new)
+    container.register(:utils, Cejo::Services::Utils.new)
+  end
 
   desc 'Miscellaneous system operations front-end'
   arg_name 'Describe arguments to ops here'
@@ -91,7 +91,9 @@ class App
     c.arg 'url [vorbis, flac, mp3]'
     c.command :get do |get|
       get.action do |_, _, args|
-        Cejo::Media::Get.new(args).run
+        media = args.first if args
+        codec = args.last if args.last
+        Cejo::Media::Get.new(media, codec).run
       end
     end
 
@@ -108,29 +110,29 @@ class App
   arg_name 'Describe arguments to projects here'
   command :projects do |c|
     c.desc 'GNU Emacs Editor'
-    c.command :emacs do |all|
-      all.action do
+    c.command :emacs do |emacs|
+      emacs.action do
         Cejo::Projects::Emacs.new(services).run
       end
     end
 
     c.desc 'Suckless Terminal'
-    c.command :st do |wip|
-      wip.action do
+    c.command :st do |st|
+      st.action do
         Cejo::Projects::St.new(services).run
       end
     end
 
     c.desc 'Suckless window manager'
-    c.command :dwm do |wip|
-      wip.action do
+    c.command :dwm do |dwm|
+      dwm.action do
         Cejo::Projects::Dwm.new(services).run
       end
     end
 
     c.desc 'Ruby Programming language'
-    c.command :ruby do |wip|
-      wip.action do
+    c.command :ruby do |ruby|
+      ruby.action do
         Cejo::Projects::Ruby.new(services).run
       end
     end

@@ -1,30 +1,28 @@
 # frozen_string_literal: true
 
-require 'colorize'
-
 require 'pathname'
 
 module Cejo
   module Media
     # Get media pointed in url.
     class Get
-      GRABBER = 'youtube-dl'.freeze
+      GRABBER = 'youtube-dl'
       AUDIO_FORMATS = %w[vorbis flac mp3].freeze
       AUDIO_DIR = Pathname.new(Dir.home).join('Music')
       VIDEO_DIR = Pathname.new(Dir.home).join('Videos')
 
       attr_reader :media, :codec
 
-      def initialize(arguments)
-        @media = arguments[0] unless arguments.nil?
-        @codec = arguments[1] unless arguments.nil?
+      def initialize(media, codec = nil)
+        @media = media if media
+        @codec = codec if codec
       end
 
-      def cur_media
-        "\'#{media}\'" unless media.nil?
+      def current_media
+        "\'#{media}\'" unless media
       end
 
-      def cur_dir
+      def current_dir
         AUDIO_FORMATS.include?(codec) ? AUDIO_DIR : VIDEO_DIR
       end
 
@@ -42,16 +40,14 @@ module Cejo
       end
 
       def show_info
-        print 'media:'.red, " #{media}"
+        puts "media: #{media}"
+        puts "codec: #{codec}"
         puts
-        print 'codec:'.red, " #{codec}"
       end
 
       def run
         show_info
-        Dir.chdir(cur_dir) do
-          system final_command
-        end
+        Dir.chdir(current_dir) { system(final_command) }
       end
     end
   end
