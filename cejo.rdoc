@@ -1,0 +1,5 @@
+= cejo
+
+Generate this with
+    cejo _doc
+After you have described your command line interface
