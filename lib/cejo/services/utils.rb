@@ -8,20 +8,8 @@ module Cejo
   module Services
     # General Utilities.
     class Utils
-      def info_and_exit(foo, *options)
-        return unless foo.nil?
-
-        puts ''
-        puts 'Options:'
-
-        options.each { |op| puts "  option: #{op}" }
-
-        exit
-      end
-
       def spin(msg)
-        require 'colorize'
-        warning = 'status:'.yellow.bold
+        warning = 'status:'
 
         require 'tty-spinner'
         spinner = TTY::Spinner.new("#{warning} #{msg.downcase} :spinner ", format: :dots_6)
@@ -40,8 +28,6 @@ module Cejo
         when 'json'
           require 'json'
           JSON.parse(file, symbolize_names: true)
-        else
-          return
         end
       end
 
