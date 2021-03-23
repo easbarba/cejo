@@ -5,7 +5,7 @@ require_relative 'lib/cejo'
 Gem::Specification.new do |spec|
   spec.name = 'cejo'
   spec.summary = 'Debian automation and services utilities.'
-  spec.description = File.read(File.join(File.dirname(__FILE__), 'README.org'))
+  spec.description = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
   spec.version = Cejo::VERSION
   spec.author = 'EAS Barbosa'
   spec.email = 'easbarbosa@tutanota.com'

@@ -5,27 +5,26 @@ module Cejo
   module Distro
     # Base
     class Base
-      attr_reader :folder, :utils, :arguments, :action, :cfg_folder
+      attr_reader :folder, :utils
+      attr_accessor :action, :arguments
 
-      def initialize(folders, utils, arguments, action)
-        @folder = folders.cejo_config
+      def initialize(folder, utils)
+        @folder = folder
         @utils = utils
-        @arguments = arguments
         @action = action
       end
 
       def commands
-        cfg_folder = ConfigFolder.new(folder).folder
-        cmds = utils.parse_folder cfg_folder
-        Commands.new(cmds).all
+        config_folder = ConfigFolder.new(folder).folder
+        Commands.new(utils, config_folder).all
       end
 
       def packager
-        cur_pack = CurrentPackager.new(utils)
-        cur_pack.packager(commands.keys)
+        current_packager = CurrentPackager.new(utils)
+        current_packager.packager(commands.keys)
       end
 
-      def trans_action
+      def translate_action
         result = TranslateAction.new
         result.real_action(commands, packager, action)
       end
@@ -35,16 +34,16 @@ module Cejo
       end
 
       def final_command
-        cmd = packager, trans_action
-        cmd.append arguments unless arguments.nil?
-        cmd.prepend 'sudo' if need.admin?
+        cmd = packager, translate_action
+        cmd.append(arguments)
+        cmd.prepend('sudo') if need.admin?
         cmd.join(' ')
       end
 
       def run
-        system final_command
+        puts(final_command)
+        system(final_command)
       end
-
       public :run
     end
   end

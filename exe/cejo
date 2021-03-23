@@ -6,6 +6,7 @@ require 'cejo'
 require 'gli'
 require 'dry-container'
 
+# and then, there was fire.
 class App
   extend GLI::App
 
@@ -33,15 +34,7 @@ class App
   desc 'Miscellaneous system operations front-end'
   arg_name 'Describe arguments to ops here'
   command :ops do |c|
-    c.desc 'Describe a switch to ops'
-    c.switch :s
-
-    c.desc 'Describe a flag to ops'
-    c.default_value 'default'
-    c.flag :f
-
     utils = services.resolve(:utils)
-    folders = services.resolve(:folders)
 
     c.desc 'Manage System Volume'
     c.arg '[up, down, toggle]'
@@ -94,16 +87,16 @@ class App
   desc 'Manage System media features'
   arg_name 'Describe arguments to media here'
   command :media do |c|
-    c.desc 'Get media pointed in url.'
-    c.arg 'url [vorbis flac mp3]'
+    c.desc 'Get media pointed in url as video or audio.'
+    c.arg 'url [vorbis, flac, mp3]'
     c.command :get do |get|
       get.action do |_, _, args|
         Cejo::Media::Get.new(args).run
       end
     end
 
-    c.desc 'Play file, random media in folder or with url.'
-    c.arg '[url, /path/to/file]'
+    c.desc 'Play file, random media in folder or media pointed in url. (mpv)'
+    c.arg '[url, /path/to/folder, /path/to/file]'
     c.command :play do |play|
       play.action do |_, _, args|
         Cejo::Media::Play.new(args.first).run
@@ -147,20 +140,17 @@ class App
   arg_name 'Describe arguments to distro here'
   command :distro do |c|
     utils = services.resolve(:utils)
-    folders = services.resolve(:folders)
+    folder = services.resolve(:folders).cejo_config
+    base = Cejo::Distro::Base.new(folder, utils)
 
     c.desc 'Install a Package from Repositories'
     c.arg 'arguments'
     c.command :install do |install|
       install.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :install).run
-      end
-    end
-
-    c.desc 'Remove One or More Installed Packages'
-    c.command :autoremove do |autoremove|
-      autoremove.action do
-        Cejo::Distro::Base.new(folders, utils, args, :autoremove).run
+        base.tap do |x|
+          x.action = :install
+          x.arguments = args
+        end.run
       end
     end
 
@@ -168,7 +158,10 @@ class App
     c.arg 'arguments'
     c.command :remove do |remove|
       remove.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :remove).run
+        base.tap do |x|
+          x.action = :remove
+          x.arguments = args
+        end.run
       end
     end
 
@@ -176,21 +169,28 @@ class App
     c.arg 'arguments'
     c.command :search do |search|
       search.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :search).run
+        base.tap do |x|
+          x.action = :search
+          x.arguments = args
+        end.run
       end
     end
 
     c.desc 'Update Package Lists'
     c.command :update do |update|
       update.action do
-        Cejo::Distro::Base.new(folders, utils, '', :update).run
+        base.tap do |x|
+          x.action = :update
+        end.run
       end
     end
 
     c.desc 'Upgrade Installed Packages'
     c.command :upgrade do |upgrade|
       upgrade.action do
-        Cejo::Distro::Base.new(folders, utils, '', :upgrade).run
+        base.tap do |x|
+          x.action = :upgrade
+        end.run
       end
     end
 
@@ -198,7 +198,10 @@ class App
     c.arg 'arguments'
     c.command :clean do |clean|
       clean.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :clean).run
+        base.tap do |x|
+          x.action = :clean
+          x.arguments = args
+        end.run
       end
     end
 
@@ -206,7 +209,10 @@ class App
     c.arg 'arguments'
     c.command :download do |download|
       download.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :download).run
+        base.tap do |x|
+          x.action = :download
+          x.arguments = args
+        end.run
       end
     end
 
@@ -214,7 +220,10 @@ class App
     c.arg 'arguments'
     c.command :installed do |installed|
       installed.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :installed).run
+        base.tap do |x|
+          x.action = :installed
+          x.arguments = args
+        end.run
       end
     end
 
@@ -222,7 +231,10 @@ class App
     c.arg 'arguments'
     c.command :info do |info|
       info.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :info).run
+        base.tap do |x|
+          x.action = :info
+          x.arguments = args
+        end.run
       end
     end
 
@@ -230,7 +242,10 @@ class App
     c.arg 'arguments'
     c.command :fix do |fix|
       fix.action do |_, _, args|
-        Cejo::Distro::Base.new(folders, utils, args, :fix).run
+        base.tap do |x|
+          x.action = :fix
+          x.arguments = args
+        end.run
       end
     end
   end
@@ -256,26 +271,26 @@ class App
     end
   end
 
-  pre do |global, command, options, args|
-    # Pre logic here
-    # Return true to proceed; false to abort and not call the
-    # chosen command
-    # Use skips_pre before a command to skip this block
-    # on that command only
-    true
-  end
+  # pre do |global, command, options, args|
+  #   # Pre logic here
+  #   # Return true to proceed; false to abort and not call the
+  #   # chosen command
+  #   # Use skips_pre before a command to skip this block
+  #   # on that command only
+  #   true
+  # end
 
-  post do |global, command, options, args|
-    # Post logic here
-    # Use skips_post before a command to skip this
-    # block on that command only
-  end
+  # post do |global, command, options, args|
+  #   # Post logic here
+  #   # Use skips_post before a command to skip this
+  #   # block on that command only
+  # end
 
-  on_error do |exception|
-    # Error logic here
-    # return false to skip default error handling
-    true
-  end
+  # on_error do |exception|
+  #   # Error logic here
+  #   # return false to skip default error handling
+  #   true
+  # end
 end
 
 exit App.run(ARGV)

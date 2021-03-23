@@ -11,7 +11,7 @@ module Cejo
       end
 
       def packager(keys)
-        keys.find { |p| utils.which? p }.to_sym
+        keys.find { |exec| utils.which? exec }.to_sym
       end
     end
   end
