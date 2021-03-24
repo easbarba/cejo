@@ -29,7 +29,7 @@ module Cejo
       end
 
       # Cloning/Pulling FLOSS Project
-      def grab_this
+      def run
         puts info.to_s
 
         if folder.exist?

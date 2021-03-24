@@ -20,43 +20,36 @@ module Cejo
         utils.parse_folder(folder)
       end
 
-      def process_projects()
+      def process_projects
         parsed_projects.each do |language, projects|
-          print <<~EOF
+          puts "\n❯ #{language.capitalize}"
+          puts
 
-                  ❯ #{language.capitalize}
-
-                EOF
           projects.each do |url|
-            info = ProjectInfo.new(url, language.to_s)
-            yield(info)
+            project_info = ProjectInfo.new(url, language.to_s)
+            yield(project_info)
           end
         end
       end
 
-      public
-
       def archive
         process_projects do |info|
-          Archive.new(utils).archive_this(info.name, info.folder, info.to_s)
+          Archive.new(utils, info.name, info.folder, info.to_s).run
         end
       end
+      public :archive
 
       def grab
         process_projects do |info|
-          Grab.new(utils, info.folder, info.url, info.to_s).grab_this
+          Grab.new(utils, info.folder, info.url, info.to_s).run
         end
       end
+      public :grab
 
       def run
-        utils.info_and_exit(command, 'grab', 'archive') if command.nil?
-        if command == :archive
-          archive
-        end
-        if command == :grab
-          grab
-        end
+        public_send(command)
       end
+      public :run
     end
   end
 end

@@ -6,8 +6,6 @@ module Cejo
   module Floss
     # Archive FLOSS Projects
     class Archive
-      attr_reader :utils, :filename, :project_folder
-
       # FLOSS Projects elected to be archived
       ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
 
@@ -15,38 +13,36 @@ module Cejo
       FMT = 'tar'
 
       # Folder which compressed files will be stored
-      STORE_FOLDER = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
+      ARCHIVED_FOLDER = Pathname.new(File.join(Dir.home, 'Downloads', 'archived'))
 
-      def initialize(utils)
+      attr_reader :utils, :archived_filename, :name, :folder, :info
+
+      def initialize(utils, name, folder, info)
         @utils = utils
+        @name = name
+        @folder = folder
+        @info = info
+        @archived_filename = "#{ARCHIVED_FOLDER.join(name)}.#{FMT}"
       end
 
       # Archiving FLOSS project
-      def archive_this(name, folder, info)
-        name = name
-        return unless ARCHIVE_THESE.include?(name) # only archive listed ones
+      def do_archive
+        require 'git'
 
-        @filename = "#{STORE_FOLDER.join(name)}.#{FMT}"
-        @project_folder = folder
-
-        puts info
-
-        mk_folder
-        do_archive
-
+        utils.spin('Archiving') do
+          repo = Git.open(folder)
+          repo.archive(repo.current_branch, archived_filename, format: FMT) # TODO: fiber/multithread
+        end
         puts
       end
 
-      def mk_folder
-        Dir.mkdir(STORE_FOLDER) unless STORE_FOLDER.exist?
-      end
+      def run
+        return unless ARCHIVE_THESE.include?(name)
 
-      def do_archive
-        require 'git'
-        utils.spin('Archiving') do
-          repo = Git.open(project_folder)
-          repo.archive(repo.current_branch, filename, format: FMT) # fiber/multithread
-        end
+        Dir.mkdir(ARCHIVED_FOLDER) unless ARCHIVED_FOLDER.exist?
+
+        print info
+        do_archive
       end
     end
   end

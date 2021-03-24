@@ -18,11 +18,10 @@ module Cejo
       end
 
       def to_s
-        require 'colorize'
-        <<~EOF
-          #{'repository'.red.bold}: #{url}
-          #{'folder'.blue.bold}: #{folder}
-        EOF
+      <<~EOF
+      repository: #{url}
+      folder: #{folder}
+      EOF
       end
     end
   end
