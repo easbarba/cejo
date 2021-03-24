@@ -1,12 +1,14 @@
-require_relative "../../lib/cejo/distro/current_packager"
+# frozen_string_literal: true
 
-require "spec_helper"
+require 'cejo'
 
-RSpec.describe "The marvelous distro" do
-  context "What about the Commands?" do
-    let(:raw_cmd) { { dnf: { autoremove: "autoremove" } }}
+require 'spec_helper'
 
-    it "has, at least, one packager commands set!" do
+RSpec.describe 'The marvelous Distro' do
+  context 'Current Packager' do
+    let(:raw_cmd) { { dnf: { autoremove: 'autoremove' } } }
+
+    it 'has, at least, one packager commands set!' do
       cmd = Cejo::Distro::Commands.new(raw_cmd)
 
       expect(cmd.packagers.any?).to eq(raw_cmd.any?)

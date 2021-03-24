@@ -1,17 +1,21 @@
-require_relative "../../lib/cejo/distro/translate_action"
+# frozen_string_literal: true
 
-require "spec_helper"
+require 'cejo'
 
-RSpec.describe "The Glorious Action" do
-  let(:action) { Cejo::Distro::TranslateAction.new }
+require 'spec_helper'
 
-  it "has the real action" do
-    commands = {
-      apt: { autoremove: "autoremove" },
-      dnf: { autoremove: "autoremove" },
-    }
-    real_action = action.real_action(commands, :dnf, :autoremove)
+RSpec.describe 'The marvelous Distro' do
+  context 'Current Packager' do
+    let(:action) { Cejo::Distro::TranslateAction.new }
 
-    expect(real_action).to eq("autoremove")
+    it 'has the real action' do
+      commands = {
+        apt: { autoremove: 'autoremove' },
+        dnf: { autoremove: 'autoremove' },
+      }
+      real_action = action.real_action(commands, :dnf, :autoremove)
+
+      expect(real_action).to eq('autoremove')
+    end
   end
 end

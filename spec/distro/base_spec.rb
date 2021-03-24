@@ -1,60 +1,67 @@
-require_relative "../../lib/cejo"
+# frozen_string_literal: true
 
-require "spec_helper"
+require 'cejo'
 
-RSpec.describe "Base one...two" do
-  let(:folders) {
-    Class.new do
-      def cejo_config
-        Pathname.new '/home/engels/.config/cejo'
-      end
-    end.new
-  }
+require 'spec_helper'
 
-  let(:utils) {
-    Class.new do
-      def which?(x)
-        true
-      end
+RSpec.describe 'The marvelous Distro' do
+  context 'Current Packager' do
+    let(:base) { Cejo::Distro::Base.new(folders, utils) }
+    let(:arguments) { 'fonts-hack' }
+    let(:folders) { Pathname.new '/home/engels/.config/cejo' }
 
-      def parse_folder(x)
-        { apt: { install: 'install' } }
-      end
-    end.new
-  }
+    let(:utils) {
+      Class.new do
+        def which?(x)
+          true
+        end
 
-  it "has action argument as symbol" do
-    base = Cejo::Distro::Base.new(folders, utils, nil, :search)
-    expect(base.action).to eq(:search)
-  end
+        def parse_folder(x)
+          { apt: { install: 'install' } }
+        end
+      end.new
+    }
 
-  it "has string arguments" do
-    base = Cejo::Distro::Base.new(folders, utils, 'fonts-hack' ,:install)
-    expect(base.arguments).to eq('fonts-hack')
-  end
+    it 'has action argument as symbol' do
+      base.action = :search
+      base.arguments = 'fonts-hack'
+      expect(base.action).to eq(:search)
+    end
 
-  it "has does not have arguments" do
-    base = Cejo::Distro::Base.new(folders, utils, nil, :update)
-    expect(base.arguments).to eq(nil)
-  end
+    it 'has string arguments' do
+      base.action = :install
+      base.arguments = arguments
+      expect(base.arguments).to eq(arguments)
+    end
 
-  it "has the translated action" do
-    base = Cejo::Distro::Base.new(folders, utils, 'fonts-hack', :install)
-    expect(base.trans_action).to eq('install')
-  end
+    it 'has does not have arguments' do
+      base.action = :update
+      base.arguments = nil
+      expect(base.arguments).to eq(nil)
+    end
 
-  it "has the final_command" do
-    base = Cejo::Distro::Base.new(folders, utils, 'fonts-hack', :install)
-    expect(base.final_command).to eq('sudo apt install fonts-hack')
-  end
+    it 'has the translated action' do
+      base.action = :install
+      base.arguments = arguments
+      expect(base.real_action).to eq('install')
+    end
 
-  it "has the commands" do
-    base = Cejo::Distro::Base.new(folders, utils, 'fonts-hack', :install)
-    expect(base.commands).to eq(base.utils.parse_folder(''))
-  end
+    it 'has the commands' do
+      base.action = :install
+      base.arguments = arguments
+      expect(base.commands).to eq(base.utils.parse_folder(''))
+    end
 
-  it "has the pakager" do
-    base = Cejo::Distro::Base.new(folders, utils, 'fonts-hack', :install)
-    expect(base.packager).to eq(:apt)
+    it 'use the correct pakager' do
+      base.action = :install
+      base.arguments = arguments
+      expect(base.packager).to eq(:apt)
+    end
+
+    it 'has the final_command' do
+      base.action = :install
+      base.arguments = arguments
+      expect(base.final_command).to eq('sudo apt install fonts-hack')
+    end
   end
 end

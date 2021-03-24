@@ -24,7 +24,7 @@ require_relative 'cejo/floss/grab'
 # * Distro
 require_relative 'cejo/distro/base'
 require_relative 'cejo/distro/translate_action'
-require_relative 'cejo/distro/config_folder'
+require_relative 'cejo/distro/parsed_commands'
 require_relative 'cejo/distro/commands'
 require_relative 'cejo/distro/current_packager'
 require_relative 'cejo/distro/need'

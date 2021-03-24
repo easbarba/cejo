@@ -4,19 +4,18 @@ module Cejo
   module Distro
     # Base
     class Commands
-      attr_reader :utils, :folder
+      attr_reader :parsed_commands
 
-      def initialize(utils, folder)
-        @utils = utils
-        @folder = folder
+      def initialize(parsed_commands)
+        @parsed_commands = parsed_commands
       end
 
       def all
-        utils.parse_folder(folder)
+        parsed_commands
       end
 
-      def actions
-        puts
+      def any?
+        parsed_commands.any?
       end
 
       def packagers
