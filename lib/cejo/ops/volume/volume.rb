@@ -4,39 +4,26 @@ module Cejo
   module Ops
     # Manage System Volume.
     class Volume
-      STEP = 5
+      STEP = 3
+
       attr_reader :state, :utils
+      attr_accessor :info
 
       def initialize(utils, state)
         @utils = utils
         @state = state.to_sym if state
-      end
-
-      def managers
-        %w[pactl amixer mixer]
-      end
-
-      def sound_manager
-        managers.first { |manager| utils.which?(manager) }.to_sym
+        @info = SoundManager.new(utils).info
       end
 
       def states
         {
           up: '+',
           down: '-',
-          toggle: '',
+          toggle: ''
         }
       end
 
       # * PACTL
-
-      # Find the running Pactl sink
-      def pactl_sink
-        `pactl list sinks`.split('Sink #').each do |sink|
-          sink_id = sink[0]
-          return sink_id if sink.include? 'State: RUNNING'
-        end
-      end
 
       def pactl_toggle
         [pactl[:name], pactl[:toggle]].join(' ')
@@ -49,8 +36,8 @@ module Cejo
       def pactl
         {
           name: 'pactl',
-          toggle: "set-sink-mute #{pactl_sink} toggle",
-          updown: "set-sink-volume #{pactl_sink} #{states[state]}#{STEP}%",
+          toggle: "set-sink-mute #{info.sink} toggle",
+          updown: "set-sink-volume #{info.sink} #{states[state]}#{STEP}%"
         }
       end
 
@@ -68,7 +55,7 @@ module Cejo
         {
           name: 'amixer',
           toggle: '-q sset Master toggle',
-          updown: "set Master #{STEP}%#{states[state]}",
+          updown: "set Master #{STEP}%#{states[state]}"
         }
       end
 
@@ -86,7 +73,7 @@ module Cejo
         {
           name: 'mixer',
           toggle: '',
-          updown: "mixer vol #{states[state]}#{STEP}",
+          updown: "mixer vol #{states[state]}#{STEP}"
         }
       end
 
@@ -96,7 +83,7 @@ module Cejo
         {
           pactl: pactl_toggle,
           amixer: amixer_toggle,
-          mixer: mixer_toggle,
+          mixer: mixer_toggle
         }
       end
 
@@ -104,15 +91,15 @@ module Cejo
         {
           pactl: pactl_updown,
           amixer: amixer_updown,
-          mixer: mixer_updown,
+          mixer: mixer_updown
         }
       end
 
       def mode
         {
-          toggle: toggle[sound_manager],
-          up: updown[sound_manager],
-          down: updown[sound_manager],
+          toggle: toggle[info.name],
+          up: updown[info.name],
+          down: updown[info.name]
         }
       end
 
@@ -121,10 +108,7 @@ module Cejo
       end
 
       def run
-        unless [:up, :down, :toggle].include?(state)
-          utils.info_and_exit(state, 'up', 'down', 'toggle')
-          return
-        end
+        return unless %i[up down toggle].include?(state)
 
         system(final_command)
       end
