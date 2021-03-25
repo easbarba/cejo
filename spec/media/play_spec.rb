@@ -25,14 +25,14 @@ RSpec.describe 'Play' do
     expect(base.pick_random_media_in_folder(dirpath)).to eq(media)
   end
 
-  it "plays online media" do
+  it 'plays online media' do
     url = 'https://framatube.org/908ff4b-240.mp4'
     base = Cejo::Media::Play.new url
 
     expect(base.pick_media).to eq(url)
   end
 
-  it "plays final command" do
+  it 'plays final command' do
     url = 'https://framatube.org/908ff4b-240.mp4'
     base = Cejo::Media::Play.new url
 

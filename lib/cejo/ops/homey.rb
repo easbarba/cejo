@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require 'colorize'
-
 module Cejo
   module Ops
     # Mirror user DATA partition folders to $HOME
     class Homey
-      IGNORE_THESE = ['.Trash-1000', 'lost+found']
+      IGNORE_THESE = %w[.Trash-1000 lost+found].freeze
 
       attr_reader :root, :target_link
 
@@ -26,7 +24,7 @@ module Cejo
 
         root.each_child do |folder|
           next if IGNORE_THESE.include? folder.basename.to_s
-          folder = folder
+
           folders_found[folder] = home.join(folder.basename)
         end
 
@@ -36,7 +34,7 @@ module Cejo
       # Remove $HOME folders found in DATA
       def cleanup_home
         target_link.each_key do |link_name|
-          link_name.unlink if link_name.exist?
+          link_name.delete if link_name.exist?
         end
       end
 
@@ -60,8 +58,6 @@ module Cejo
       #   end
       # end
 
-      public
-
       def run
         unless root_exist?
           print "No such a directory '#{root}' exist! Exiting."
@@ -73,6 +69,8 @@ module Cejo
         cleanup_home
         symlink_folders
       end
+
+      public :run
     end
   end
 end

@@ -16,7 +16,7 @@ module Cejo
       def states
         {
           up: "set #{STEP}%+",
-          down: "set #{STEP}%-"
+          down: "set #{STEP}%-",
         }
       end
 
