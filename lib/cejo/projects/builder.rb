@@ -34,7 +34,7 @@ module Cejo
       end
 
       def grab
-        Floss::Grab.new(utils, root, url, self.show_info).grab_this
+        Floss::Grab.new(utils, root, url, self.show_info).run
       end
 
       def tag
@@ -124,7 +124,7 @@ module Cejo
           Folder: #{root}
         EOF
       end
-      alias :to_s :show_info
+      alias to_s show_info
 
       def run
         grab
