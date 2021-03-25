@@ -4,36 +4,33 @@ module Cejo
   module Ops
     # Manage System brightness.
     class Brightness
-      attr_reader :utils, :state, :step
-
       STEP = 5
+      BRIGHTER = 'brightnessctl'
 
-      def initialize(utils, state)
-        @utils = utils
+      attr_reader :state, :step
+
+      def initialize(state)
         @state = state
-      end
-
-      def brighter
-        'brightnessctl'
       end
 
       def states
         {
           up: "set #{STEP}%+",
-          down: "set #{STEP}%-",
+          down: "set #{STEP}%-"
         }
       end
 
-      public
+      def action
+        states[state.to_sym]
+      end
 
-      def run_args
-        "#{brighter} #{states[state]}"
+      def final_command
+        "#{BRIGHTER} #{action}"
       end
 
       def run
-        utils.info_and_exit(state, '+', '-')
         @state = state.to_sym if %w[up down].include? state
-        system(run_args)
+        system(action)
       end
     end
   end
