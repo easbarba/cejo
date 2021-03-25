@@ -24,6 +24,15 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = %w[README.rdoc cejo.rdoc]
   spec.rdoc_options << '--title' << 'cejo' << '--main' << 'README.rdoc' << '-ri'
 
+  if spec.respond_to?(:metadata=)
+    spec.metadata = {
+      "bug_tracker_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
+      "changelog_uri" => 'https://git.sr.ht/~easbarbosa/cejo/tree/main/item/CHANGELOG.md',
+      "homepage_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
+      "source_code_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
+    }
+  end
+
   # production
   spec.add_runtime_dependency('dry-auto_inject')
   spec.add_runtime_dependency('dry-container')
