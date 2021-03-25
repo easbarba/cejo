@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'colorize'
-
 require 'pathname'
 require 'find'
 
@@ -23,13 +21,12 @@ module Cejo
         folders = []
 
         Find.find(root) do |file|
-          filepath = Pathname.new file
+          file = Pathname.new file
+          next if file.to_path.include? '.git'
+          next if file == root
 
-          next if filepath == root
-          next if file.start_with? root.join('.git').to_path.to_s
-
-          files << filepath if filepath.file?
-          folders << filepath if filepath.directory?
+          files << file if file.file?
+          folders << file if file.directory?
         end
 
         { folders: folders, files: files }
@@ -41,13 +38,13 @@ module Cejo
         origin = this.to_path
         homey = home.to_path.concat('/')
         result = origin.gsub(root.to_path, homey)
-        result = Pathname.new(result)
+        Pathname.new(result)
       end
 
       # Create only the folders, if those do not exist
-      def mk_folders
-        root_files_folders[:folders].each do |f|
-          folder = to_home f
+      def make_folders
+        root_files_folders[:folders].each do |fld|
+          folder = to_home fld
           next if folder.exist?
 
           puts folder
@@ -58,6 +55,7 @@ module Cejo
       def feed_target_link
         root_files_folders[:files].each do |target|
           next if ignored_ones.include? target.basename.to_s
+
           symlink_name = to_home target
           target_link.store(target, symlink_name)
         end
@@ -66,27 +64,20 @@ module Cejo
       # Move file from home to a /home/backup/{file}
       # or delete it if the file it is pointing does not exist
       def backup_this(this)
-        puts
-        print 'WARNING'.red, ": #{this} found! Deleting/Moving it."
-        puts
-
-        this.delete if this.exist?  # TODO: if file exist back/delete up it
+        warn "WARNING: #{this} found! Deleting/Moving it."
+        this.delete if this.exist? # TODO: if file exist back/delete up it
       end
 
       def backup_files
         target_link.each do |target, link_name|
-          print "#{target}".yellow, ' ❯ ', "#{link_name}".green
-          puts
-
+          puts "#{target} ❯ #{link_name}"
           backup_this link_name
         end
       end
 
       def symlink_files
         target_link.each do |target, link_name|
-          print "#{target}".yellow, ' ❯ ', "#{link_name}".green
-          puts
-
+          puts "#{target} ❯ #{link_name}"
           link_name.make_symlink target # As enumerator yielding folder to symlink
         end
       end
@@ -96,12 +87,9 @@ module Cejo
         ['LICENSE', root.join('.git').to_path.to_s].freeze
       end
 
-      public
-
       def run
-        utils.info_and_exit(root, '/path/to/folder')
         feed_target_link
-        mk_folders
+        make_folders
         backup_files
         symlink_files
       end

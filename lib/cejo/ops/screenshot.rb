@@ -4,6 +4,14 @@ module Cejo
   module Ops
     # Take a shot of the marvelous screen
     class Screenshot
+      def self.folder
+        Pathname.new(Dir.home).join('Pictures') # TODO: Check if folder exist
+      end
+
+      def self.current_time
+        Time.new.strftime('%d-%m-%y-%k-%M')
+      end
+
       attr_reader :utils, :mode
 
       def initialize(utils, mode)
@@ -11,16 +19,12 @@ module Cejo
         @mode = mode.to_sym if mode
       end
 
-      def folder
-        Pathname.new(Dir.home).join('Pictures') # TODO: Check if folder exist
-      end
-
       def shotters
         [flameshot, scrot, maim]
       end
 
       def shotters_available
-        shotters.select { |shotter| utils.which?(shotter[:exec]) }
+        shotters.find { |shotter| utils.which?(shotter[:exec]) }
       end
 
       def shotter
@@ -32,7 +36,7 @@ module Cejo
           exec: 'scrot',
           full: '--focused --silent',
           partial: '--select --silent',
-          folder: folder.join(screenshot_name)
+          folder: folder.join(screenshot_name),
         }
       end
 
@@ -41,7 +45,7 @@ module Cejo
           exec: 'flameshot',
           full: 'full -p',
           partial: 'gui -p',
-          folder: folder.to_path
+          folder: folder.to_path,
         }
       end
 
@@ -50,12 +54,8 @@ module Cejo
           exec: 'maim',
           full: '',
           partial: '--select',
-          folder: folder.join(screenshot_name)
+          folder: folder.join(screenshot_name),
         }
-      end
-
-      def current_time
-        Time.new.strftime('%d-%m-%y-%k-%M')
       end
 
       def screenshot_format
