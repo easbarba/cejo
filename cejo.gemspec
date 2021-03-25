@@ -28,13 +28,13 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('dry-auto_inject')
   spec.add_runtime_dependency('dry-container')
   spec.add_runtime_dependency('git')
+  spec.add_development_dependency('gli')
   spec.add_runtime_dependency('tty-spinner')
 
   # development
   spec.add_development_dependency('bundler')
   spec.add_development_dependency('coderay')
   spec.add_development_dependency('gem-man')
-  spec.add_development_dependency('gli')
   spec.add_development_dependency('minitest')
   spec.add_development_dependency('pry')
   spec.add_development_dependency('rake')
