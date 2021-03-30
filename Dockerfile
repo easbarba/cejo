@@ -1,20 +1,30 @@
 FROM docker.io/debian:latest
-WORKDIR /usr/local/cejo
-COPY . /usr/local/cejo
+MAINTAINER John Doe <john@doe.com>
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# BASE PACKAGES
+ENV BUILD_PACKAGES git curl libssl-dev ca-certificates gnupg2 build-essential procps gcc zlib1g-dev
+
+RUN apt update -qy
+RUN apt upgrade -qy
+RUN apt install -qy $BUILD_PACKAGES --no-install-recommends
+RUN apt clean -qy
+
+# RUBY
+RUN git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf update && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
 
 # PORT
 EXPOSE 3333
 
-# BASE PACKAGES
-ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get update -q && \
-    apt-get install -qy git procps curl ca-certificates gnupg2 build-essential --no-install-recommends \
-    && apt-get clean
+# FILES
+WORKDIR /usr/local/cejo
+COPY . /usr/local/cejo
 
-# RUBY
-RUN gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-RUN curl -sSL https://get.rvm.io | bash -s
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.7.2 && bundle install"
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && bundle install'
+RUN /bin/bash -lc 'echo ". $HOME/.asdf/asdf.sh" >> "$HOME/.bashrc"'
+RUN /bin/bash -lc 'echo export PATH="$HOME/.asdf/shims"${PATH:+:}$PATH >> "$HOME/.bashrc"'
 
 # RUN
-CMD ["exe/cejo"]
+CMD ["bash" "-lc"]
