@@ -9,12 +9,13 @@ Gem::Specification.new do |spec|
   spec.version = Cejo::VERSION
   spec.author = 'EAS Barbosa'
   spec.email = 'easbarbosa@tutanota.com'
-  spec.platform = Gem::Platform::RUBY
   spec.homepage = 'https://git.sr.ht/~easbarbosa/cejo'
   spec.license = 'GPL-3.0'
   spec.require_paths = ['lib']
   spec.bindir = 'exe'
-  spec.executables = %w[cejo]
+  spec.executables = 'cejo'
+  spec.post_install_message = 'Praise the sun!'
+  spec.platform = Gem::Platform.local
   spec.test_files = Dir.glob('{spec,test}/**/*.rb')
   spec.metadata['homepage_uri'] = spec.homepage
   spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0')
@@ -24,14 +25,17 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = %w[README.rdoc cejo.rdoc]
   spec.rdoc_options << '--title' << 'cejo' << '--main' << 'README.rdoc' << '-ri'
 
-  if spec.respond_to?(:metadata=)
-    spec.metadata = {
-      "bug_tracker_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
-      "changelog_uri" => 'https://git.sr.ht/~easbarbosa/cejo/tree/main/item/CHANGELOG.md',
-      "homepage_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
-      "source_code_uri" => 'https://git.sr.ht/~easbarbosa/cejo',
-    }
-  end
+  spec.metadata = {
+    'bug_tracker_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
+    'changelog_uri' => 'https://git.sr.ht/~easbarbosa/cejo/tree/main/item/CHANGELOG.md',
+    'homepage_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
+    'source_code_uri' => 'https://git.sr.ht/~easbarbosa/cejo'
+  }
+
+  # requirements
+  spec.requirements << 'linux distros'
+  spec.requirements << 'ffmpeg'
+  spec.requirements << 'mpv'
 
   # production
   spec.add_runtime_dependency('dry-auto_inject')
