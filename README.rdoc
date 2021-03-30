@@ -21,6 +21,9 @@
  [local]
    rake
 
+ [container]
+   podman build -t cejo .
+
 [Why Cejo?]
   Named after my grandparents: Celina & Joseph
 
