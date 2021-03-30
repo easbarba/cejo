@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'lib/cejo'
+require_relative 'lib/cejo/version'
 
 Gem::Specification.new do |spec|
   spec.name = 'cejo'
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform.local
   spec.test_files = Dir.glob('{spec,test}/**/*.rb')
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.0.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7')
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
   end
@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('dry-auto_inject')
   spec.add_runtime_dependency('dry-container')
   spec.add_runtime_dependency('git')
-  spec.add_development_dependency('gli')
+  spec.add_runtime_dependency('gli')
   spec.add_runtime_dependency('tty-spinner')
 
   # development
