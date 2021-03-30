@@ -1,5 +1,5 @@
-FROM docker.io/debian:latest
-MAINTAINER John Doe <john@doe.com>
+FROM docker.io/debian:unstable
+MAINTAINER EAS Barbosa <easbarbosa@tutanota.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -13,7 +13,9 @@ RUN apt clean -qy
 
 # RUBY
 RUN git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf update && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf update'
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git'
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
 
 # PORT
 EXPOSE 3333
