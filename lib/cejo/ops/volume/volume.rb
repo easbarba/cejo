@@ -6,11 +6,10 @@ module Cejo
     class Volume
       STEP = 3
 
-      attr_reader :state, :utils
+      attr_reader :state
       attr_accessor :info
 
       def initialize(utils, state)
-        @utils = utils
         @state = state.to_sym if state
         @info = SoundManager.new(utils).info
       end
@@ -25,14 +24,6 @@ module Cejo
 
       # * PACTL
 
-      def pactl_toggle
-        [pactl[:name], pactl[:toggle]].join(' ')
-      end
-
-      def pactl_updown
-        [pactl[:name], pactl[:updown]].join(' ')
-      end
-
       def pactl
         {
           name: 'pactl',
@@ -41,15 +32,15 @@ module Cejo
         }
       end
 
+      def pactl_toggle
+        [pactl[:name], pactl[:toggle]].join(' ')
+      end
+
+      def pactl_updown
+        [pactl[:name], pactl[:updown]].join(' ')
+      end
+
       # * AMIXER
-
-      def amixer_toggle
-        [amixer[:name], amixer[:toggle]].join(' ')
-      end
-
-      def amixer_updown
-        [amixer[:name], amixer[:updown]].join(' ')
-      end
 
       def amixer
         {
@@ -59,15 +50,15 @@ module Cejo
         }
       end
 
+      def amixer_toggle
+        [amixer[:name], amixer[:toggle]].join(' ')
+      end
+
+      def amixer_updown
+        [amixer[:name], amixer[:updown]].join(' ')
+      end
+
       # * BSD MIXER
-
-      def mixer_toggle
-        [mixer[:name], mixer[:toggle]].join(' ')
-      end
-
-      def mixer_updown
-        [mixer[:name], mixer[:updown]].join(' ')
-      end
 
       def mixer
         {
@@ -75,6 +66,14 @@ module Cejo
           toggle: '',
           updown: "mixer vol #{states[state]}#{STEP}"
         }
+      end
+
+      def mixer_toggle
+        [mixer[:name], mixer[:toggle]].join(' ')
+      end
+
+      def mixer_updown
+        [mixer[:name], mixer[:updown]].join(' ')
       end
 
       # * MODES
