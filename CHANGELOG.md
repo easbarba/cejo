@@ -1,3 +1,9 @@
+# 0.5.0 / 2021-04-02
+
+## Enhancements:
+
+* Projects: Separate roles of building
+
 # 0.3.0 / 2021-03-25
 
 ## Enhancements:
