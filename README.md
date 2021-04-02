@@ -21,7 +21,10 @@
    gem install cejo
 
 ## local
-   rake
+   rake install
+
+## Container
+	podman build -t cejo .
 
 # Why Cejo?
   Named after my grandparents: Celina & Joseph

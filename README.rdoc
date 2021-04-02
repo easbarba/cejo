@@ -19,7 +19,7 @@
    gem install cejo
 
  [local]
-   rake
+   rake install
 
  [container]
    podman build -t cejo .
