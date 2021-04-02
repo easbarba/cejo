@@ -16,16 +16,16 @@ module Cejo
 
       # Action need to be run with administration level
       def admin?
-        true if ADMIN.include?(action)
+        true if ADMIN.include? action
       end
 
       # Action need any argument
       def arguments?
-        true if ARGUMENTS.include?(action)
+        true if ARGUMENTS.include? action
       end
 
       def whatever?
-        true if WHATEVER.include?(action)
+        true if WHATEVER.include? action
       end
     end
   end

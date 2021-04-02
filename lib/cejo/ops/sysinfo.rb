@@ -13,14 +13,12 @@ module Cejo
         @command = command
       end
 
-      public
-
       def run_args
         DEPS
       end
 
       def run
-        puts(run_args)
+        run_args
       end
     end
   end

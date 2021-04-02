@@ -30,16 +30,16 @@ module Cejo
         require 'git'
 
         utils.spin('Archiving') do
-          repo = Git.open(folder)
-          repo.archive(repo.current_branch, archived_filename, format: FMT) # TODO: fiber/multithread
+          repo = Git.open folder
+          repo.archive repo.current_branch, archived_filename, format: FMT # TODO: fiber/multithread
         end
         puts
       end
 
       def run
-        return unless ARCHIVE_THESE.include?(name)
+        return unless ARCHIVE_THESE.include? name
 
-        Dir.mkdir(ARCHIVED_FOLDER) unless ARCHIVED_FOLDER.exist?
+        Dir.mkdir ARCHIVED_FOLDER unless ARCHIVED_FOLDER.exist?
 
         print info
         do_archive

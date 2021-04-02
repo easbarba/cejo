@@ -16,35 +16,35 @@ module Cejo
 
       def commands
         parsed_commands = ParsedCommands.new(utils, folder).found
-        commands = Commands.new(parsed_commands)
+        commands = Commands.new parsed_commands
 
         exit unless commands.any?
         commands.all
       end
 
       def packager
-        current_packager = CurrentPackager.new(utils)
-        current_packager.packager(commands.keys)
+        current_packager = CurrentPackager.new utils
+        current_packager.packager commands.keys
       end
 
       def real_action
         result = TranslateAction.new
-        result.real_action(commands, packager, action)
+        result.real_action commands, packager, action
       end
 
       def need
-        Need.new(action)
+        Need.new action
       end
 
       def final_command
         result = packager, real_action
-        result.append(arguments)
-        result.prepend('sudo') if need.admin?
-        result.join(' ')
+        result.append arguments
+        result.prepend 'sudo' if need.admin?
+        result.join ' '
       end
 
       def run
-        system(final_command)
+        system final_command
       end
       public :run
     end

@@ -9,7 +9,7 @@ module Cejo
       end
 
       def self.current_time
-        Time.new.strftime('%d-%m-%y-%k-%M')
+        Time.new.strftime '%d-%m-%y-%k-%M'
       end
 
       attr_reader :utils, :mode
@@ -36,7 +36,7 @@ module Cejo
           exec: 'scrot',
           full: '--focused --silent',
           partial: '--select --silent',
-          folder: folder.join(screenshot_name),
+          folder: folder.join(screenshot_name)
         }
       end
 
@@ -45,7 +45,7 @@ module Cejo
           exec: 'flameshot',
           full: 'full -p',
           partial: 'gui -p',
-          folder: folder.to_path,
+          folder: folder.to_path
         }
       end
 
@@ -54,7 +54,7 @@ module Cejo
           exec: 'maim',
           full: '',
           partial: '--select',
-          folder: folder.join(screenshot_name),
+          folder: folder.join(screenshot_name)
         }
       end
 
@@ -71,7 +71,7 @@ module Cejo
       end
 
       def run
-        system(final_command)
+        system final_command
       end
     end
   end

@@ -16,7 +16,7 @@ module Cejo
       def states
         {
           up: "set #{STEP}%+",
-          down: "set #{STEP}%-",
+          down: "set #{STEP}%-"
         }
       end
 
@@ -30,7 +30,7 @@ module Cejo
 
       def run
         @state = state.to_sym if %w[up down].include? state
-        system(action)
+        system action
       end
     end
   end

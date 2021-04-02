@@ -107,9 +107,9 @@ module Cejo
       end
 
       def run
-        return unless %i[up down toggle].include?(state)
+        return unless %i[up down toggle].include? state
 
-        system(final_command)
+        system final_command
       end
     end
   end

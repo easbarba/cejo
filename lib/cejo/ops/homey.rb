@@ -20,12 +20,12 @@ module Cejo
 
       def folders_found
         folders_found = {}
-        home = Pathname.new(Dir.home)
+        home = Pathname.new Dir.home
 
         root.each_child do |folder|
           next if IGNORE_THESE.include? folder.basename.to_s
 
-          folders_found[folder] = home.join(folder.basename)
+          folders_found[folder] = home.join folder.basename
         end
 
         folders_found
@@ -40,32 +40,19 @@ module Cejo
 
       def symlink_folders
         target_link.each do |target, link_name|
-          File.symlink(target, link_name)
+          File.symlink target, link_name
         end
       end
-
-      # def show_info
-      #   print "root folder".blue, ": ", root, "\n\n"
-
-      #   cleanup_home do |link_name|
-      #     print "Warning".red, ": ", "#{link_name}".green, " folder found, removing it!", "\n"
-      #   end
-
-      #   puts
-
-      #   symlink_folders do |target, link_name|
-      #     print "#{target}".yellow, " --> ", "#{link_name}".green, "\n"
-      #   end
-      # end
 
       def run
         unless root_exist?
           print "No such a directory '#{root}' exist! Exiting."
           exit!
         end
+
         @root = Pathname root
         @target_link = folders_found
-        # show_info
+
         cleanup_home
         symlink_folders
       end

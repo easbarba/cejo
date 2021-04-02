@@ -2,6 +2,7 @@
 
 module Cejo
   module Distro
+    # Translate generic action into system real action
     class TranslateAction
       def real_action(commands, packager, action)
         commands[packager][action]

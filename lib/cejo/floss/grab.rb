@@ -17,14 +17,14 @@ module Cejo
 
       def do_pull
         utils.spin('Pulling') do
-          repo = Git.open(folder)
-          repo.pull('origin', repo.current_branch)
+          repo = Git.open folder
+          repo.pull 'origin', repo.current_branch
         end
       end
 
       def do_clone
         utils.spin('Cloning') do
-          Git.clone(url, folder)
+          Git.clone url, folder
         end
       end
 

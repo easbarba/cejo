@@ -16,8 +16,8 @@ module Cejo
       end
 
       def parsed_projects
-        folder = folders.cejo_config.join('floss')
-        utils.parse_folder(folder)
+        folder = folders.cejo_config.join 'floss'
+        utils.parse_folder folder
       end
 
       def process_projects
@@ -26,8 +26,8 @@ module Cejo
           puts
 
           projects.each do |url|
-            project_info = ProjectInfo.new(url, language.to_s)
-            yield(project_info)
+            project_info = ProjectInfo.new url, language.to_s
+            yield project_info
           end
         end
       end

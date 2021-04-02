@@ -23,7 +23,7 @@ module Cejo
       end
 
       def current_dir
-        AUDIO_FORMATS.include?(codec) ? AUDIO_DIR : VIDEO_DIR
+        AUDIO_FORMATS.include? codec ? AUDIO_DIR : VIDEO_DIR
       end
 
       def audio_command
@@ -35,19 +35,20 @@ module Cejo
       end
 
       def final_command
-        action = AUDIO_FORMATS.include?(codec) ? audio_command : video_command
+        action = AUDIO_FORMATS.include? codec ? audio_command : video_command
         "#{GRABBER} #{action}"
       end
 
       def show_info
-        puts "media: #{media}"
-        puts "codec: #{codec}"
-        puts
+        <<~INFO
+          "media: #{media}"
+          "codec: #{codec}"
+        INFO
       end
 
       def run
         show_info
-        Dir.chdir(current_dir) { system(final_command) }
+        Dir.chdir(current_dir) { system final_command }
       end
     end
   end

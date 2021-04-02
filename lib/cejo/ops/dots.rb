@@ -12,7 +12,7 @@ module Cejo
       def initialize(utils, root)
         @utils = utils
         @root = Pathname.new root if root
-        @home = Pathname.new(Dir.home)
+        @home = Pathname.new Dir.home
         @target_link = {}
       end
 
@@ -38,7 +38,7 @@ module Cejo
         origin = this.to_path
         homey = home.to_path.concat('/')
         result = origin.gsub(root.to_path, homey)
-        Pathname.new(result)
+        Pathname.new result
       end
 
       # Create only the folders, if those do not exist

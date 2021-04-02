@@ -27,14 +27,14 @@ class App
 
   def self.services
     container = Dry::Container.new
-    container.register(:folders, Cejo::Services::Folders.new)
-    container.register(:utils, Cejo::Services::Utils.new)
+    container.register :folders, Cejo::Services::Folders.new
+    container.register :utils, Cejo::Services::Utils.new
   end
 
   desc 'Miscellaneous system operations front-end'
   arg_name 'Describe arguments to ops here'
   command :ops do |c|
-    utils = services.resolve(:utils)
+    utils = services.resolve :utils
 
     c.desc 'Manage System Volume'
     c.arg '[up, down, toggle]'

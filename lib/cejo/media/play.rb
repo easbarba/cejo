@@ -5,9 +5,9 @@ module Cejo
   module Media
     # Play file, random media in folder or with url.
     class Play
-      PLAYER = 'mpv'.freeze
-      PLAYER_CONFIG = '--no-config --no-audio-display'.freeze
-      PLAYER_FORMAT = '--ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'.freeze
+      PLAYER = 'mpv'
+      PLAYER_CONFIG = '--no-config --no-audio-display'
+      PLAYER_FORMAT = '--ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
 
       attr_reader :media
 
@@ -23,11 +23,11 @@ module Cejo
       def pick_media
         filepath = Pathname.new(media)
         return filepath.to_path if filepath.file?
-        return pick_random_media_in_folder(filepath) if filepath.directory?
-        return media
-      end
 
-      public
+        return pick_random_media_in_folder(filepath) if filepath.directory?
+
+        media
+      end
 
       def player_settings
         "#{PLAYER} #{PLAYER_CONFIG} #{PLAYER_FORMAT}"

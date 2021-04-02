@@ -8,11 +8,11 @@ module Cejo
 
       def initialize(utils, folder)
         @utils = utils
-        @folder = folder.join('distro')
+        @folder = folder.join 'distro'
       end
 
       def found
-        utils.parse_folder(folder)
+        utils.parse_folder folder
       end
 
       def any?
