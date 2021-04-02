@@ -1,23 +1,30 @@
-#+TILE: Cejo
-
-* Cejo
+# Cejo
   Miscellaneous Unix automation and services utilities
-* Sections
-** Ops
+
+# Sections
+
+## Ops
    Bundle of automation tasks
-** Media
+
+## Media
    Management of media
-** Projects
+
+## Projects
    Instructions to install FLOSS Project
-** Distro
+
+## Distro
    A one-do-it-all package porcelain for most use Distro Linux package managers
 
-* Install
-** rubygems
+# Install
+
+## rubygems
    gem install cejo
-** local
+
+## local
    rake
-* Why Cejo?
+
+# Why Cejo?
   Named after my grandparents: Celina & Joseph
-* License
+
+# License
   GPL version 3
