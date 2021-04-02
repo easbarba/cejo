@@ -32,10 +32,9 @@ require_relative 'cejo/distro/need'
 
 # * Projects
 require_relative 'cejo/projects/builder'
-require_relative 'cejo/projects/emacs'
-require_relative 'cejo/projects/dwm'
-require_relative 'cejo/projects/st'
-require_relative 'cejo/projects/ruby'
+require_relative 'cejo/projects/projects_parser'
+require_relative 'cejo/projects/project_info'
+require_relative 'cejo/projects/main'
 
 # * Media
 require_relative 'cejo/media/play'

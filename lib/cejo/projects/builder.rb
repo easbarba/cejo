@@ -7,39 +7,28 @@ module Cejo
   module Projects
     # Build Projects
     class Builder
-      BUILD_FOLDER = File.join(Dir.home, 'Builds')
+      BUILD_FOLDER = Pathname.new File.join(Dir.home, 'Builds')
 
       attr_reader :cejo_config, :local_folder, :utils, :project
 
-      def initialize(project)
-        @local_folder = folders.local
+      def initialize(local, utils, project)
+        @local_folder = local
         @utils = utils
         @project = project
-        @root = BUILD_FOLDER.join(project.name)
       end
 
       def grab
-        Floss::Grab.new(utils, root, project.url, project.to_s).run
-      end
-
-      def repo
-        require 'git'
-
-        Git.open project.root
+        Floss::Grab.new(utils, project.folder, project.url, project.to_s).run
       end
 
       def checkout_tag
         return if project.tag.empty?
 
-        repo.checkout project.tag
-       end
-
-      def build_folder
-        Pathname.new(File.join(Dir.home, 'Builds'))
+        project.repository.checkout project.tag
       end
 
       def install
-        Dir.chdir(root) do
+        Dir.chdir(project.folder) do
           project.commands.each do |command|
             command.gsub!('{0}', local_folder.to_s)
             system command
@@ -52,23 +41,21 @@ module Cejo
         tasks = project.patch
         return if tasks == 'none'
 
-        patches = project_patches.children
-
-        Dir.chdir(root) do
-          project.patches.each do |patch|
+        Dir.chdir(project.folder) do
+          project.patches.children.each do |patch|
             next unless tasks.include? patch.basename.to_s
 
             puts "Patched: #{patch.to_path}" # all
-            repo.apply patch.to_path
+            project.repository.apply patch.to_path
           end
         end
       end
 
       def cleaning
-        repo.reset_hard
-        repo.checkout project.default
+        project.repository.reset_hard
+        project.repository.checkout project.main_branch
 
-        Dir.chdir(root) do
+        Dir.chdir(project.folder) do
           project.purge.each { |command| system command }
         end
       end

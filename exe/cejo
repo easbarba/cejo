@@ -107,34 +107,10 @@ class App
   end
 
   desc 'Build Cool Projects.'
-  arg_name 'Describe arguments to projects here'
-  command :projects do |c|
-    c.desc 'GNU Emacs Editor'
-    c.command :emacs do |emacs|
-      emacs.action do
-        Cejo::Projects::Emacs.new(services).run
-      end
-    end
-
-    c.desc 'Suckless Terminal'
-    c.command :st do |st|
-      st.action do
-        Cejo::Projects::St.new(services).run
-      end
-    end
-
-    c.desc 'Suckless window manager'
-    c.command :dwm do |dwm|
-      dwm.action do
-        Cejo::Projects::Dwm.new(services).run
-      end
-    end
-
-    c.desc 'Ruby Programming language'
-    c.command :ruby do |ruby|
-      ruby.action do
-        Cejo::Projects::Ruby.new(services).run
-      end
+  arg_name 'Name of project'
+  command :projects do |build|
+    build.action do |_, _, args|
+      Cejo::Projects::Main.new(services, args.first).run
     end
   end
 
