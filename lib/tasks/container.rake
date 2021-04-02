@@ -3,11 +3,11 @@
 require 'rspec/core/rake_task'
 
 namespace :container do
-  task :build do
+  task :run do
     sh 'podman run -ti -rm cejo'
   end
 
-  task :run do
+  task :build do
     sh 'podman build -t cejo .'
   end
 end
