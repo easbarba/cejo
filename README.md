@@ -18,13 +18,20 @@
 # Install
 
 ## rubygems
-   gem install cejo
+```sh
+gem install cejo
+```sh
+```
 
 ## local
-   rake install
+```sh
+rake install
+```
 
 ## Container
-	podman build -t cejo .
+```sh
+podman build -t cejo .
+```
 
 # Why Cejo?
   Named after my grandparents: Celina & Joseph
