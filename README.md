@@ -20,7 +20,6 @@
 ## rubygems
 ```sh
 gem install cejo
-```sh
 ```
 
 ## local
