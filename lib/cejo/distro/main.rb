@@ -3,8 +3,8 @@
 module Cejo
   # Distro Front End
   module Distro
-    # Base
-    class Base
+    # Main
+    class Main
       attr_reader :folder, :utils
       attr_accessor :action, :arguments
 

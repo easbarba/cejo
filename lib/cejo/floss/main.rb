@@ -6,7 +6,7 @@ module Cejo
   # Manage FLOSS Projects
   module Floss
     # Core Management FLOSS Projects
-    class Core
+    class Main
       attr_reader :services, :folders, :utils, :command
 
       def initialize(folders, utils, command)
