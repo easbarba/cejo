@@ -25,8 +25,9 @@ WORKDIR /usr/local/cejo
 COPY . /usr/local/cejo
 
 RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && bundle install'
+RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && rake install'
 RUN /bin/bash -lc 'echo ". $HOME/.asdf/asdf.sh" >> "$HOME/.bashrc"'
 RUN /bin/bash -lc 'echo export PATH="$HOME/.asdf/shims"${PATH:+:}$PATH >> "$HOME/.bashrc"'
 
 # RUN
-CMD ["bash" "-lc"]
+ENTRYPOINT ["bash", "-l", "-c"]
