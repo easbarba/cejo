@@ -1,0 +1,12 @@
+---
+name: dwm
+url: git://git.suckless.org/dwm
+tag:
+default: master
+patch: none
+commands:
+  - rm config.h
+  - make clean
+  - make install PREFIX={0}
+purge:
+  - git reset --hard HEAD

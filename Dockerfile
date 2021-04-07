@@ -15,22 +15,24 @@ RUN apt install -qy $BUILD_PACKAGES --no-install-recommends
 RUN apt clean -qy
 
 # RUBY
-RUN git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf"
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf update'
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git'
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
+RUN git clone https://github.com/asdf-vm/asdf.git "/root/.asdf"
+RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf update'
+RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git'
+RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
 
 # HOME
-RUN /bin/bash -lc 'echo ". $HOME/.asdf/asdf.sh" >> "$HOME/.bashrc"'
-RUN /bin/bash -lc 'echo export PATH="$HOME/.asdf/shims"${PATH:+:}$PATH >> "$HOME/.bashrc"'
+RUN /bin/bash -lc 'echo ". /root/.asdf/asdf.sh" >> "/root/.bashrc"'
+RUN /bin/bash -lc 'echo export PATH="/root/.asdf/shims"${PATH:+:}$PATH >> "/root/.bashrc"'
 
 # FILES
 WORKDIR /usr/local/cejo
 COPY . /usr/local/cejo
+RUN mkdir -p /root/.config
+RUN cp -R ./example/cejo /root/.config/
 
 # INSTALL
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && bundle install'
-RUN /bin/bash -lc '. $HOME/.asdf/asdf.sh && rake install'
+RUN /bin/bash -lc '. /root/.asdf/asdf.sh && bundle install'
+RUN /bin/bash -lc '. /root/.asdf/asdf.sh && rake install'
 
 # RUN
 ENTRYPOINT ["bash", "-l", "-c"]
