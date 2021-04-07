@@ -1,3 +1,9 @@
+# 0.6.0 / 2021-04-07
+
+## Enhancements:
+
+* Uniform naming for caller classes
+
 # 0.5.1 / 2021-04-02
 
 ## Enhancements:
