@@ -32,8 +32,21 @@ rake install
 podman build -t cejo .
 ```
 
+
+# Running
+
+## local
+```sh
+cejo
+```
+
+## Container
+```sh
+podman run -it cejo cejo
+```
+
 # Why Cejo?
-  Named after my grandparents: Celina & Joseph
+A humble tribute to my beloved grandparents: Celina & Joseph.
 
 # License
   GPL version 3
