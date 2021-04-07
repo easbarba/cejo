@@ -17,4 +17,9 @@ RSpec.describe 'Get' do
     main = Cejo::Media::Get.new(media, codec)
     expect("--extract-audio --audio-format #{codec} #{media}").to eq(main.audio_command)
   end
+
+  it 'gets correct final command' do
+    main = Cejo::Media::Get.new(media, codec)
+    expect("youtube-dl --extract-audio --audio-format #{codec} #{media}").to eq(main.final_command)
+  end
 end
