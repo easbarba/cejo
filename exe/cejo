@@ -119,7 +119,7 @@ class App
   command :distro do |c|
     utils = services.resolve(:utils)
     folder = services.resolve(:folders).cejo_config
-    base = Cejo::Distro::Base.new(folder, utils)
+    base = Cejo::Distro::Main.new(folder, utils)
 
     c.desc 'Install a Package from Repositories'
     c.arg 'arguments'
