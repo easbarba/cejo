@@ -13,7 +13,7 @@
    Install local builds of FLOSS Projects.
 
 ## Distro
-   An one-do-it-all porcelain for most use Distro Linux package managers.
+   An one-do-it-all porcelain front-end of the most used Distro Linux package managers.
 
 # Install
 
