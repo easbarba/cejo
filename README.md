@@ -4,16 +4,16 @@
 # Sections
 
 ## Ops
-   Bundle of automation tasks
+   Front-end of system utilities, services and programs.
 
 ## Media
-   Management of media
+   Manage and grab media.
 
 ## Projects
-   Instructions to install FLOSS Project
+   Install local builds of FLOSS Projects.
 
 ## Distro
-   A one-do-it-all package porcelain for most use Distro Linux package managers
+   An one-do-it-all porcelain for most use Distro Linux package managers.
 
 # Install
 
