@@ -15,7 +15,7 @@ RUN apt install -qy $BUILD_PACKAGES --no-install-recommends
 RUN apt clean -qy
 
 # RUBY
-RUN git clone https://github.com/asdf-vm/asdf.git "/root/.asdf"
+RUN git clone https://github.com/asdf-vm/asdf.git /root/.asdf
 RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf update'
 RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git'
 RUN /bin/bash -lc '. /root/.asdf/asdf.sh && asdf install ruby 3.0.0 && asdf global ruby 3.0.0'
@@ -26,9 +26,9 @@ RUN /bin/bash -lc 'echo export PATH="/root/.asdf/shims"${PATH:+:}$PATH >> "/root
 
 # FILES
 WORKDIR /usr/local/cejo
-COPY . /usr/local/cejo
+RUN git clone --depth 1 --branch main https://git.sr.ht/~easbarbosa/cejo /usr/local/cejo
 RUN mkdir -p /root/.config
-RUN cp -R ./example/cejo /root/.config/
+RUN cp -R /usr/local/cejo/example/cejo /root/.config/
 
 # INSTALL
 RUN /bin/bash -lc '. /root/.asdf/asdf.sh && bundle install'
