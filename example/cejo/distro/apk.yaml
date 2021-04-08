@@ -1,13 +1,13 @@
 ---
-builddep:
+builddep: add --virtual
 clean:
 depends:
-download:
-fix:
+download: fetch
+fix: fix
 help:
 info: info
 install: add
-installed:
+installed: stats
 remove: del
 search: search
 sysupgrade:
