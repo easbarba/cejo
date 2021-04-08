@@ -31,7 +31,7 @@ class App
     container.register :utils, Cejo::Services::Utils.new
   end
 
-  desc 'Miscellaneous system operations front-end'
+  desc 'Front-end of system utilities, services and programs.'
   arg_name 'Describe arguments to ops here'
   command :ops do |c|
     utils = services.resolve :utils
@@ -67,7 +67,7 @@ class App
       end
     end
 
-    c.desc 'Take a shot of the marvelous screen'
+    c.desc 'Take a shot of current screen'
     c.arg '[full, partial]'
     c.command :screenshot do |screenshot|
       screenshot.action do |_, _, args|
@@ -75,7 +75,7 @@ class App
       end
     end
 
-    c.desc 'Manage System brightness.'
+    c.desc 'Manage system brightness.'
     c.arg '[up down]'
     c.command :brightness do |brightness|
       brightness.action do |_, _, args|
@@ -84,7 +84,7 @@ class App
     end
   end
 
-  desc 'Manage System media features'
+  desc 'Manage and grab media'
   arg_name 'Describe arguments to media here'
   command :media do |c|
     c.desc 'Get media pointed in url as video or audio.'
@@ -106,7 +106,7 @@ class App
     end
   end
 
-  desc 'Build Cool Projects.'
+  desc 'Install local builds of FLOSS Projects.'
   arg_name 'Name of project'
   command :projects do |build|
     build.action do |_, _, args|
@@ -114,7 +114,7 @@ class App
     end
   end
 
-  desc 'A distro packager managers front-end just run it'
+  desc 'An one-do-it-all porcelain front-end of the most used Distro Linux package managers.'
   arg_name 'Describe arguments to distro here'
   command :distro do |c|
     utils = services.resolve(:utils)
