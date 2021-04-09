@@ -237,14 +237,14 @@ class App
     c.desc 'Archive FLOSS Projects'
     c.command :archive do |archive|
       archive.action do
-        Cejo::Floss::Core.new(folders, utils, :archive).run
+        Cejo::Floss::Main.new(folders, utils, :archive).run
       end
     end
 
     c.desc 'Grab FLOSS Projects'
     c.command :grab do |grab|
       grab.action do
-        Cejo::Floss::Core.new(folders, utils, :grab).run
+        Cejo::Floss::Main.new(folders, utils, :grab).run
       end
     end
   end
