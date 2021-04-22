@@ -39,3 +39,4 @@ require_relative 'cejo/projects/main'
 # * Media
 require_relative 'cejo/media/play'
 require_relative 'cejo/media/get'
+require_relative 'cejo/media/players'
