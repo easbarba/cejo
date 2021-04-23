@@ -1,17 +1,30 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/cejo'
+require_relative '../../../lib/cejo'
 
 require 'spec_helper'
 
 RSpec.describe 'Grabber' do
   url = 'https://odysee.com/@SystemCrafters:e/installing-the-gnu-guix-package-manager:c'
-  let(:grabber) do
-    Cejo::Media::Grabber.new(url, 'mkv')
-  end
+  current = Cejo::Media::Grabbers.new.youtube_dl
+  parser = Class.new do
+    def info(_, info, url)
+      case info
+      when :ext
+        'mp4'
+      when :title
+        'Installing the GNU Guix Package Manager'
+      when :url
+        url
+      else
+        ''
+      end
+    end
+  end.new
+
+  let(:grabber) { Cejo::Media::Grabber.new(url, 'vorbis', parser, current) }
 
   it 'audio command' do
-    grabber = Cejo::Media::Grabber.new(url, 'vorbis')
     expect(grabber.audio_command).to eq("--extract-audio --audio-format vorbis #{url}")
   end
 
@@ -20,7 +33,9 @@ RSpec.describe 'Grabber' do
   end
 
   it 'video command' do
-    expect(grabber.video_command).to eq("--recode-video mkv #{url}")
+    video_codec = 'mkv'
+    grabber.codec = video_codec
+    expect(grabber.video_command).to eq("--recode-video #{video_codec} #{url}")
   end
 
   it 'sum up pretty well' do

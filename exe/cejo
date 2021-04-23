@@ -93,7 +93,7 @@ class App
       get.action do |_, _, args|
         media = args.first if args
         codec = args.last if args.last
-        Cejo::Media::Get.new(media, codec).run
+        Cejo::Media::Main.new(media, codec).run
       end
     end
 

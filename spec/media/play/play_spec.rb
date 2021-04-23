@@ -1,4 +1,6 @@
-require_relative '../../lib/cejo'
+# frozen_string_literal: true
+
+require_relative '../../../lib/cejo'
 
 require 'spec_helper'
 

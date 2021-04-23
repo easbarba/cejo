@@ -37,8 +37,13 @@ require_relative 'cejo/projects/project_info'
 require_relative 'cejo/projects/main'
 
 # * Media
+
+# ** Play
 require_relative 'cejo/media/play/players'
 require_relative 'cejo/media/play/play'
+
+# ** Get
+require_relative 'cejo/media/get/main'
 require_relative 'cejo/media/get/grabbers'
 require_relative 'cejo/media/get/grabber'
 require_relative 'cejo/media/get/grabber_parser'

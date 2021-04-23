@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'grabber'
-
 require 'pathname'
 
 module Cejo
@@ -13,27 +11,25 @@ module Cejo
       AUDIO_FORMATS = %w[vorbis flac mp3].freeze
       VIDEO_FORMATS = %w[mkv mp4 ogg].freeze
 
-      attr_reader :url, :codec, :grabber
+      attr_reader :grabber
 
-      def initialize(url, codec = nil)
-        @url = url
-        @codec = codec
-        @grabber = Grabber.new(url, codec)
+      def initialize(grabber)
+        @grabber = grabber
       end
 
       def current_dir
-        AUDIO_FORMATS.include?(codec) ? AUDIO_DIR : VIDEO_DIR
+        AUDIO_FORMATS.include?(grabber.codec) ? AUDIO_DIR : VIDEO_DIR
       end
 
       def final_command
-        AUDIO_FORMATS.include?(codec) ? grabber.audio_command : grabber.video_command
+        AUDIO_FORMATS.include?(grabber.codec) ? grabber.audio_command : grabber.video_command
       end
 
       def show_info
         <<~INFO
           Title: #{grabber.title}
-          Url: #{url}
-          Codec: #{codec}
+          Url: #{grabber.url}
+          Codec: #{grabber.codec}
           Folder: #{current_dir}
         INFO
       end

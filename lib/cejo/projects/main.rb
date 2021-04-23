@@ -6,7 +6,7 @@ module Cejo
   module Projects
     # Orchestrator of project building
     class Main
-      attr_reader :builder, :services
+      attr_reader :builder
 
       def initialize(services, name)
         folders = services.resolve(:folders)
