@@ -16,8 +16,8 @@ module Cejo
       attr_reader :url, :codec, :grabber
 
       def initialize(url, codec = nil)
-        @url = url if url
-        @codec = codec if codec
+        @url = url
+        @codec = codec
         @grabber = Grabber.new(url, codec)
       end
 
@@ -32,7 +32,9 @@ module Cejo
       def show_info
         <<~INFO
           Title: #{grabber.title}
-          Url: #{url} - Codec: #{codec} - Folder: #{current_dir}
+          Url: #{url}
+          Codec: #{codec}
+          Folder: #{current_dir}
         INFO
       end
 
