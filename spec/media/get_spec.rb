@@ -5,21 +5,24 @@ require_relative '../../lib/cejo'
 require 'spec_helper'
 
 RSpec.describe 'Get' do
-  let(:media) { 'https://framatube.org/908ff4b-240.mp4' }
+  let(:url) { 'https://odysee.com/@DistroTube:2/the-best-tiling-window-manager:5' }
   let(:codec) { 'vorbis' }
 
   it 'gets me an amazing video to watch' do
-    main = Cejo::Media::Get.new(media)
-    expect(media).to eq(main.video_command)
+    main = Cejo::Media::Get.new(url)
+    result = '--recode-video mkv https://odysee.com/@DistroTube:2/the-best-tiling-window-manager:5'
+    expect(main.grabber.video_command).to eq(result)
   end
 
   it 'gets me a nice tune to enjoy' do
-    main = Cejo::Media::Get.new(media, codec)
-    expect("--extract-audio --audio-format #{codec} #{media}").to eq(main.audio_command)
+    main = Cejo::Media::Get.new(url, codec)
+    expect(main.grabber.audio_command).to eq("--extract-audio --audio-format #{codec} #{url}")
   end
 
   it 'gets correct final command' do
-    main = Cejo::Media::Get.new(media, codec)
-    expect("youtube-dl --extract-audio --audio-format #{codec} #{media}").to eq(main.final_command)
+    main = Cejo::Media::Get.new(url, codec)
+    result = '--extract-audio --audio-format vorbis https://odysee.com/@DistroTube:2/the-best-tiling-window-manager:5'
+    expect(main.final_command).to eq(result
+)
   end
 end

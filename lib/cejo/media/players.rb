@@ -5,7 +5,7 @@ module Cejo
     # Availables media system players w/ settings
     class Players
       # player name, config and optimal media format
-      Player_info = Struct.new :name, :config, :format do
+      PLAYER_INFO = Struct.new :name, :config, :format do
         def to_s
           %(#{name} #{config} #{format})
         end
@@ -16,13 +16,13 @@ module Cejo
         config = '--no-config --no-audio-display'
         format = '--ytdl-format="bestvideo[height<=?1080]+bestaudio/best"'
 
-        Player_info.new(name, config, format)
+        PLAYER_INFO.new(name, config, format)
       end
 
       def vlc
         name = 'vlc'
 
-        Player_info.new(name, nil, nil)
+        PLAYER_INFO.new(name, nil, nil)
       end
     end
   end

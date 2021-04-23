@@ -1,54 +1,46 @@
 # frozen_string_literal: true
 
+require_relative 'grabber'
+
 require 'pathname'
 
 module Cejo
   module Media
     # Get media pointed in url.
     class Get
-      GRABBER = 'youtube-dl'
-      AUDIO_FORMATS = %w[vorbis flac mp3].freeze
       AUDIO_DIR = Pathname.new(Dir.home).join('Music')
       VIDEO_DIR = Pathname.new(Dir.home).join('Videos')
+      AUDIO_FORMATS = %w[vorbis flac mp3].freeze
+      VIDEO_FORMATS = %w[mkv mp4 ogg].freeze
 
-      attr_reader :media, :codec
+      attr_reader :url, :codec, :grabber
 
-      def initialize(media, codec = nil)
-        @media = media if media
+      def initialize(url, codec = nil)
+        @url = url if url
         @codec = codec if codec
-      end
-
-      def current_media
-        "\'#{media}\'" unless media
+        @grabber = Grabber.new(url, codec)
       end
 
       def current_dir
         AUDIO_FORMATS.include?(codec) ? AUDIO_DIR : VIDEO_DIR
       end
 
-      def audio_command
-        "--extract-audio --audio-format #{codec} #{media}"
-      end
-
-      def video_command
-        media
-      end
-
       def final_command
-        action = AUDIO_FORMATS.include?(codec) ? audio_command : video_command
-        "#{GRABBER} #{action}"
+        AUDIO_FORMATS.include?(codec) ? grabber.audio_command : grabber.video_command
       end
 
       def show_info
         <<~INFO
-          "media: #{media}"
-          "codec: #{codec}"
+          Title: #{grabber.title}
+          Url: #{url} - Codec: #{codec} - Folder: #{current_dir}
         INFO
       end
 
       def run
-        show_info
-        Dir.chdir(current_dir) { system final_command }
+        puts show_info
+        puts
+
+        Dir.chdir(current_dir) { system "#{grabber.current.name} #{final_command}" }
       end
     end
   end
