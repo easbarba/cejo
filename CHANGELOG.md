@@ -1,3 +1,10 @@
+# 0.7.0 / 2021-04-22
+
+## Enhancements:
+
+* Media: separate grabber, grabbers from get
+* Play: select player
+
 # 0.6.0 / 2021-04-07
 
 ## Enhancements:
