@@ -7,7 +7,7 @@ module Cejo
     # Parse information using grabber
     class GrabberParser
       def info(current, fmt, url)
-        current_fmt = eval("current.#{fmt}")
+        current_fmt = current.instance_eval "current.#{fmt}"
         result = "#{current.name} #{current.parser} '#{current_fmt}' #{url}"
 
         `#{result}`.strip
