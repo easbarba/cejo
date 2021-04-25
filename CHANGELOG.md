@@ -1,3 +1,9 @@
+# 0.8.0 / 2021-04-24
+
+## Enhancements:
+
+* Media/Get: big overhaul
+
 # 0.7.0 / 2021-04-22
 
 ## Enhancements:
