@@ -22,13 +22,12 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
   end
-  spec.extra_rdoc_files = %w[README.rdoc cejo.rdoc]
-  spec.rdoc_options << '--title' << 'cejo' << '--main' << 'README.rdoc' << '-ri'
+  spec.rdoc_options = ["--main".freeze, "README.rdoc".freeze]
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
-    'changelog_uri' => 'https://git.sr.ht/~easbarbosa/cejo/tree/main/item/CHANGELOG.md',
-    'homepage_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
+    "changelog_uri"   => "https://git.sr.ht/~easbarbosa/cejo/refs/v#{spec.version}/History.rdoc",
+    'homepage_uri'    => 'https://git.sr.ht/~easbarbosa/cejo',
     'source_code_uri' => 'https://git.sr.ht/~easbarbosa/cejo'
   }
 

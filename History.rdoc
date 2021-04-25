@@ -1,31 +1,25 @@
-# 0.8.0 / 2021-04-24
-
-## Enhancements:
+=== 0.8.0
 
 * Media/Get: big overhaul
 
-# 0.7.0 / 2021-04-22
+=== 0.7.0
 
-## Enhancements:
+==== Enhancements:
 
 * Media: separate grabber, grabbers from get
 * Play: select player
 
-# 0.6.0 / 2021-04-07
-
-## Enhancements:
+=== 0.6.0
 
 * Uniform naming for caller classes
 
-# 0.5.1 / 2021-04-02
-
-## Enhancements:
+=== 0.5.1
 
 * Projects: Separate roles of building
 
-# 0.3.0 / 2021-03-25
+=== 0.3.0
 
-## Enhancements:
+==== Enhancements:
 
 * Use third-party Gli command line parser
 
@@ -35,6 +29,6 @@
 
 * Add more specs
 
-## Bug fixes:
+==== Bug fixes:
 
 * Fix cli arguments issues
