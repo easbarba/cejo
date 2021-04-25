@@ -1,31 +1,34 @@
-[Cejo]
+= Cejo
+
+home :: https://git.sr.ht/~easbarbosa/cejo
+bugs :: https://git.sr.ht/~easbarbosa/cejo
+docs :: https://git.sr.ht/~easbarbosa/cejo
+
+== Description
   Miscellaneous Unix automation and services utilities
 
-[Sections]
- [Ops]
-   Bundle of automation tasks
+== Sections
 
- [Media]
-   Management of media
+* Ops: Bundle of automation tasks
 
- [Projects]
-   Instructions to install FLOSS Project
+* Media: Management of media
 
- [Distro]
-   A one-do-it-all package porcelain for most use Distro Linux package managers
+* Projects: Instructions to install FLOSS Project
 
-[Install]
- [rubygems]
+* Distro: A one-do-it-all package porcelain for most use Distro Linux package managers
+
+== Install
+* rubygems
    gem install cejo
 
- [local]
+* local
    rake install
 
- [container]
+* container
    podman build -t cejo .
 
-[Why Cejo?]
+== Why Cejo?
   Named after my grandparents: Celina & Joseph
 
-[License]
+== License
   GPL version 3
