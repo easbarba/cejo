@@ -6,14 +6,15 @@ module Cejo
   module Media
     # Main caller
     class Main
-      attr_reader :grabber
+      attr_reader :info
 
-      def initialize(url, codec = nil)
-        @grabber = Grabber.new(url, codec, GrabberParser.new, Grabbers.new.youtube_dl)
+      def initialize(url, codec)
+        current = Cejo::Media::Grabbers.new.youtube_dl
+        @info = Cejo::Media::Info.new(url, codec, current)
       end
 
       def run
-        Cejo::Media::Get.new(grabber).run
+        Cejo::Media::Get.new(info).exec
       end
     end
   end

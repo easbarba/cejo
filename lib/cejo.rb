@@ -45,6 +45,6 @@ require_relative 'cejo/media/play/play'
 # ** Get
 require_relative 'cejo/media/get/main'
 require_relative 'cejo/media/get/grabbers'
-require_relative 'cejo/media/get/grabber'
-require_relative 'cejo/media/get/grabber_parser'
+require_relative 'cejo/media/get/info'
+require_relative 'cejo/media/get/parser'
 require_relative 'cejo/media/get/get'

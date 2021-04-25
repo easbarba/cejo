@@ -11,34 +11,35 @@ module Cejo
       AUDIO_FORMATS = %w[vorbis flac mp3].freeze
       VIDEO_FORMATS = %w[mkv mp4 ogg].freeze
 
-      attr_reader :grabber
+      attr_reader :info
 
-      def initialize(grabber)
-        @grabber = grabber
+      def initialize(info)
+        @info = info
       end
 
       def current_dir
-        AUDIO_FORMATS.include?(grabber.codec) ? AUDIO_DIR : VIDEO_DIR
+        AUDIO_FORMATS.include?(info.codec) ? AUDIO_DIR : VIDEO_DIR
       end
 
       def final_command
-        AUDIO_FORMATS.include?(grabber.codec) ? grabber.audio_command : grabber.video_command
+        AUDIO_FORMATS.include?(info.codec) ? info.audio_command : info.video_command
       end
 
       def show_info
-        <<~INFO
-          Title: #{grabber.title}
-          Url: #{grabber.url}
-          Codec: #{grabber.codec}
+        puts <<~INFO
+          Title: #{info.title}
+          Url: #{info.url}
+          Codec: #{info.codec}
           Folder: #{current_dir}
         INFO
+
+        puts
       end
 
-      def run
-        puts show_info
-        puts
+      def exec
+        show_info
 
-        Dir.chdir(current_dir) { system "#{grabber.current.name} #{final_command}" }
+        Dir.chdir(current_dir) { system final_command }
       end
     end
   end

@@ -6,13 +6,16 @@ require 'spec_helper'
 
 RSpec.describe 'Get' do
   url = 'https://odysee.com/@DistroTube:2/the-best-tiling-window-manager:5'
-  parser = Class.new do
-    def info(_, info, url)
-      case info
+  current = Cejo::Media::Grabbers.new.youtube_dl
+  fake_parser = Class.new do
+    attr_accessor :fmt
+
+    def result
+      case fmt
       when :ext
-        'mp4'
+        '%(ext)s'
       when :title
-        'Installing the GNU Guix Package Manager'
+        'The Best Tiling Window Manager'
       when :url
         url
       else
@@ -20,28 +23,34 @@ RSpec.describe 'Get' do
       end
     end
   end.new
-  current = Cejo::Media::Grabbers.new.youtube_dl
-  grabber = Cejo::Media::Grabber.new(url, '', parser, current)
 
-  let(:get) { Cejo::Media::Get.new(grabber) }
+  let(:title) { 'The Best Tiling Window Manager' }
+  let(:program) { 'youtube-dl' }
+  let(:get) do
+    info = Cejo::Media::Info.new(url, '', current)
+    info.parser = fake_parser
+    Cejo::Media::Get.new(info)
+  end
 
   it 'audio current directory' do
-    get.grabber.codec = 'vorbis'
-    expect(get.current_dir).to eq(Pathname.new(Dir.home).join('Music'))
+    get.info.codec = 'vorbis'
+    music_dir = Pathname.new(Dir.home).join('Music')
+    expect(get.current_dir).to eq(music_dir)
   end
 
   it 'video current directory' do
-    get.grabber.codec = 'mkv'
-    expect(get.current_dir).to eq(Pathname.new(Dir.home).join('Videos'))
+    get.info.codec = 'mkv'
+    video_dir = Pathname.new(Dir.home).join('Videos')
+    expect(get.current_dir).to eq(video_dir)
   end
 
   it 'audio final command' do
-    get.grabber.codec = 'vorbis'
-    expect(get.final_command).to eq("--extract-audio --audio-format vorbis #{url}")
+    get.info.codec = 'vorbis'
+    expect(get.final_command).to eq("#{program} -o '#{title}.%(ext)s' --extract-audio --audio-format vorbis #{url}")
   end
 
   it 'video final command' do
-    get.grabber.codec = 'mkv'
-    expect(get.final_command).to eq("--recode-video mkv #{url}")
+    get.info.codec = 'mkv'
+    expect(get.final_command).to eq("#{program} -o '#{title}.%(ext)s' --recode-video mkv #{url}")
   end
 end
