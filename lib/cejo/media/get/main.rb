@@ -8,7 +8,7 @@ module Cejo
     class Main
       attr_reader :info
 
-      def initialize(url, codec)
+      def initialize(codec, url)
         current = Cejo::Media::Grabbers.new.youtube_dl
         @info = Cejo::Media::Info.new(url, codec, current)
       end

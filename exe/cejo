@@ -91,9 +91,9 @@ class App
     c.arg 'url [vorbis, flac, mp3]'
     c.command :get do |get|
       get.action do |_, _, args|
-        media = args.first if args
-        codec = args.last if args.last
-        Cejo::Media::Main.new(media, codec).run
+        codec = args.first if args
+        media = args.last if args.last
+        Cejo::Media::Main.new(codec, media).run
       end
     end
 
