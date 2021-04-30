@@ -85,10 +85,9 @@ class App
   end
 
   desc 'Manage and grab media'
-  arg_name 'Describe arguments to media here'
   command :media do |c|
     c.desc 'Get media pointed in url as video or audio.'
-    c.arg 'url [vorbis, flac, mp3]'
+    c.arg '[[vorbis, flac, mkv, mp3, mp4] <url>]'
     c.command :get do |get|
       get.action do |_, _, args|
         codec = args.first if args
