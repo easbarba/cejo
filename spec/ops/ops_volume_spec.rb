@@ -12,7 +12,7 @@ RSpec.describe 'All hail to the Volume King' do
   end.new
 
   let(:volume) { Cejo::Ops::Volume.new(utils, 'down') }
-  let(:sound)  { Cejo::Ops::SoundManager.new(utils) }
+  let(:sound) { Cejo::Ops::SoundManager.new(utils) }
 
   it 'has the final_command' do
     step = Cejo::Ops::Volume::STEP
