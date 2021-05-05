@@ -1,3 +1,5 @@
+# ruby
+
 /.bundle/
 /.yardoc
 /_yardoc/
@@ -8,7 +10,12 @@
 examples.log
 /tmp/
 sorbet
+Gemfile.lock
+vendor
+
 # rspec failure tracking
 .rspec_status
-Gemfile.lock
+
+# nix
 .direnv
+.nix-gems
