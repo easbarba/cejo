@@ -1,5 +1,9 @@
 === 0.8.0
 
+* Gemspec:  no runtime deps needed
+
+=== 0.8.0
+
 * Media/Get: big overhaul
 
 === 0.7.0
