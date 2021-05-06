@@ -1,3 +1,7 @@
+=== 0.8.3
+
+* Gemspec:  add yaml runtime dep
+
 === 0.8.2
 
 * Gemspec:  fix runtime deps
