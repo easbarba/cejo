@@ -13,8 +13,7 @@ let
   export PATH=$GEM_HOME/bin:$PATH
   export PATH=$PWD/bin:$PATH
 
-  gem install bundler --install-dir .gems
-
+  gem install bundler
   bundle install
   '';
   shellHooks = commands;
