@@ -4,16 +4,18 @@ with pkgs;
 
 let
   ruby = ruby_2_7;
-  packages = [ git ruby libyaml bundler rake rubyPackages.rspec solargraph ];
+  packages = [ git ruby libyaml ];
   locale = "${glibcLocales}/lib/locale/locale-archive";
   commands = ''
   export GEM_HOME=$PWD/.nix-gems
   export GEM_PATH=$GEM_HOME
+
   export PATH=$GEM_HOME/bin:$PATH
   export PATH=$PWD/bin:$PATH
 
+  gem install bundler --install-dir .gems
+
   bundle install
-  rake install --trace
   '';
   shellHooks = commands;
 
