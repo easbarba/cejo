@@ -4,13 +4,9 @@ module Cejo
   module Ops
     # Take a shot of the marvelous screen
     class Screenshot
-      def self.folder
-        Pathname.new(Dir.home).join('Pictures') # TODO: Check if folder exist
-      end
-
-      def self.current_time
-        Time.new.strftime '%d-%m-%y-%k-%M'
-      end
+      SCREENSHOT_FORMAT = 'png'
+      FOLDER = Pathname.new(Dir.home).join('Pictures')
+      CURRENT_TIME = Time.new.strftime '%d-%m-%y-%I-%M'
 
       attr_reader :utils, :mode
 
@@ -24,7 +20,9 @@ module Cejo
       end
 
       def shotters_available
-        shotters.find { |shotter| utils.which?(shotter[:exec]) }
+        shotters.find_all do |shotter|
+          shotter[:bin] if utils.which? shotter[:bin]
+        end
       end
 
       def shotter
@@ -33,41 +31,37 @@ module Cejo
 
       def scrot
         {
-          exec: 'scrot',
+          bin: 'scrot',
           full: '--focused --silent',
           partial: '--select --silent',
-          folder: folder.join(screenshot_name)
+          folder: FOLDER.join(screenshot_name)
         }
       end
 
       def flameshot
         {
-          exec: 'flameshot',
+          bin: 'flameshot',
           full: 'full -p',
           partial: 'gui -p',
-          folder: folder.to_path
+          folder: FOLDER.to_path
         }
       end
 
       def maim
         {
-          exec: 'maim',
+          bin: 'maim',
           full: '',
           partial: '--select',
-          folder: folder.join(screenshot_name)
+          folder: FOLDER.join(screenshot_name)
         }
       end
 
-      def screenshot_format
-        'png'
-      end
-
       def screenshot_name
-        "screenshot-#{current_time}.#{screenshot_format}"
+        "screenshot-#{CURRENT_TIME}.#{SCREENSHOT_FORMAT}"
       end
 
       def final_command
-        "#{shotter[:exec]} #{shotter[mode]} #{shotter[:folder]}"
+        "#{shotter[:bin]} #{shotter[mode]} #{shotter[:folder]}"
       end
 
       def run
