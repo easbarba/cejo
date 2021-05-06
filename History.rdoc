@@ -1,4 +1,8 @@
-=== 0.8.0
+=== 0.8.2
+
+* Gemspec:  fix runtime deps
+
+=== 0.8.1
 
 * Gemspec:  no runtime deps needed
 
