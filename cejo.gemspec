@@ -32,8 +32,8 @@ Gem::Specification.new do |spec|
   }
 
   # requirements
-  spec.requirements << 'linux distros'
   spec.requirements << 'ffmpeg'
+  spec.requirements << 'libyaml'
   spec.requirements << 'mpv'
 
   # runtime
@@ -42,6 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'git', '~> 1.8', '>= 1.8.1'
   spec.add_runtime_dependency 'gli', '~> 2.20'
   spec.add_runtime_dependency 'tty-spinner', '~> 0.9.3'
+  spec.add_runtime_dependency 'yaml', '~> 0.1.1'
 
   # development
   spec.add_development_dependency 'bundler', '~> 2.2', '>= 2.2.17'
