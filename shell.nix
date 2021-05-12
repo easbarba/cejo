@@ -15,6 +15,7 @@ let
 
   gem install bundler
   bundle install
+  bundle exec yard gems
   '';
   shellHooks = commands;
 
