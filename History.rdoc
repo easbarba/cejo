@@ -1,3 +1,8 @@
+=== 0.8.4
+
+* Media/Get: pass raw commands instead of formatted title
+
+
 === 0.8.3
 
 * Gemspec:  add yaml runtime dep
