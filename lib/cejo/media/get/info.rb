@@ -21,16 +21,21 @@ module Cejo
       end
 
       def video_command
-        "#{program} -o '#{title}.#{current.ext}' #{current.video} #{codec} #{url}"
+        "#{program} #{current.out} '#{current.title}.#{current.ext}' #{current.video} #{codec} #{url}"
       end
 
       def audio_command
-        "#{program} -o '#{title}.#{current.ext}' #{current.audio} #{codec} #{url}"
+        "#{program} #{current.out} '#{current.title}.#{current.ext}' #{current.audio} #{codec} #{url}"
+      end
+
+      def extension
+        parser.fmt = :ext
+        parser.result
       end
 
       def title
         parser.fmt = :title
-        shorter_title parser.result
+        parser.result
       end
 
       def shorter_title(title)
@@ -39,11 +44,7 @@ module Cejo
 
         title.split.size > max_words ? fixed : title
       end
-
-      def extension
-        parser.fmt = :ext
-        parser.result
-      end
+      private :shorter_title
 
       def to_s
         "#{title}.#{extension}"
