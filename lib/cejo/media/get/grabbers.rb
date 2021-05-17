@@ -6,7 +6,7 @@ module Cejo
   module Media
     # Avaialable grabbers
     class Grabbers
-      INFO = Struct.new(:name, :parser, :ext, :title, :audio, :video) do
+      INFO = Struct.new(:name, :parser, :out, :ext, :title, :audio, :video) do
         def to_s
           %(#{name} #{audio} #{video})
         end
@@ -14,9 +14,8 @@ module Cejo
 
       # youtube-dl formats
       def youtube_dl
-        INFO.new('youtube-dl', '--get-filename -o', '%(ext)s',
-                 '%(title)s', '--extract-audio --audio-format',
-                 '--recode-video')
+        INFO.new('youtube-dl', '--get-filename -o', '--output', '%(ext)s',
+                 '%(title)s', '--extract-audio --audio-format', '--recode-video')
       end
     end
   end
