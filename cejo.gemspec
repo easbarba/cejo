@@ -22,12 +22,12 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
   end
-  spec.rdoc_options = ["--main".freeze, "README.rdoc".freeze]
+  spec.rdoc_options = ['--main'.freeze, 'README.rdoc'.freeze]
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
-    "changelog_uri"   => "https://git.sr.ht/~easbarbosa/cejo/refs/v#{spec.version}/History.rdoc",
-    'homepage_uri'    => 'https://git.sr.ht/~easbarbosa/cejo',
+    'changelog_uri' => "https://git.sr.ht/~easbarbosa/cejo/refs/v#{spec.version}/History.rdoc",
+    'homepage_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
     'source_code_uri' => 'https://git.sr.ht/~easbarbosa/cejo'
   }
 
@@ -52,7 +52,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rdoc', '~> 6.3', '>= 6.3.1'
   spec.add_development_dependency 'reek', '~> 6.0', '>= 6.0.4'
   spec.add_development_dependency 'rspec', '~> 3.10'
-  spec.add_development_dependency 'rubocop', '~> 1.14'
+  spec.add_development_dependency 'rubocop', '~> 1.15'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
   spec.add_development_dependency 'rufo', '~> 0.12.0'
   spec.add_development_dependency 'yard', '~> 0.9.26'
