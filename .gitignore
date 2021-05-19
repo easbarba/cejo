@@ -16,6 +16,6 @@ vendor
 # rspec failure tracking
 .rspec_status
 
-# nix
+# direnv
 .direnv
-.nix-gems
+.gems
