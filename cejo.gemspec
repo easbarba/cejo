@@ -56,4 +56,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rspec', '~> 2.3'
   spec.add_development_dependency 'rufo', '~> 0.12.0'
   spec.add_development_dependency 'yard', '~> 0.9.26'
+  spec.add_development_dependency 'solargraph', '~> 0.40.4'
 end
