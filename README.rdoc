@@ -15,8 +15,6 @@ docs :: https://git.sr.ht/~easbarbosa/cejo
 
 * Projects: Instructions to install FLOSS Project
 
-* Distro: A one-do-it-all package porcelain for most use Distro Linux package managers
-
 == Install
 * rubygems
    gem install cejo

@@ -1,6 +1,0 @@
-= distro
-
-Describe your project here
-
-:include:distro.rdoc
-

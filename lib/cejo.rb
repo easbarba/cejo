@@ -21,14 +21,6 @@ require_relative 'cejo/floss/project_info'
 require_relative 'cejo/floss/archive'
 require_relative 'cejo/floss/grab'
 
-# * Distro
-require_relative 'cejo/distro/main'
-require_relative 'cejo/distro/translate_action'
-require_relative 'cejo/distro/parsed_commands'
-require_relative 'cejo/distro/commands'
-require_relative 'cejo/distro/current_packager'
-require_relative 'cejo/distro/need'
-
 # * Projects
 require_relative 'cejo/projects/builder'
 require_relative 'cejo/projects/projects_parser'
