@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# * Root
 require_relative 'cejo/version'
 
 # * Services
