@@ -1,3 +1,7 @@
+=== 0.8.5
+
+* Floss: pull all my own repos
+
 === 0.8.4
 
 * Media/Get: pass raw commands instead of formatted title
