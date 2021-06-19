@@ -54,7 +54,7 @@ module Cejo
 
       def feed_target_link
         root_files_folders[:files].each do |target|
-          next if ignored_ones.include? target.basename.to_s
+          next if ignored_ones.include? target.basename.to_s # TODO: .reject ignored_ones
 
           symlink_name = to_home target
           target_link.store(target, symlink_name)

@@ -49,6 +49,9 @@
 * Projects
 * Ops
 * Media
+** Get
+- User set where to download media
+
 * Refactoring
 ** TODO Simpler/Smaller methods
 ** DONE Floss Class needs to be cohesive. Separating it three class may help with it: clone, pull and core.
