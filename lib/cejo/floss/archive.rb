@@ -7,7 +7,7 @@ module Cejo
     # Archive FLOSS Projects
     class Archive
       # FLOSS Projects elected to be archived
-      ARCHIVE_THESE = %w[lar cejo rake pry use-package lsp-mode].freeze
+      ARCHIVE_THESE = %w[lar distro cejo ixi gota].freeze
 
       # Format to be compressed
       FMT = 'tar'
