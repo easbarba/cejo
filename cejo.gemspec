@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.homepage = 'https://git.sr.ht/~easbarbosa/cejo'
   s.license = 'GPL-3.0'
   s.require_paths = ['lib']
-  s.bindir = 'bin'
+  s.bindir = 'exe'
   s.executables = 'cejo'
   s.post_install_message = 'Praise the sun!'
   s.platform = Gem::Platform.local
