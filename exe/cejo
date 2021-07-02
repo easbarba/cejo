@@ -32,59 +32,6 @@ class App
     container.register :utils, Cejo::Services::Utils.new
   end
 
-  desc 'Front-end of system utilities, services and programs.'
-  arg_name 'Describe arguments to ops here'
-  command :ops do |c|
-    utils = services.resolve :utils
-
-    c.desc 'Manage System Volume'
-    c.arg '[up, down, toggle]'
-    c.command :volume do |volume|
-      volume.action do |_, _, args|
-        Cejo::Ops::Volume.new(utils, args.first).run
-      end
-    end
-
-    c.desc 'Mirror user DATA partition folders to $HOME'
-    c.arg '/folder/path/'
-    c.command :homey do |homey|
-      homey.action do |_, _, args|
-        Cejo::Ops::Homey.new(args.first).run
-      end
-    end
-
-    c.desc 'Mirror Lar files in $HOME.'
-    c.arg '/folder/path/'
-    c.command :dots do |dots|
-      dots.action do |_, _, args|
-        Cejo::Ops::Dots.new(utils, args.first).run
-      end
-    end
-
-    c.desc 'Display System Hardware Information.'
-    c.command :sysinfo do |sysinfo|
-      sysinfo.action do
-        Cejo::Ops::Sysinfo.new(utils).run
-      end
-    end
-
-    c.desc 'Take a shot of current screen'
-    c.arg '[full, partial]'
-    c.command :screenshot do |screenshot|
-      screenshot.action do |_, _, args|
-        Cejo::Ops::Screenshot.new(utils, args.first).run
-      end
-    end
-
-    c.desc 'Manage system brightness.'
-    c.arg '[up down]'
-    c.command :brightness do |brightness|
-      brightness.action do |_, _, args|
-        Cejo::Ops::Brightness.new(utils, args.first).run
-      end
-    end
-  end
-
   desc 'Manage and grab media'
   command :media do |c|
     c.desc 'Get media pointed in url as video or audio.'

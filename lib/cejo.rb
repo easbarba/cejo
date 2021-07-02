@@ -6,15 +6,6 @@ require_relative 'cejo/version'
 require_relative 'cejo/services/folders'
 require_relative 'cejo/services/utils'
 
-# * Ops
-require_relative 'cejo/ops/homey'
-require_relative 'cejo/ops/screenshot'
-require_relative 'cejo/ops/volume/volume'
-require_relative 'cejo/ops/volume/sound_manager'
-require_relative 'cejo/ops/brightness'
-require_relative 'cejo/ops/dots'
-require_relative 'cejo/ops/sysinfo'
-
 # * Floss
 require_relative 'cejo/floss/main'
 require_relative 'cejo/floss/project_info'
