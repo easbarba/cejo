@@ -32,9 +32,7 @@ Gem::Specification.new do |s|
   }
 
   # requirements
-  s.requirements << 'ffmpeg'
-  s.requirements << 'libyaml'
-  s.requirements << 'mpv'
+  # s.requirements << 'ffmpeg'
 
   # runtime
   s.add_runtime_dependency 'dry-auto_inject', '~> 0.7.0'

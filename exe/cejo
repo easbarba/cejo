@@ -1,4 +1,3 @@
-
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
@@ -32,53 +31,11 @@ class App
     container.register :utils, Cejo::Services::Utils.new
   end
 
-  desc 'Manage and grab media'
-  command :media do |c|
-    c.desc 'Get media pointed in url as video or audio.'
-    c.arg '[[vorbis, flac, mkv, mp3, mp4] <url>]'
-    c.command :get do |get|
-      get.action do |_, _, args|
-        codec = args.first if args
-        media = args.last if args.last
-        Cejo::Media::Main.new(codec, media).run
-      end
-    end
-
-    c.desc 'Play file, random media in folder or media pointed in url. (mpv)'
-    c.arg '[url, /path/to/folder, /path/to/file]'
-    c.command :play do |play|
-      play.action do |_, _, args|
-        Cejo::Media::Play.new(args.first).run
-      end
-    end
-  end
-
   desc 'Install local builds of FLOSS Projects.'
   arg_name 'Name of project'
   command :projects do |build|
     build.action do |_, _, args|
       Cejo::Projects::Main.new(services, args.first).run
-    end
-  end
-
-  desc 'Grab Floss Projects Repositories source'
-  arg_name 'Describe arguments to floss here'
-  command :floss do |c|
-    utils = services.resolve(:utils)
-    folders = services.resolve(:folders)
-
-    c.desc 'Archive FLOSS Projects'
-    c.command :archive do |archive|
-      archive.action do
-        Cejo::Floss::Main.new(folders, utils, :archive).run
-      end
-    end
-
-    c.desc 'Grab FLOSS Projects'
-    c.command :grab do |grab|
-      grab.action do
-        Cejo::Floss::Main.new(folders, utils, :grab).run
-      end
     end
   end
 

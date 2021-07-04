@@ -3,12 +3,6 @@
 
 # Sections
 
-## Ops
-   Front-end of system utilities, services and programs.
-
-## Media
-   Manage and grab media.
-
 ## Projects
    Install local builds of FLOSS Projects.
 
