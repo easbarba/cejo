@@ -1,5 +1,5 @@
 # Cejo
-  Miscellaneous Unix automation and services utilities
+  Install FLOSS Projects
 
 # Sections
 

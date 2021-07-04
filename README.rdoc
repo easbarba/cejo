@@ -5,9 +5,7 @@ bugs :: https://git.sr.ht/~easbarbosa/cejo
 docs :: https://git.sr.ht/~easbarbosa/cejo
 
 == Description
-  Miscellaneous Unix automation and services utilities
-
-* Projects: Instructions to install FLOSS Project
+    Install FLOSS Projects
 
 == Install
 * rubygems

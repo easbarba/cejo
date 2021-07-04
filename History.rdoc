@@ -1,3 +1,8 @@
+=== 0.9.0
+
+* Floss and Media Sections as standalone project
+
+
 === 0.8.5
 
 * Floss: pull all my own repos
