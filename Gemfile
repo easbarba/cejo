@@ -2,5 +2,6 @@
 
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in cejo.gemspec
+gem 'floss', git: 'https://git.sr.ht/~easbarbosa/floss', branch: 'main'
+
 gemspec
