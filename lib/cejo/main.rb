@@ -11,10 +11,11 @@ module Cejo
     def initialize(services, name)
       folders = services.resolve :folders
       utils = services.resolve :utils
+
       projects_parser = ProjectsParser.new(folders, utils, name)
       project_info = ProjectInfo.new(folders, projects_parser.project)
 
-      @builder = Builder.new(folders.local, utils, project_info)
+      @builder = Builder.new(utils, folders.local, project_info)
     end
 
     def run

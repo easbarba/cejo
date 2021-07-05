@@ -7,13 +7,12 @@ require 'pathname'
 module Cejo
   # Build Projects
   class Builder
-    BUILD_FOLDER = Pathname.new File.join(Dir.home, 'Builds')
-
     attr_reader :cejo_config, :local_folder, :utils, :project
 
-    def initialize(local, utils, project)
-      @local_folder = local
+    def initialize(utils, local, project)
       @utils = utils
+      @local_folder = local
+
       @project = project
     end
 
@@ -45,8 +44,9 @@ module Cejo
         project.patches.children.each do |patch|
           next unless tasks.include? patch.basename.to_s
 
-          puts "Patched: #{patch.to_path}" # all
-          project.repository.apply patch.to_path
+          patch_path = patch.to_path
+          puts "Patched: #{patch_path}" # all
+          project.repository.apply patch_path
         end
       end
     end
