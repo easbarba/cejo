@@ -10,7 +10,7 @@ require 'dry-container'
 class App
   extend GLI::App
 
-  program_desc 'Debian automation and services utilities.'
+  program_desc 'Install FLOSS Projects.'
 
   version Cejo::VERSION
 
@@ -35,7 +35,7 @@ class App
   arg_name 'Name of project'
   command :projects do |build|
     build.action do |_, _, args|
-      Cejo::Projects::Main.new(services, args.first).run
+      Cejo::Main.new(services, args.first).run
     end
   end
 
