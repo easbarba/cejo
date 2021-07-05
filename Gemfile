@@ -2,6 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'floss', git: 'https://git.sr.ht/~easbarbosa/floss', branch: 'main'
-
 gemspec
+
+gem 'floss', '0.1.0', git: 'https://git.sr.ht/~easbarbosa/floss', branch: 'main'

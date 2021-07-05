@@ -37,7 +37,7 @@ Gem::Specification.new do |spec|
   # runtime
   spec.add_runtime_dependency 'dry-auto_inject', '~> 0.7.0'
   spec.add_runtime_dependency 'dry-container', '~> 0.7.2'
-  spec.add_runtime_dependency 'floss', '~> 0.1.0'
+  spec.add_runtime_dependency 'floss'
   spec.add_runtime_dependency 'git', '~> 1.8', '>= 1.8.1'
   spec.add_runtime_dependency 'gli', '~> 2.20'
   spec.add_runtime_dependency 'tty-spinner', '~> 0.9.3'
