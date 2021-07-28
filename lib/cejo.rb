@@ -13,3 +13,7 @@ require_relative 'cejo/builder'
 require_relative 'cejo/projects_parser'
 require_relative 'cejo/project_info'
 require_relative 'cejo/main'
+
+# Build Floss Projects
+module Cejo
+end

@@ -2,7 +2,6 @@
 
 require 'pathname'
 
-# Build Floss Projects
 module Cejo
   # Orchestrator of project building
   class Main
