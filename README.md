@@ -48,5 +48,9 @@ podman run -it cejo cejo
 # Why Cejo?
 A humble tribute to my beloved grandparents: Celina & Joseph.
 
+## History
+Cejo began as a super package having lots of modules, now it is only one module
+meant to build local UNIX projects.
+
 # License
   GPL version 3
