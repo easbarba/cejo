@@ -7,14 +7,13 @@ Gem::Specification.new do |spec|
   spec.summary = 'Debian automation and services utilitiespec.'
   spec.description = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
   spec.version = Cejo::VERSION
-  spec.author = 'EAS Barbosa'
-  spec.email = 'easbarbosa@tutanota.com'
-  spec.homepage = 'https://git.sr.ht/~easbarbosa/cejo'
+  spec.author = 'Dyna B'
+  spec.email = 'dynab@tutanota.com'
+  spec.homepage = 'https://git.sr.ht/~dynab/cejo'
   spec.license = 'GPL-3.0'
   spec.require_paths = ['lib']
   spec.bindir = 'exe'
   spec.executables = 'cejo'
-  spec.post_install_message = 'Praise the sun!'
   spec.platform = Gem::Platform.local
   spec.test_files = Dir.glob('{spec,test}/**/*.rb')
   spec.metadata['homepage_uri'] = spec.homepage
@@ -22,13 +21,13 @@ Gem::Specification.new do |spec|
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
     `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(tes|spec|features)/}) }
   end
-  spec.rdoc_options = ['--main'.freeze, 'README.rdoc'.freeze]
+  spec.rdoc_options = ['--main', 'README.rdoc']
 
   spec.metadata = {
-    'bug_tracker_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
-    'changelog_uri' => "https://git.sr.ht/~easbarbosa/cejo/refs/v#{spec.version}/History.rdoc",
-    'homepage_uri' => 'https://git.sr.ht/~easbarbosa/cejo',
-    'source_code_uri' => 'https://git.sr.ht/~easbarbosa/cejo'
+    'bug_tracker_uri' => 'https://git.sr.ht/~dynab/cejo',
+    'changelog_uri' => "https://git.sr.ht/~dynab/cejo/refs/v#{spec.version}/History.rdoc",
+    'homepage_uri' => 'https://git.sr.ht/~dynab/cejo',
+    'source_code_uri' => 'https://git.sr.ht/~dynab/cejo'
   }
 
   # requirements
